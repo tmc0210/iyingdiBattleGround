@@ -1,5 +1,7 @@
 ﻿// 宝藏
 
+using System;
+
 public partial class CardLongKeywordAchievement
 {
 
@@ -181,16 +183,16 @@ public partial class CardLongKeywordAchievement
     }
 
     /// <summary>
-    /// 皮糙肉厚
+    /// 舒经活络
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("酒馆中,你的英雄具有免疫")]    
-    public static bool AllyHeroGainImmuneInRecruit(GameEvent gameEvent)
+    [CommonDescription("如果在酒馆中，便为你的英雄恢复(1)点生命值")]    
+    public static bool HealHero1(GameEvent gameEvent)
     {
         if (!gameEvent.player.board.isBattleField)
         {
-            gameEvent.player.hero.effects.Add(new KeyWordEffect(Keyword.Immune));
+            gameEvent.player.hero.health++;
         }
         return true;
     }
@@ -260,10 +262,10 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("使你的英雄获得+3攻击力")]
-    public static bool YourHeroGain3Attack(GameEvent gameEvent)
+    [CommonDescription("使你的英雄获得+2攻击力")]
+    public static bool YourHeroGain2Attack(GameEvent gameEvent)
     {
-        gameEvent.player.hero.effectsStay.Add(new BodyPlusEffect(3, 0));
+        gameEvent.player.hero.effectsStay.Add(new BodyPlusEffect(2, 0));
         return true;
     }
 
@@ -315,5 +317,17 @@ public partial class CardLongKeywordAchievement
         {
             return false;
         }
+    }
+
+    /// <summary>
+    /// 能量之泉
+    /// </summary>
+    /// <param name="gameEvent"></param>
+    /// <returns></returns>
+    [CommonDescription("你的其他被动宝藏触发两次")]
+    public static bool DoubleYourTreasures(GameEvent gameEvent)
+    {
+        //在board中特殊编码
+        return true;
     }
 }
