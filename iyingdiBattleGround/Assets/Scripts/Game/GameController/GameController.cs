@@ -14,6 +14,7 @@ public class GameController
 #endif
 
     readonly static string[] herosUnlockChain = {
+        "观星者露娜",
         "艾德温·范克里夫",
         "火车王里诺艾",
         "雷诺·杰克逊",
@@ -23,7 +24,6 @@ public class GameController
         "砰砰博士",
         "探险家伊莉斯",
         "狗头人国王托瓦格尔",
-        "观星者露娜",
     };
 
     #region public var
@@ -408,7 +408,10 @@ GameStart:
         List<int> ids = unlockCards.ParseListInt();
         ids.Select(id => CardBuilder.GetCard(id))
             .Map(card => {
-                card.Lock = false;
+                if (card != null)
+                {
+                    card.Lock = false;
+                }
             });
         Debug.Log("load card " + ids.Count);
         Card defaultHero = CardBuilder.SearchCardByName(herosUnlockChain[0]);
