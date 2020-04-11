@@ -15,13 +15,14 @@ public class GameController
 
     readonly static string[] herosUnlockChain = {
         "艾德温·范克里夫",
-        "尤格萨隆",
         "火车王里诺艾",
-        "贸易大王加里维克斯",
         "雷诺·杰克逊",
         "虚空之影瓦莉拉",
+        "尤格萨隆",
+        "贸易大王加里维克斯",
+        "砰砰博士",
         "狗头人国王托瓦格尔",
-        "砰砰博士" };
+    };
 
     #region public var
 
@@ -60,17 +61,7 @@ public class GameController
 
     }
 
-    private void SetUpHeroUnlockThing()
-    {
-        herosUnlockChain
-            .Map(CardBuilder.SearchCardByName)
-            .Where(card => card != null)
-            .ToList()
-            .DoubleZip()
-            .Map(pair => {
-                pair.Item1.unlockDescription = "使用" + pair.Item2.name + "进入挑战4/4时解锁";
-            });
-    }
+
 
 
     public IEnumerator EGameStart()
@@ -130,6 +121,7 @@ public class GameController
                 yield return StartCoroutine(ESummary());
             }
         }
+        yield return StartCoroutine(ESummary());
         yield return StartCoroutine(EGameStart());
     }
 
@@ -207,10 +199,11 @@ public class GameController
         int level = n + 1;
         Debug.Log("进入第" + level + "关");
 
-        if (level == 4)
-        {
-            UnlockHeroByHero(player.hero);
-        }
+        UnlockOneHero(level);
+        //if (level == 4)
+        //{
+        //    UnlockHeroByHero(player.hero);
+        //}
 
         BoardInitArgs boardInitArgs = GetFilledBoardInitArgs();
         boardInitArgs.level = level;
@@ -220,6 +213,9 @@ public class GameController
         boardInitArgs.enemy.Init(cardPile);
         //boardInitArgs.enemy.Init(cardPile);
         boardInitArgs.enemy.SetLevel(boardInitArgs.level);
+
+        // player 每关+10血
+        boardInitArgs.player.hero.effectsStay.Add(new BodyPlusEffect(0, 10*level - 10));
 
         yield return StartCoroutine(EIntroEnmey(boardInitArgs.enemy.player, level));
 
@@ -317,6 +313,56 @@ public class GameController
     #endregion
 
     #region tool function for card lock
+
+
+    private void SetUpHeroUnlockThing()
+    {
+        //herosUnlockChain
+        //    .Map(CardBuilder.SearchCardByName)
+        //    .Where(card => card != null)
+        //    .ToList()
+        //    .DoubleZip()
+        //    .Map(pair => {
+        //        pair.Item1.unlockDescription = "使用" + pair.Item2.name + "进入挑战4/4时解锁";
+        //    });
+        var heros = herosUnlockChain
+            .Map(CardBuilder.SearchCardByName)
+            .Where(card => card != null)
+            .ToList();
+
+        heros[1].unlockDescription = "进入挑战2/4时解锁";
+        heros[2].unlockDescription = "进入挑战3/4时解锁";
+        heros.Skip(3)
+            .Map(card => card.unlockDescription = "前置英雄解锁后, 进入挑战4/4时解锁");
+    }
+
+    private void UnlockOneHero(int level)
+    {
+        if (level <= 1) return;
+        if (level > 4) return;
+
+        var heros = herosUnlockChain
+            .Map(CardBuilder.SearchCardByName)
+            .Where(card => card != null)
+            .ToList();
+
+        if (level == 2)
+        {
+            UnlockCard(heros[1].id);
+            return;
+        }
+        if (level == 3)
+        {
+            UnlockCard(heros[2].id);
+            return;
+        }
+        var hero = heros.Where(card => card.Lock).FirstOrDefault();
+        if (hero != null)
+        {
+            UnlockCard(hero.id);
+        }
+    }
+
     public static void UnlockHeroByHero(Card hero)
     {
         int index = herosUnlockChain.ToList().IndexOf(hero.name);
