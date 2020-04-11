@@ -395,7 +395,7 @@ public class SelectBoardSetting : MonoBehaviour
             }
         });
 
-        ScrollTop = -(LT + dy * (cards.Count/3 - 3)).y;
+        ScrollTop = -(LT + dy * (cards.Count/3 - 1)).y;
         HookAllScrollViewObjects();
     }
 

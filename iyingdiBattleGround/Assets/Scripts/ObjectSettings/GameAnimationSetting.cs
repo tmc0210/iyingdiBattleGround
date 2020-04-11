@@ -46,7 +46,7 @@ public class GameAnimationSetting : MonoBehaviour
     #region private var
 
     public Board board;
-    GameController gameController;
+    public GameController gameController;
     Thread boardThread = null;
 
     public Action<Card> selectCardAction = null;

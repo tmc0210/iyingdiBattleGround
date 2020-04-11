@@ -206,6 +206,8 @@ Dr.Boom,0,hero16,0,-1,0,0,30,,Aura:GiveFirstMinionTaunt;,,英雄,Boss;,,,进行�
 勃（阳）,0,treasure17,0,0,0,0,0,被动;,AfterBoughtMinion:YourNextCoinGainOfSellMinionAdd1,,法术,宝藏;唯一,,,
 一袋铸币,0,treasure18,0,0,0,0,0,主动;,SpellEffect:FullYourHandWithCoins,,法术,宝藏;,,,
 商店兑换券,0,treasure19,0,0,0,0,0,主动;,SpellEffect:AddAllMinionOnSaleToYouHand,,法术,宝藏;,,,
+一个愿望,0,treasure2,0,0,0,0,0,主动;,SpellEffect:GetAWonderfulCard,,法术,,,,
+三个愿望,0,treasure2,0,0,0,0,0,被动;,AfterUpgrade:GetAWish,,法术,宝藏;,,,
 三连奖励1星,0,bonus,0,0,0,0,0,,SpellEffect:Discover1StarMinion,,法术,,,,
 三连奖励2星,0,bonus,0,0,0,0,0,,SpellEffect:Discover2StarMinion,,法术,,,,
 三连奖励3星,0,bonus,0,0,0,0,0,,SpellEffect:Discover3StarMinion,,法术,,,,
