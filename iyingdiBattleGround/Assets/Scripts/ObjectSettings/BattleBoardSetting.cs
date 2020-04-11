@@ -954,6 +954,8 @@ public class BattleBoardSetting : MonoBehaviour
                     && changeMessage.data.leftCoins >= changeMessage.data.upgradeCost)
                 {
                     EnableInteractive(false);
+
+                    GameAnimationSetting.instance.PlayAudioUpgrade();
                     SendGameMessage(new ChangeMessage()
                     {
                         code = new ChangeMessageCode()
@@ -1952,6 +1954,7 @@ public class BattleBoardSetting : MonoBehaviour
         var posAc = GetChessPosByPositionRound(cardStruct.setting.transform.localPosition);
         if (IsInSellArea(cardStruct.setting.transform.localPosition))
         {
+            GameAnimationSetting.instance.PlayAudioSell();
             SendGameMessage(new ChangeMessage()
             {
                 code = new ChangeMessageCode()
@@ -2027,6 +2030,7 @@ public class BattleBoardSetting : MonoBehaviour
         var posAc = GetHeroPosByPositionRound(setting.transform.localPosition);
         if (posAc != null && posAc.type == PositionType.Hero)
         {
+            GameAnimationSetting.instance.PlayAudioBuy();
             SendGameMessage(new ChangeMessage()
             {
                 code = new ChangeMessageCode()

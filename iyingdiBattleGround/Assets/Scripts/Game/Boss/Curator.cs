@@ -30,7 +30,7 @@ public class Curator : Enemy
     {
         if (player.maxCoins < Const.MaxCoin)
         {
-            player.maxCoins += 2;
+            player.maxCoins += 3;
         }
         player.leftCoins = player.maxCoins;
     }

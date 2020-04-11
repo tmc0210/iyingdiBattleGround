@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 
 public class GameAnimationSetting : MonoBehaviour
@@ -31,7 +32,15 @@ public class GameAnimationSetting : MonoBehaviour
     public AudioSource AudioPass;
     [Autohook]
     public AudioSource AudioClick;
+    [Autohook]
+    public AudioSource AudioBuy;
+    [Autohook]
+    public AudioSource AudioSell;
+    [Autohook]
+    public AudioSource AudioUpgrade;
 
+    [Autohook]
+    public TextMeshPro VerText;
     #endregion
 
     #region private var
@@ -62,6 +71,9 @@ public class GameAnimationSetting : MonoBehaviour
     private void Start()
     {
         GameStartSetting.instance.BeforeGameStart();
+
+        VerText.text = Application.version;
+
         StartGame();
     }
     private void Update()
@@ -96,6 +108,8 @@ public class GameAnimationSetting : MonoBehaviour
 
     #endregion
 
+    #region main sences
+
     public void StartNewGame(BoardInitArgs boardInitArgs)
     {
         BattleBoard.gameObject.SetActive(true);
@@ -111,6 +125,8 @@ public class GameAnimationSetting : MonoBehaviour
 
     public void StartSence()
     {
+        BattleBoard.gameObject.SetActive(false);
+        SelectBoard.gameObject.SetActive(true);
         SelectBoard.ShowStartSence();
         SelectBoard.startSenceAction = n =>
         {
@@ -171,6 +187,8 @@ public class GameAnimationSetting : MonoBehaviour
         SelectBoard.IntroEnemy(player, level);
     }
 
+    #endregion
+
     #region audio
 
     public void PlayAudioMain()
@@ -194,6 +212,18 @@ public class GameAnimationSetting : MonoBehaviour
     public void PlayAudioClick()
     {
         AudioClick.Play();
+    }
+    public void PlayAudioBuy()
+    {
+        AudioBuy.Play();
+    }
+    public void PlayAudioSell()
+    {
+        AudioSell.Play();
+    }
+    public void PlayAudioUpgrade()
+    {
+        AudioUpgrade.Play();
     }
 
     public void PlayAudioCollection()
