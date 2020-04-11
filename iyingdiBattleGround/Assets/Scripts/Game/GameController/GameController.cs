@@ -8,7 +8,7 @@ using UnityEngine;
 public class GameController
 {
 #if UNITY_EDITOR
-    readonly bool isTest = false;
+    readonly bool isTest = true;
 #else
     readonly bool isTest = false;
 #endif
