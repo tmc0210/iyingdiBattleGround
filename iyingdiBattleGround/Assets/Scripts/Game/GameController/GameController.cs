@@ -68,6 +68,7 @@ public class GameController
 
     public IEnumerator EGameStart()
     {
+GameStart:
         defeatedEnemy.Clear();
         yield return StartCoroutine(EStartSence());
         
@@ -78,20 +79,23 @@ public class GameController
         else
         {
             yield return StartCoroutine(EShowCollection());
-            yield return StartCoroutine(EGameStart());
+            //yield return StartCoroutine(EGameStart());
+            goto GameStart;
         }
 
 
         yield return StartCoroutine(ESelectHero());
         if (returnValue == -1) // 返回
         {
-            yield return StartCoroutine(EGameStart());
+            //yield return StartCoroutine(EGameStart());
+            goto GameStart;
         }
 
         EnemyManager.CreateEnemy();
         cardPile = CardPile.GetEmptyCardPile();
 
         //FillCardPileWith1StarMinion(cardPile);
+        //yield return StartCoroutine(ESelectTreasure());
 
         //yield return StartCoroutine(ESelectTreasure());
 
@@ -121,10 +125,12 @@ public class GameController
             else // lose
             {
                 yield return StartCoroutine(ESummary());
+                goto GameStart;
             }
         }
         yield return StartCoroutine(ESummary());
-        yield return StartCoroutine(EGameStart());
+        //yield return StartCoroutine(EGameStart());
+        goto GameStart;
     }
 
     private IEnumerator ESummary()
@@ -136,7 +142,6 @@ public class GameController
 
         yield return StartCoroutine(WaitForGotResponse());
 
-        yield return StartCoroutine(EGameStart());
     }
 
 

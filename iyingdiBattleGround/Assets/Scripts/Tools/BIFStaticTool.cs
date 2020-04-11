@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Excel;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.IO;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
@@ -13,6 +16,7 @@ namespace BIF
 
     public static class BIFStaticTool
     {
+        #region set color
 
         public static void SetAlphaRecursively(GameObject go,  float alpha)
         {
@@ -52,6 +56,7 @@ namespace BIF
             //Debug.Log("num:" + textMeshes.Length);
         }
 
+        #endregion
 
         #region change layer
 
@@ -260,10 +265,6 @@ namespace BIF
 
         #endregion
 
-
-
-
-
         #region prefab pool
 
 
@@ -373,6 +374,45 @@ namespace BIF
 
 
         #endregion read csv
+
+        #region read excel
+
+        static public List<List<string>> ReadExcel(string filename)
+        {
+            string path = Path.Combine(Application.streamingAssetsPath, filename);
+            var tmp =  File.ReadAllText(path);
+            Debug.Log(tmp);
+
+            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read))
+            {
+                IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(fileStream);
+                DataSet result = excelDataReader.AsDataSet();
+
+                // 获取表格有多少列 
+                int columns = result.Tables[0].Columns.Count;
+                // 获取表格有多少行 
+                int rows = result.Tables[0].Rows.Count;
+                // 根据行列依次打印表格中的每个数据 
+
+                List<string> excelDta = new List<string>();
+
+                //第一行为表头，不读取
+                for (int i = 1; i < rows; i++)
+                {
+                    for (int j = 0; j < columns; j++)
+                    {
+                        // 获取表格中指定行指定列的数据 
+                        var value = result.Tables[0].Rows[i][j].ToString();
+                        Debug.Log(value);
+                    }
+                }
+
+            }
+
+            return null;
+        }
+
+        #endregion
     }
 
 

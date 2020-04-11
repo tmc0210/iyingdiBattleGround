@@ -66,7 +66,7 @@ public class TestWindow : EditorWindow
 
         if (CardBuilder.AllCards != null && Application.isPlaying)
         {
-            EditorGUILayout.HelpBox("点击按钮生成卡牌", MessageType.Info);
+            EditorGUILayout.HelpBox("在对战中点击卡牌生成卡牌\n在对战前点击宝藏获得宝藏", MessageType.Info);
             if (GUILayout.Button("增加十块钱"))
             {
                 AddCoins();
@@ -88,6 +88,14 @@ public class TestWindow : EditorWindow
             if (GUILayout.Button("锁定所有卡牌"))
             {
                 LockAllCard(false);
+            }
+            if (GUILayout.Button("直接获胜"))
+            {
+                AutoWin();
+            }
+            if (GUILayout.Button("直接失败"))
+            {
+                AutoLose();
             }
             EditorGUILayout.Space();
 
@@ -214,6 +222,28 @@ public class TestWindow : EditorWindow
 
     private static void CreateNewCard(Card card)
     {
-        GameAnimationSetting.instance.board?.CreateCard(card);
+        if (card.tag.Contains("宝藏"))
+        {
+            GameAnimationSetting.instance.gameController.player?.treasures.Add(card.NewCard());
+        }
+        else
+        {
+            GameAnimationSetting.instance.board?.CreateCard(card);
+        }
+
+    }
+    private static void AutoWin()
+    {
+        if (GameAnimationSetting.instance.board != null)
+        {
+            GameAnimationSetting.instance.BattleBoard.GameEndWindow.Win();
+        }
+    }
+    private static void AutoLose()
+    {
+        if (GameAnimationSetting.instance.board != null)
+        {
+            GameAnimationSetting.instance.BattleBoard.GameEndWindow.Lose();
+        }
     }
 }

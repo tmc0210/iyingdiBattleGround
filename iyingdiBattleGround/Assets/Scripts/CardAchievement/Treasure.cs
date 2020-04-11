@@ -1,6 +1,8 @@
-﻿// 宝藏
+// 宝藏
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class CardLongKeywordAchievement
 {
@@ -329,5 +331,75 @@ public partial class CardLongKeywordAchievement
     {
         //在board中特殊编码
         return true;
+    }
+
+    /// <summary>
+    /// 三个愿望
+    /// </summary>
+    /// <returns></returns>
+    [CommonDescription("实现你三个愿望（当时机成熟时）")]
+    [HidePrompt]
+    public static bool GetAWish(GameEvent gameEvent)
+    {
+        if (gameEvent.player.star >= 4)
+        {
+            gameEvent.player.AddMinionToHandPile(CardBuilder.SearchCardByName("一个愿望").NewCard());
+        }
+        return true;
+    }
+
+
+    /// <summary>
+    /// 一个愿望
+    /// </summary>
+    /// <returns></returns>
+    [CommonDescription("发现一张你想要的卡")]
+    public static bool GetAWonderfulCard(GameEvent gameEvent)
+    {
+        List<Card> cards = new List<Card>();
+
+        // 即将三连的牌
+        cards.AddRange(GetPlayerCardsReadyForMerge(gameEvent.player));
+        // boss 针对牌
+
+
+        // 套路核心牌
+        // 功能牌
+
+
+
+        // 打工牌
+        cards.Add(GetTheBigestCardInCardPile(gameEvent.player.board.cardPile, gameEvent.player.star));
+        cards.Add(CardBuilder.SearchCardByName("月亮巨人"));
+        cards.Add(CardBuilder.SearchCardByName("月亮巨人"));
+        cards.Add(CardBuilder.SearchCardByName("月亮巨人"));
+
+        gameEvent.player.board.DiscoverToHand(cards.Shuffle().Take(3).Select(card=>card.NewCard()).ToList());
+
+        return true;
+    }
+
+    public static List<Card> GetPlayerCardsReadyForMerge(Player player)
+    {
+        return player.battlePile.ToList().Concat(player.handPile.ToList())
+            .GroupBy(card => card.id)
+            .Where(g => g.Count() == 2)
+            .Select(g => g.FirstOrDefault().id)
+            .Select(CardBuilder.GetCard)
+            .ToList();
+    }
+
+    public static Card GetTheBigestCardInCardPile(CardPile cardPile, int star)
+    {
+        var big = cardPile.cardPile
+            .FilterKey(card => card.star == 3)
+            .OrderByDescending(card => (card.attack + card.health))
+            .FirstOrDefault();
+
+        if (big == null)
+        {
+            big = CardBuilder.SearchCardByName("月亮巨人");
+        }
+        return big;
     }
 }
