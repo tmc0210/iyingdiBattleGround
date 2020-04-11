@@ -170,23 +170,25 @@ name,isToken,image,star,cost,isGold,attack,health,keyWords,longKeyWords,type,car
 //艾雅·黑掌,0,card166,6,0,0,5,3,,Battlecry:Summon1Or2JadeGloem;Deathrattle:Summon1Or2JadeGloem;,,随从,2;战吼;亡语;中立;青玉;特殊,,,
 ,,,,,,,,,,,,,,,
 英雄,1,,0,1,0,0,30,,,,英雄,,,,进行一局游戏后解锁
-砰砰博士,0,hero1,0,4,0,0,30,,HeroPower:UpdateYourInn;AfterUpgrade:BanHeroPowerWhenUpdateto6;,,英雄,,,,进行一局游戏后解锁
-狗头人国王托瓦格尔,0,hero2,0,-1,0,0,30,,AfterBoughtMinion:FlushYourInn;,,英雄,,,,进行一局游戏后解锁
-虚空之影瓦莉拉,0,hero3,0,-1,0,0,30,,GameStart:AddAShadowToHand;,,英雄,,,,进行一局游戏后解锁
+探险家伊莉斯,0,,0,2,0,0,30,,HeroPower:DiscoverAMinionNotInCardPile,,英雄,,,,
+观星者露娜,0,,0,-1,0,0,30,,TurnEnd:GiveAlly11IfDifferentStar;,,英雄,,,,
+砰砰博士,0,hero1,0,4,0,0,30,,HeroPower:UpdateYourInn;AfterUpgrade:BanHeroPowerWhenUpdateto6;,,英雄,,,,
+狗头人国王托瓦格尔,0,hero2,0,-1,0,0,30,,AfterBoughtMinion:FlushYourInn;,,英雄,,,,
+虚空之影瓦莉拉,0,hero3,0,-1,0,0,30,,GameStart:AddAShadowToHand;,,英雄,,,,
 暗影映像,1,card167,1,0,0,1,1,,AfterMinionPlayedInHand:TransformToACopyOfMinion;,,随从,,,,
-尤格萨隆,0,hero5,0,2,0,0,30,,HeroPower:RandomlyAddMinionOnSaleToYouHand;,,英雄,,,,进行一局游戏后解锁
-火车王里诺艾,0,hero6,0,-1,0,0,30,,TurnStart:Add11DragonToYouHandIfLost;,,英雄,,,,进行一局游戏后解锁
+尤格萨隆,0,hero5,0,2,0,0,30,,HeroPower:RandomlyAddMinionOnSaleToYouHand;,,英雄,,,,
+火车王里诺艾,0,hero6,0,-1,0,0,30,,TurnStart:Add11DragonToYouHandIfLost;,,英雄,,,,
 雏龙,1,card168,1,0,0,1,1,,,龙,随从,,,,
-雷诺·杰克逊,0,hero8,0,-1,0,0,30,,CombatStart:RandomDealDamageByConter;AfterUpgrade:UpdateCounter0,,英雄,,,,进行一局游戏后解锁
-贸易大王加里维克斯,0,hero9,0,-1,0,0,30,,TurnEnd:GainCoinsForEachLeftCois;,,英雄,,,,进行一局游戏后解锁
-艾德温·范克里夫,0,hero10,0,1,0,0,30,,HeroPower:Give11ForEachMinionBoughtThisTurnToSelectedMinion;,,英雄,,,,进行一局游戏后解锁
+雷诺·杰克逊,0,hero8,0,-1,0,0,30,,CombatStart:RandomDealDamageByConter;AfterUpgrade:UpdateCounter0,,英雄,,,,
+贸易大王加里维克斯,0,hero9,0,-1,0,0,30,,TurnEnd:GainCoinsForEachLeftCois;,,英雄,,,,
+艾德温·范克里夫,0,hero10,0,1,0,0,30,,HeroPower:Give11ForEachMinionBoughtThisTurnToSelectedMinion;,,英雄,,,,
 老蓟皮,0,hero11,0,-1,0,0,20,,Aura:MurlocHeroPower;,,英雄,Boss;,,,
 银背族长,0,hero12,0,-1,0,0,20,,Aura:BeastHeroPower;,,英雄,Boss;,,,
-提里奥·弗丁,0,hero13,0,1,0,0,30,,HeroPower:AllyGeneralGain11;,,英雄,Boss;,,,进行一局游戏后解锁
-米尔菲斯·法力风暴,0,hero14,0,-1,0,0,30,,Aura:PlusAllyMech2Attack;,,英雄,Boss;,,,进行一局游戏后解锁
-加拉克苏斯大王,0,hero15,0,-1,0,0,30,,AfterMinionDeath:Deal2DamageToRandomEnemyMinionWhenDemonDie;,,英雄,Boss;,,,进行一局游戏后解锁
-Dr.Boom,0,hero16,0,-1,0,0,30,,Aura:GiveFirstMinionTaunt;,,英雄,Boss;,,,进行一局游戏后解锁
-馆长,0,hero17,0,-1,0,0,30,,Aura:AllyGainAllMinionType;,,英雄,Boss;,,,进行一局游戏后解锁
+提里奥·弗丁,0,hero13,0,1,0,0,30,,HeroPower:AllyGeneralGain11;,,英雄,Boss;,,,
+米尔菲斯·法力风暴,0,hero14,0,-1,0,0,30,,Aura:PlusAllyMech2Attack;,,英雄,Boss;,,,
+加拉克苏斯大王,0,hero15,0,-1,0,0,30,,AfterMinionDeath:Deal2DamageToRandomEnemyMinionWhenDemonDie;,,英雄,Boss;,,,
+Dr.Boom,0,hero16,0,-1,0,0,30,,Aura:GiveFirstMinionTaunt;,,英雄,Boss;,,,
+馆长,0,hero17,0,-1,0,0,30,,Aura:AllyGainAllMinionType;,,英雄,Boss;,,,
 夺旗,0,treasure1,0,0,0,0,0,被动;,Aura:AllyGain11,,法术,宝藏;,,,
 晶化宝石,0,treasure2,0,0,0,0,0,被动;,GameStart:AddMainCoin,,法术,宝藏;,,,
 活力药水,0,treasure3,0,0,0,0,0,被动;,GameStart:DoubleYourHeroHealth,,法术,宝藏;,,,
@@ -198,12 +200,13 @@ Dr.Boom,0,hero16,0,-1,0,0,30,,Aura:GiveFirstMinionTaunt;,,英雄,Boss;,,,进行�
 //馆长的收藏品,0,treasure9,0,0,0,0,0,被动;,GameStart:Summon2FusionMoster,,法术,宝藏;,,,
 //人才招募计划,0,treasure10,0,0,0,0,0,被动;,TurnStart:CreateRandomMinion,,法术,宝藏;,,,
 //超级加倍,0,treasure11,0,0,0,0,0,被动;,AfterUpgrade:DiscoverAnotherTreasure,,法术,宝藏;唯一,,,
-//皮糙肉厚,0,treasure12,0,0,0,0,0,被动;,Aura:AllyHeroGainImmuneInRecruit,,法术,宝藏;唯一,,,
+舒筋活络,0,,0,0,0,0,0,被动;,AfterHeroHurt:HealHero1,,法术,宝藏,,,
 集结号角,0,treasure13,0,0,0,0,0,被动;,AfterBoughtMinion:AddNewMinionAndGain11,,法术,宝藏;唯一,,,
-//荆棘外壳,0,treasure14,0,0,0,0,0,被动;,GameStart:YourHeroGain3Attack,,法术,宝藏;,,,
+荆棘外壳,0,treasure14,0,0,0,0,0,被动;,GameStart:YourHeroGain2Attack,,法术,宝藏;,,,
 起源图腾,0,treasure15,0,0,0,0,0,被动;,AfterFlush:GiveRandomAlly11,,法术,宝藏,,,
 鲍（阴）,0,treasure16,0,0,0,0,0,被动;,AfterMinionSold:YourNextCostOfBuyMinionReduce1,,法术,宝藏;唯一,,,
 勃（阳）,0,treasure17,0,0,0,0,0,被动;,AfterBoughtMinion:YourNextCoinGainOfSellMinionAdd1,,法术,宝藏;唯一,,,
+能量之泉,0,,0,0,0,0,0,被动;,GameStart:DoubleYourTreasures,,法术,宝藏;唯一,,,
 一袋铸币,0,treasure18,0,0,0,0,0,主动;,SpellEffect:FullYourHandWithCoins,,法术,宝藏;,,,
 商店兑换券,0,treasure19,0,0,0,0,0,主动;,SpellEffect:AddAllMinionOnSaleToYouHand,,法术,宝藏;,,,
 一个愿望,0,treasure2,0,0,0,0,0,主动;,SpellEffect:GetAWonderfulCard,,法术,,,,

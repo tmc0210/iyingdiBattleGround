@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public partial class CardLongKeywordAchievement
 {
@@ -301,6 +303,37 @@ public partial class CardLongKeywordAchievement
             gameEvent.player.AddMinionToHandPile(targetCard.NewCard());
             return true;
         }
+        return false;
+    }
+
+    /// <summary>
+    /// 观星者露娜
+    /// </summary>
+    /// <param name="gameEvent"></param>
+    /// <returns></returns>
+    [CommonDescription("如果你的随从星级各不相同，使他们获得+1/+1")]
+    public static bool GiveAlly11IfDifferentStar(GameEvent gameEvent)
+    {
+        var stars = gameEvent.player.GetAllAllyMinion().Select(card => card.star);
+        if (stars.Distinct().Count() == stars.Count())
+        {
+            foreach(Card card in gameEvent.player.GetAllAllyMinion())
+            {
+                card.effectsStay.Add(new BodyPlusEffect(1, 1));
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 探险家伊莉斯
+    /// </summary>
+    /// <param name="gameEvent"></param>
+    /// <returns></returns>
+    [CommonDescription("发现一个不在牌池中的星级不大于酒馆等级的随从")]
+    public static bool DiscoverAMinionNotInCardPile(GameEvent gameEvent)
+    {
+        gameEvent.player.board.DiscoverToHand(CardBuilder.AllCards.FilterValue(card => card.star > 0 && !card.isToken && !card.isGold && card.star <= gameEvent.player.star && !gameEvent.player.board.cardPile.cardPile.ContainsKey(card)));
         return false;
     }
 }

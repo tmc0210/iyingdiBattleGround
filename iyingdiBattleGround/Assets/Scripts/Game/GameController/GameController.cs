@@ -21,7 +21,9 @@ public class GameController
         "尤格萨隆",
         "贸易大王加里维克斯",
         "砰砰博士",
+        "探险家伊莉斯",
         "狗头人国王托瓦格尔",
+        "观星者露娜",
     };
 
     #region public var

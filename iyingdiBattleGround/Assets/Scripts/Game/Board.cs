@@ -835,6 +835,10 @@ public class Board
             if (!isBattleField)
             {
                 AfterHeroHurt(gameEvent);
+                SendGameMessage(new ChangeMessage()
+                {
+                    data = GetDataForSend(),
+                });
             }
         }
         GameOverJudge();
@@ -1771,6 +1775,10 @@ public class Board
                     if (treasure.GetProxys(proxy) != null && !proxy.Equals(ProxyEnum.Selected) && !proxy.Equals(ProxyEnum.SpellEffect))
                     {
                         player.hero.effectsStay.Add(new ProxyEffect(proxy, treasure.GetProxys(proxy)));
+                        if (treasure.name != "能量之泉" && player.treasures.Any(card => card.name == "能量之泉"))
+                        {
+                            player.hero.effectsStay.Add(new ProxyEffect(proxy, treasure.GetProxys(proxy)));
+                        }
                     }
                 }
             }
