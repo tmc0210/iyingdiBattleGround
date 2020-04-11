@@ -1,0 +1,29 @@
+
+server ===> client
+{
+	isBattleField : false,
+	self: {
+		handPile:[Card,]
+		battlePile:[Card,]
+	}
+	opponent: {
+		handPile:[Card,]
+		battlePile:[Card,]
+	}
+	upgradeCost:10 -1
+	extendCost:1 -1
+	flushCost:1 -1
+	
+}
+
+
+
+
+
+
+client ===> server
+{
+	code: "buy"/"sell"/"change"/"upgrade"/"lock"/"play"
+	pos1:
+	pos2:
+}
