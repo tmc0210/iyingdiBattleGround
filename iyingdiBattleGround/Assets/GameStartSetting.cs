@@ -15,6 +15,6 @@ public class GameStartSetting : MonoBehaviour
 
     public void BeforeGameStart()
     {
-
+        //BIF.BIFStaticTool.ReadExcel("test.xlsx");
     }
 }
