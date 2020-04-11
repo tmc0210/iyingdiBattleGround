@@ -1628,6 +1628,7 @@ public class Board
         {
             foreach (Card card in player.battlePile)
             {
+                // 排除变化卡
                 if (!card.HasKeyword(Keyword.Changing))
                 {
                     tmpCardPile.AddCard(CardBuilder.GetCard(card.id), 1);
@@ -1668,6 +1669,9 @@ public class Board
                         {
                             break;
                         }
+                        // 排除变化卡
+                        if (card.HasKeyword(Keyword.Changing)) continue;
+
                         if (card.id == item.Key.id)
                         {
                             cards.Add(card);
