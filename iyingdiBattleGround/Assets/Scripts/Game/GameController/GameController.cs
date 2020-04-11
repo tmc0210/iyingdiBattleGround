@@ -81,7 +81,6 @@ GameStart:
             goto GameStart;
         }
 
-
         yield return StartCoroutine(ESelectHero());
         if (returnValue == -1) // 返回
         {
@@ -90,7 +89,8 @@ GameStart:
         }
 
         EnemyManager.CreateEnemy();
-        cardPile = CardPile.GetEmptyCardPile();
+        cardPile.cardPile.Clear();
+        SelectCard.Init();
 
         //FillCardPileWith1StarMinion(cardPile);
         //yield return StartCoroutine(ESelectTreasure());

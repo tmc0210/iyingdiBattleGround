@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public partial class CardLongKeywordAchievement
 {
@@ -352,16 +353,15 @@ public partial class CardLongKeywordAchievement
 
         // 套路核心牌
         // 功能牌
-
-
+        // 圣盾boss针对 时空龙或者食尸鬼
+        // 喷子针对 时空龙
 
         // 打工牌
-        cards.Add(GetTheBigestCardInCardPile(gameEvent.player.board.cardPile, gameEvent.player.star));
-        cards.Add(CardBuilder.SearchCardByName("月亮巨人"));
-        cards.Add(CardBuilder.SearchCardByName("月亮巨人"));
-        cards.Add(CardBuilder.SearchCardByName("月亮巨人"));
+        cards.Add(GetTheBigestCardInCardPile(gameEvent.player.board.cardPile, gameEvent.player.star, 0));
+        cards.Add(GetTheBigestCardInCardPile(gameEvent.player.board.cardPile, gameEvent.player.star, 1));
+        cards.Add(GetTheBigestCardInCardPile(gameEvent.player.board.cardPile, gameEvent.player.star, 2));
 
-        gameEvent.player.board.DiscoverToHand(cards.Shuffle().Take(3).Select(card=>card.NewCard()).ToList());
+        gameEvent.player.board.DiscoverToHand(cards.Distinct().Take(3).Select(card=>card.NewCard()).ToList());
 
         return true;
     }
@@ -376,16 +376,17 @@ public partial class CardLongKeywordAchievement
             .ToList();
     }
 
-    public static Card GetTheBigestCardInCardPile(CardPile cardPile, int star)
+    public static Card GetTheBigestCardInCardPile(CardPile cardPile, int star, int num)
     {
         var big = cardPile.cardPile
-            .FilterKey(card => card.star == 3)
+            .FilterKey(card => card.star == star)
             .OrderByDescending(card => (card.attack + card.health))
-            .FirstOrDefault();
+            .Skip(num)
+            .First();
 
         if (big == null)
         {
-            big = CardBuilder.SearchCardByName("月亮巨人");
+            big = CardBuilder.SearchCardByName("月亮巨人守护者");
         }
         return big;
     }
