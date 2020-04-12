@@ -153,7 +153,7 @@ public partial class CardLongKeywordAchievement
     [CommonDescription("你的英雄具有免疫")]
     [GoldDescription("你的英雄具有免疫")]
     public static bool AllyHeroGainImmune(GameEvent gameEvent)
-    {        
+    {
         gameEvent.player.hero.effects.Add(new KeyWordEffect(Keyword.Immune));
         return true;
     }
@@ -220,8 +220,8 @@ public partial class CardLongKeywordAchievement
     public static bool Gain1Or2HealthForEachHealthYourHEroLost(GameEvent gameEvent)
     {
         int maxHealth = CardBuilder.GetCard(gameEvent.player.hero.id).health + gameEvent.player.hero.GetExtraBody().y;
-        gameEvent.hostCard.effectsStay.Add(new BodyPlusEffect(0, 
-               (gameEvent.hostCard.isGold ? 2 : 1) * (maxHealth - gameEvent.player.hero.GetMinionBody().y)));                   
+        gameEvent.hostCard.effectsStay.Add(new BodyPlusEffect(0,
+               (gameEvent.hostCard.isGold ? 2 : 1) * (maxHealth - gameEvent.player.hero.GetMinionBody().y)));
         return true;
     }
 
@@ -289,6 +289,45 @@ public partial class CardLongKeywordAchievement
                     targetCard = targetCard,
                     player = gameEvent.player,
                 });
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 流放者奥图里斯
+    /// </summary>
+    [CommonDescription("如果是两排战线的两侧位置且在战斗中，对所有敌方随从造成1点伤害")]
+    [GoldDescription("如果是两排战线的两侧位置且在战斗中，对所有敌方随从造成2点伤害")]
+    public static bool Deal1Or2DamageToAllEnemyIfOutCast(GameEvent gameEvent)
+    {
+        if (gameEvent.player.board.isBattleField)
+        {
+            if (gameEvent.targetCard != gameEvent.hostCard &&
+                gameEvent.player.board.IsOutCast(gameEvent.targetCard) &&
+                gameEvent.player == gameEvent.player.board.GetPlayer(gameEvent.targetCard)
+                )
+            {
+                List<GameEvent> gameEvents = new List<GameEvent>();
+                foreach (Card minion in gameEvent.player.board.GetAnotherPlayer(gameEvent.player).GetAllAllyMinion())
+                {
+                    gameEvents.Add(new GameEvent()
+                    {
+                        hostCard = gameEvent.hostCard,
+                        targetCard = minion,
+                        player = gameEvent.player.board.GetPlayer(gameEvent.hostCard),
+                        number = gameEvent.hostCard.isGold ? 2 : 1
+                    });
+                }
+                if (gameEvent.player == gameEvent.player.board.players[0])
+                {
+                    gameEvent.player.board.AOE(gameEvents, AOEType.Up);
+                }
+                else
+                {
+                    gameEvent.player.board.AOE(gameEvents, AOEType.Down);
+                }
+                return true;
             }
         }
         return false;

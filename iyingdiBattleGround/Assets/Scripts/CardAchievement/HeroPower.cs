@@ -333,7 +333,7 @@ public partial class CardLongKeywordAchievement
     [CommonDescription("发现一个不在牌池中的星级不大于酒馆等级的随从")]
     public static bool DiscoverAMinionNotInCardPile(GameEvent gameEvent)
     {
-        gameEvent.player.board.DiscoverToHand(CardBuilder.AllCards.FilterValue(card => card.star > 0 && !card.isToken && !card.isGold && card.star <= gameEvent.player.star && !gameEvent.player.board.cardPile.cardPile.ContainsKey(card)));
+        gameEvent.player.board.DiscoverToHand(CardBuilder.AllCards.FilterValue(card => card.star > 0 && !card.isToken && !card.isGold && card.star <= gameEvent.player.star && !gameEvent.player.board.cardPile.cardPile.ContainsKey(card))).isToken = true;
         return false;
     }
 }
