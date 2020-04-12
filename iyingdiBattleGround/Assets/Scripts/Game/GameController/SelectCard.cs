@@ -173,7 +173,7 @@ public class SelectCard
         //{
         //    Debug.Log(item.name + "  " + item.cards.Count);
         //}
-
+        
         for (int i = 1; i <= 6; i++)
         {
             for (int j = 0; j < Const.typeOfMinionsInCardPile[i - 1] - 3; j++)

@@ -1,4 +1,4 @@
-name,isToken,image,star,cost,isGold,attack,health,keyWords,longKeyWords,type,cardType,tag,SkillDescription,dcription,counters
+阿,isToken,image,star,cost,isGold,attack,health,keyWords,longKeyWords,type,cardType,tag,SkillDescription,dcription,counters
 名称0,是否为token1,卡图2,星级3,打出费用4,是否是金卡5,攻击力6,生命值7,关键字8,带描述的关键字9,种族10,卡牌类型11,流派标签12,技能描述(替换自动生成的描述)13,背景描述14,计数器
 空随从,1,,0,0,0,0,0,,,,随从,,该随从用于代码实现中占位，请勿修改,,0;1;2
 鱼人招潮者,0,card1,1,0,0,1,2,,WhenMinionSummon:Plus1AttackWhenSummonAllyOr2;,鱼人,随从,2;特殊;鱼人,,,
@@ -31,7 +31,7 @@ name,isToken,image,star,cost,isGold,attack,health,keyWords,longKeyWords,type,car
 恐狼前锋,0,card28,1,0,0,2,2,,Aura:AdjacentMinionGein1Attack;,野兽,随从,2;野兽,,,
 瑞文戴尔男爵,0,card29,5,0,0,1,7,,Aura:DouleDeathrattle;,,随从,4;亡语流;唯一;中立;亡语,,,
 布莱恩·铜须,0,card30,5,0,0,2,4,,Aura:DouleBattlecry;,,随从,2;战吼流;唯一;中立;战吼,,,
-阿古斯防御者,0,card31,4,0,0,2,3,,Battlecry:AdjacentMinionGain1Attack1HealthTaunt;,2;战吼;嘲讽,随从;中立,,,,
+阿古斯防御者,0,card31,4,0,0,2,3,,Battlecry:AdjacentMinionGain1Attack1HealthTaunt;,,随从,2;战吼;嘲讽;中立,,,
 塔隆·血魔,0,card32,4,0,0,3,4,,Battlecry:EatAllAllyThenReSummon;,,随从,2;战吼;亡语;奇异;中立;召唤,,,
 灵魂歌者安布拉,0,card33,3,0,0,3,4,,AfterMinionSummon:TriggerDealthrattle;,,随从,4;特殊;亡语;召唤;中立,,,
 魔泉山猫,0,card34,1,0,0,1,1,,Battlecry:Create11BeastOr22;,野兽,随从,2;手牌;战吼;野兽,,,
@@ -143,7 +143,7 @@ name,isToken,image,star,cost,isGold,attack,health,keyWords,longKeyWords,type,car
 软泥教授弗洛普,1,card139,6,0,1,6,8,,AfterMinionPlayedInHand:TransformTo68CopyOfMinion;,,随从,2;特殊;奇异;中立,,,
 狂野兽王,0,card140,3,0,0,3,4,,AfterFlush:BeastOnSaleGain22Or44;,野兽,随从,2;野兽;特殊,,,
 夺心者卡什,0,card141,4,0,0,3,3,,Battlecry:ChooseEnemyThenReSummon;,,随从,2;战吼;亡语;中立,,,
-菌菇术士,0,card142,5,0,0,2,2,,Battlecry:AdjacentMinionGain22Or44;,2;战吼;中立,随从,,,,
+菌菇术士,0,card142,5,0,0,2,2,,Battlecry:AdjacentMinionGain22Or44;,,随从,2;战吼;中立,,,
 炮火机甲,0,card143,2,0,0,2,2,复生,,机械,随从,2;机械;复生,,,
 飞翼守护者,0,card144,5,0,0,6,8,复生;嘲讽,,野兽,随从,2;野兽;复生;嘲讽,,,
 铁皮恐角龙,0,card145,5,0,0,7,7,,OverKill:Summon55BeastOr1010;,野兽,随从,2;野兽;超杀;召唤,,,
