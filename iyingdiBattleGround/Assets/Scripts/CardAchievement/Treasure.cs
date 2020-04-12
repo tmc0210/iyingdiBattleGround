@@ -335,6 +335,20 @@ public partial class CardLongKeywordAchievement
     }
 
     /// <summary>
+    /// 召唤援军
+    /// </summary>
+    [CommonDescription("召唤一个8/8的忠实护卫")]
+    public static bool Summon88(GameEvent gameEvent)
+    {
+        Card targetCard = CardBuilder.SearchCardByName("忠实护卫");
+        if (targetCard != null)
+        {
+            gameEvent.player.AddMinionToBattlePile(targetCard.NewCard(), 0);
+        }
+        return false;
+    }
+
+    /// <summary>
     /// 三个愿望
     /// </summary>
     /// <returns></returns>

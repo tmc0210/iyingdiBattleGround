@@ -1431,6 +1431,7 @@ public class Board
     public void PlayCard(CardPosition card, CardPosition PlayPosition)
     {
         Card handCard = player.handPile[card.pos];
+        player.leftCoins -= handCard.cost;
         ChangingRemove(handCard);
         if (handCard.cardType == CardType.Minion)
         {
@@ -1752,7 +1753,7 @@ public class Board
         MergeCheck();
     }
 
-    public void DiscoverToHand(List<Card> cardList)
+    public Card DiscoverToHand(List<Card> cardList)
     {
         Card card = Discover(cardList);
         AddToHandPile(card);
@@ -1761,7 +1762,7 @@ public class Board
         {
             data = GetDataForSend(),
         });
-
+        return card;
     }
 
     public void TriggerTreasure()
@@ -2095,6 +2096,16 @@ public class Board
         {
             return new Tuple<Card, Card>(cards[position - 1], cards[position + 1]);
         }
+    }
+
+    public bool IsOutCast(Card card)
+    {
+        int pos = GetCardPosition(card).pos;
+        if (pos == 0) return true;
+        if (pos == 3) return true;
+        if (pos == 4) return true;
+        if (pos == 6) return true;
+        return false;
     }
 
     /// <summary>
