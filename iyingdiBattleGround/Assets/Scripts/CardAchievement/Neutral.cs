@@ -79,7 +79,6 @@ public partial class CardLongKeywordAchievement
     public static bool AdjacentMinionGain1Attack1HealthTaunt(GameEvent gameEvent)
     {
         int dvalue = gameEvent.hostCard.isGold ? 2 : 1;
-        var index = gameEvent.player.GetMinionIndex(gameEvent.hostCard);
         Tuple<Card, Card> tuple = gameEvent.player.board.GetAdjacentMinion(gameEvent.hostCard);
         tuple.Item1?.effectsStay.Add(new BodyPlusEffect(dvalue, dvalue));
         tuple.Item2?.effectsStay.Add(new BodyPlusEffect(dvalue, dvalue));
