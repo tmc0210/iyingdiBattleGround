@@ -14,15 +14,15 @@ public class GameController
 #endif
 
     readonly static string[] herosUnlockChain = {
-        "观星者露娜",
-        "艾德温·范克里夫",
-        "火车王里诺艾",
-        "雷诺·杰克逊",
+        //"观星者露娜",
+        //"艾德温·范克里夫",
         "虚空之影瓦莉拉",
-        "尤格萨隆",
+        "火车王里诺艾",
+        //"雷诺·杰克逊",
         "贸易大王加里维克斯",
         "砰砰博士",
-        "探险家伊莉斯",
+        "尤格萨隆",
+        //"探险家伊莉斯",
         "狗头人国王托瓦格尔",
     };
 
@@ -337,10 +337,10 @@ GameStart:
             .Where(card => card != null)
             .ToList();
 
-        heros[1].unlockDescription = "进入挑战2/4时解锁";
-        heros[2].unlockDescription = "进入挑战3/4时解锁";
+        heros[1].unlockDescription = "使用任意英雄进入挑战2/4时解锁";
+        heros[2].unlockDescription = "使用任意英雄进入挑战3/4时解锁";
         heros.Skip(3)
-            .Map(card => card.unlockDescription = "前置英雄解锁后, 进入挑战4/4时解锁");
+            .Map(card => card.unlockDescription = "前置英雄解锁后, 使用任意英雄进入挑战4/4时解锁");
     }
 
     private void UnlockOneHero(int level)
@@ -393,27 +393,43 @@ GameStart:
     public static void SaveLockCard()
     {
         Debug.Log("save");
-        string unlockCards = CardBuilder.AllCards
+        var unlockCards = CardBuilder.AllCards
             .FilterValue(card => !card.Lock)
-            .Select(card => card.id)
-            .ToList()
-            .Serialize();
-        PlayerPrefs.SetString("unlockCards", unlockCards);
+            .Select(card => card.name)
+            .ToList();
+        PlayerPrefs.SetString("unlockCards", JsonUtility.ToJson(new Pack() {
+            cards = unlockCards,
+        }));
 
     }
+
+    [Serializable]
+    public class Pack
+    {
+        public List<string> cards = new List<string>();
+    }
+
     public static void LoadLockCard()
     {
-        string unlockCards = PlayerPrefs.GetString("unlockCards", "");
-    
-        List<int> ids = unlockCards.ParseListInt();
-        ids.Select(id => CardBuilder.GetCard(id))
+        string unlockCards = PlayerPrefs.GetString("unlockCards");
+        Pack pack = new Pack();
+        try
+        {
+            pack = JsonUtility.FromJson<Pack>(unlockCards);
+        }
+        catch (Exception)
+        {
+            PlayerPrefs.SetString("unlockCards", "{}");
+        }
+        List<string> names = pack.cards;
+        names.Select(name => CardBuilder.SearchCardByName(name))
             .Map(card => {
                 if (card != null)
                 {
                     card.Lock = false;
                 }
             });
-        Debug.Log("load card " + ids.Count);
+        Debug.Log("load card " + names.Count);
         Card defaultHero = CardBuilder.SearchCardByName(herosUnlockChain[0]);
         if (defaultHero != null)
         {
