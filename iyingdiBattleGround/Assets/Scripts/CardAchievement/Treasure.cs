@@ -1,5 +1,6 @@
 // 宝藏
 
+using BIF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -344,7 +345,7 @@ public partial class CardLongKeywordAchievement
     {
         if (gameEvent.player.star >= 4)
         {
-            gameEvent.player.AddMinionToHandPile(CardBuilder.SearchCardByName("一个愿望").NewCard());
+            GetAWonderfulCard(gameEvent);
         }
         return true;
     }
@@ -357,50 +358,12 @@ public partial class CardLongKeywordAchievement
     [CommonDescription("发现一张你想要的卡")]
     public static bool GetAWonderfulCard(GameEvent gameEvent)
     {
-        List<Card> cards = new List<Card>();
-
-        // 即将三连的牌
-        cards.AddRange(GetPlayerCardsReadyForMerge(gameEvent.player));
-        // boss 针对牌
-
-
-        // 套路核心牌
-        // 功能牌
-        // 圣盾boss针对 时空龙或者食尸鬼
-        // 喷子针对 时空龙
-
-        // 打工牌
-        cards.Add(GetTheBigestCardInCardPile(gameEvent.player.board.cardPile, gameEvent.player.star, 0));
-        cards.Add(GetTheBigestCardInCardPile(gameEvent.player.board.cardPile, gameEvent.player.star, 1));
-        cards.Add(GetTheBigestCardInCardPile(gameEvent.player.board.cardPile, gameEvent.player.star, 2));
-
-        gameEvent.player.board.DiscoverToHand(cards.Distinct().Take(3).Select(card=>card.NewCard()).ToList());
+        List<Card> cardList = Wish.GetWishCardToDiscover(gameEvent.player).Select(c => c.NewCard()).ToList();
+        Card card = gameEvent.player.board.DiscoverToHand(cardList);
+        card.isToken = true;
+        gameEvent.player.board.cardPile.ReduceCard(card, 1);
 
         return true;
     }
 
-    public static List<Card> GetPlayerCardsReadyForMerge(Player player)
-    {
-        return player.battlePile.ToList().Concat(player.handPile.ToList())
-            .GroupBy(card => card.id)
-            .Where(g => g.Count() == 2)
-            .Select(g => g.FirstOrDefault().id)
-            .Select(CardBuilder.GetCard)
-            .ToList();
-    }
-
-    public static Card GetTheBigestCardInCardPile(CardPile cardPile, int star, int num)
-    {
-        var big = cardPile.cardPile
-            .FilterKey(card => card.star == star)
-            .OrderByDescending(card => (card.attack + card.health))
-            .Skip(num)
-            .First();
-
-        if (big == null)
-        {
-            big = CardBuilder.SearchCardByName("月亮巨人守护者");
-        }
-        return big;
-    }
 }

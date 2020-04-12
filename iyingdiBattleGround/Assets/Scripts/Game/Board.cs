@@ -1752,7 +1752,7 @@ public class Board
         MergeCheck();
     }
 
-    public void DiscoverToHand(List<Card> cardList)
+    public Card DiscoverToHand(List<Card> cardList)
     {
         Card card = Discover(cardList);
         AddToHandPile(card);
@@ -1761,7 +1761,7 @@ public class Board
         {
             data = GetDataForSend(),
         });
-
+        return card;
     }
 
     public void TriggerTreasure()
