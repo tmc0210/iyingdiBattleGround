@@ -349,6 +349,24 @@ public partial class CardLongKeywordAchievement
         return false;
     }
 
+    /// <summary>
+    /// 归来的勇士
+    /// </summary>
+    [CommonDescription("如果与具有复生的随从相邻，则获得复生")]
+    [GoldDescription("如果与具有复生的随从相邻，则获得复生")]
+    public static bool GainRebornIfAdjacentMinionHasReborn(GameEvent gameEvent)
+    {
+        Tuple<Card, Card> tuple = gameEvent.player.board.GetAdjacentMinion(gameEvent.hostCard);
+        if (!gameEvent.hostCard.HasKeyword(Keyword.Reborn))
+        {
+            if ((tuple.Item1?.HasKeyword(Keyword.Reborn) ?? false) || (tuple.Item2?.HasKeyword(Keyword.Reborn) ?? false))
+            {
+                gameEvent.hostCard.effects.Add(new KeyWordEffect(Keyword.Reborn));
+            }
+        }
+        return false;
+    }
+
     //[CommonDescription("使其获得复生")]
     //public static bool AddReborn(GameEvent gameEvent)
     //{
