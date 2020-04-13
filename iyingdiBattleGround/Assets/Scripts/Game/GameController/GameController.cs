@@ -93,6 +93,7 @@ GameStart:
         EnemyManager.CreateEnemy();
         cardPile.cardPile.Clear();
         SelectCard.Init();
+        Const.Reset();
 
         //FillCardPileWith1StarMinion(cardPile);
         //yield return StartCoroutine(ESelectTreasure());

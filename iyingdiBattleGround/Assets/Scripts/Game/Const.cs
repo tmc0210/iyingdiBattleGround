@@ -25,4 +25,11 @@
     public static int[] numOfMinionsOnSale = new int[6] { 3, 4, 4, 5, 5, 6 };
 
     public static readonly Keyword[] EvolveKeyWords = new Keyword[5] {Keyword.DivineShield,Keyword.Poisonous,Keyword.Reborn,Keyword.Taunt,Keyword.Windfury};
+
+    public static void Reset()
+    {
+        coinCostToBuyMinion = InitialCoinCostToBuyMinion;
+        coinGetBySellMinion = InitialCoinGetBySellMinion;
+        numOfMinionsOnSale = new int[6] { 3, 4, 4, 5, 5, 6 };
+    }
 }
