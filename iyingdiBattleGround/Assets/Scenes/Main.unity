@@ -892,6 +892,7 @@ MonoBehaviour:
   "Flush\u6280\u80FD\u6FC0\u6D3B": {fileID: 784728848}
   "Upgrate\u6280\u80FD\u6FC0\u6D3B": {fileID: 1720226041}
   "HeroPower\u6280\u80FD\u6FC0\u6D3B": {fileID: 263051807}
+  battleLock: 0
 --- !u!1 &56048322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,7 +1945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &93355552
 Transform:
   m_ObjectHideFlags: 0
@@ -10035,7 +10036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &587480054
 Transform:
   m_ObjectHideFlags: 0
@@ -25000,7 +25001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1406863559
 Transform:
   m_ObjectHideFlags: 0

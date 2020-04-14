@@ -286,8 +286,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 卡德加
     /// </summary>
-    [CommonDescription("如果它是被其他卡牌召唤，额外召唤一个该随从的复制(不嵌套触发)")]
-    [GoldDescription("如果它是被其他卡牌召唤，额外召唤两个该随从的复制(不嵌套触发)")]
+    [CommonDescription("如果来源是卡牌效果，使召唤效果翻倍")]
+    [GoldDescription("如果来源是卡牌效果，使召唤效果翻三倍")]
     public static bool SummonDoubleMinionOrTribleIt(GameEvent gameEvent)
     {
         if (gameEvent.player != gameEvent.player.board.GetPlayer(gameEvent.hostCard)) return false;
