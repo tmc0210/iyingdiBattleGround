@@ -68,6 +68,7 @@ public class GameController
 
     public IEnumerator EGameStart()
     {
+        yield return StartCoroutine(EIntroSence());
 GameStart:
         defeatedEnemy.Clear();
         yield return StartCoroutine(EStartSence());
@@ -133,6 +134,23 @@ GameStart:
         goto GameStart;
     }
 
+
+
+    #endregion
+
+    #region gamelogic
+
+    private IEnumerator EIntroSence()
+    {
+        gameAnimationSetting.selectPileAction = n => {
+            isGotResponse = true;
+        };
+        gameAnimationSetting.ShowIntroSence();
+
+        yield return StartCoroutine(WaitForGotResponse());
+    }
+
+
     private IEnumerator ESummary()
     {
         gameAnimationSetting.selectPileAction = n => {
@@ -143,11 +161,6 @@ GameStart:
         yield return StartCoroutine(WaitForGotResponse());
 
     }
-
-
-    #endregion
-
-    #region gamelogic
 
 
     /// <summary>

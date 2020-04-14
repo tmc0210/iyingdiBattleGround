@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,7 +9,16 @@ using UnityEngine;
 
 public class GameAnimationSetting : MonoBehaviour
 {
+    const string iyingdiUrl = "https://www.iyingdi.com/web/bbspost/351?tagid=351&seed=0";
+
     #region public var
+    [Autohook]
+    public Transform IntroSence;
+    [Autohook]
+    public SpriteButton CloseIntro;
+
+    [Autohook]
+    public Transform Stays;
 
     [Autohook]
     public BattleBoardSetting BattleBoard;
@@ -110,11 +120,16 @@ public class GameAnimationSetting : MonoBehaviour
 
     #region main sences
 
+    public void OpenIyingdi()
+    {
+        Application.OpenURL(iyingdiUrl);
+    }
+
     public void StartNewGame(BoardInitArgs boardInitArgs)
     {
         BattleBoard.gameObject.SetActive(true);
-        BattleBoard.Init();
         SelectBoard.gameObject.SetActive(false);
+        BattleBoard.Init();
         NewBoardThread(boardInitArgs);
         gameEndAction = win => {
             selectPileAction?.Invoke(win ? 0 : 1);
@@ -142,6 +157,22 @@ public class GameAnimationSetting : MonoBehaviour
         };
         SelectBoard.SelectHero(heros, lockHeros);
     }
+
+    public void ShowIntroSence()
+    {
+        BattleBoard.gameObject.SetActive(false);
+        SelectBoard.gameObject.SetActive(false);
+        IntroSence.gameObject.SetActive(true);
+        CloseIntro.gameObject.SetActive(false);
+        DOTween.Sequence().AppendInterval(3).AppendCallback(()=> CloseIntro.gameObject.SetActive(true));
+    }
+    public void EndIntroSence()
+    {
+        IntroSence.gameObject.SetActive(false);
+        Stays.gameObject.SetActive(true);
+        selectPileAction?.Invoke(0);
+    }
+
 
     public void ShowSummary(List<Card> heros, List<Card> treasures, CardPile cardPile)
     {

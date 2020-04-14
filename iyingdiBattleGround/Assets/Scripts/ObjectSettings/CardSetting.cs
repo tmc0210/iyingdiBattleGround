@@ -52,7 +52,9 @@ public class CardSetting : MonoBehaviour, ISortable
     public SpriteRenderer 金色边框;
 
     [Autohook]
-    public Transform 嘲讽;
+    public SpriteRenderer 嘲讽;
+    public Sprite 普通嘲讽;
+    public Sprite 金色嘲讽;
     [Autohook]
     public Transform 光环;
     [Autohook]
@@ -161,6 +163,14 @@ public class CardSetting : MonoBehaviour, ISortable
             }
         }
 
+        if (card.isGold)
+        {
+            嘲讽.sprite = 金色嘲讽;
+        }
+        else
+        {
+            嘲讽.sprite = 普通嘲讽;
+        }
         金色边框.gameObject.SetActive(card.isGold);
 
 
@@ -411,7 +421,7 @@ public class CardSetting : MonoBehaviour, ISortable
 
         if (isInited) return;
         isInited = true;
-        keywords = new Transform[] { 嘲讽, 光环, 亡语, 剧毒, 闪电, 风怒, 圣盾, 冻结, 复生, 免疫.transform, 潜行, 变幻};
+        keywords = new Transform[] { 嘲讽.transform, 光环, 亡语, 剧毒, 闪电, 风怒, 圣盾, 冻结, 复生, 免疫.transform, 潜行, 变幻};
         family = new Transform[] { 恶魔, 野兽, 鱼人, 机械, 龙, 融合怪 };
         transformGesture = GetComponent<TransformGesture>();
         longPressGesture = GetComponent<LongPressGesture>();
