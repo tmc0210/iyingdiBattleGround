@@ -968,9 +968,11 @@ public partial class CardLongKeywordAchievement
         Card card = gameEvent.player.board.ChooseTarget(gameEvent.player.board.GetMinionTargetLambda(gameEvent.player, null, gameEvent.hostCard));
         if (card != null)
         {
+            int extraValue1 = card.GetMinionBody().x - card.GetMinionBodyWithoutEffect().x;
+            int extraValue2 = card.GetMinionBody().y - card.GetMinionBodyWithoutEffect().y;
             int dvalue1 = card.GetMinionBody().x;
             int dvalue2 = card.GetMinionBody().y;
-            card?.effectsStay.Add(new BodyPlusEffect(dvalue2 - dvalue1, dvalue1 - dvalue2));
+            card?.effectsStay.Add(new BodyPlusEffect(dvalue2 - dvalue1 + extraValue1, dvalue1 - dvalue2 + extraValue2));
             return true;
         }
         else

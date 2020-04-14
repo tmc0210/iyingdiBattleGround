@@ -299,7 +299,7 @@ public abstract class Enemy
             }
             if (card.IsMinionType(MinionType.Murlocs)) //对于鱼人,添加剧毒
             {
-                if (random.Next(10) > 8)
+                if (random.Next(15) == 5)
                 {
                     if (player.leftCoins >= Const.coinCostToBuyMinion - 1 && !card.HasKeyword(Keyword.Poisonous))
                     {
@@ -334,7 +334,7 @@ public abstract class Enemy
     {
         if (player.star > 5 && ((minionTypes.ContainsKey(MinionType.Murlocs) && minionTypes[MinionType.Murlocs] > 0)))
         {
-            if (random.Next(10) > 6)
+            if (random.Next(10) > 7)
             {
                 if (player.leftCoins >= Const.coinCostToBuyMinion - 1)
                 {
