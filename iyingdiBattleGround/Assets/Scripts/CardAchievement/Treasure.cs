@@ -111,7 +111,7 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("你的酒馆之后每次出售七个随从")]
+    [CommonDescription("使你的酒馆以后每次出售七个随从")]
     public static bool Always7MinionsOnSale(GameEvent gameEvent)
     {
         Const.numOfMinionsOnSale = new int[6] { 7, 7, 7, 7, 7, 7 };
@@ -243,7 +243,7 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("将酒馆中所有的随从置入你的手牌")]
+    [CommonDescription("将酒馆中正在出售的所有随从置入你的手牌")]
     public static bool AddAllMinionOnSaleToYouHand(GameEvent gameEvent)
     {
         BattlePile<Card> cards = gameEvent.player.board.players[1].battlePile;

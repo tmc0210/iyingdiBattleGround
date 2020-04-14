@@ -9,8 +9,8 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("从手牌中随机召唤一个小于2星的随从")]    
-    [GoldDescription("从手牌中随机召唤两个小于2星的随从")]
+    [CommonDescription("从手牌中随机召唤一个星级小于或等于2的随从")]    
+    [GoldDescription("从手牌中随机召唤两个星级小于或等于2的随从")]
     public static bool Recall2StarMinionFromHand(GameEvent gameEvent)
     {
         var targetCard = gameEvent.player.handPile.Filter(card => card.cardType == CardType.Minion && card.star <= 2).GetOneRandomly();
@@ -66,8 +66,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 钴制卫士
     /// </summary>
-    [CommonDescription("如果召唤的是机械,获得圣盾")]    
-    [GoldDescription("如果召唤的是机械,获得圣盾")]
+    [CommonDescription("如果召唤的是友方机械,获得圣盾")]    
+    [GoldDescription("如果召唤的是友方机械,获得圣盾")]
     public static bool GainDivineShieldWhenSummonMech(GameEvent gameEvent)
     {
         if (gameEvent.hostCard.HasKeyword(Keyword.DivineShield))
@@ -156,8 +156,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 回收机器人
     /// </summary>
-    [CommonDescription("如果是机械，则获得+2/+2")]
-    [GoldDescription("如果是机械,则获得+4/+4")]
+    [CommonDescription("如果是友方机械，则获得+2/+2")]
+    [GoldDescription("如果是友方机械,则获得+4/+4")]
     public static bool Gain22WhenMechDeathOr44(GameEvent gameEvent)
     {
         if (gameEvent.targetCard.IsMinionType(MinionType.Mechs))
