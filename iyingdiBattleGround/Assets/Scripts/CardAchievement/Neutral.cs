@@ -92,8 +92,8 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("如果是恶魔,对一个随机敌方随从造成3点伤害")]
-    [GoldDescription("如果是恶魔,对一个随机敌方随从造成3点伤害,触发两次")]
+    [CommonDescription("如果是友方恶魔,对一个随机敌方随从造成3点伤害")]
+    [GoldDescription("如果是友方恶魔,对一个随机敌方随从造成3点伤害,触发两次")]
     public static bool Deal3DamageToRandomEnemyMinionWhenDemonDie(GameEvent gameEvent)
     {
         if (gameEvent.player != gameEvent.player.board.GetPlayer(gameEvent.targetCard)) return false;
@@ -233,8 +233,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 塔隆·血魔
     /// </summary>
-    [CommonDescription("移除所有友方随从并获得亡语:重新召唤他们并使其获得+1/+1")]
-    [GoldDescription("移除所有友方随从并获得亡语:重新召唤他们两次并使其获得+2/+2")]
+    [CommonDescription("移除所有其他友方随从并获得亡语:重新召唤他们并使其获得+1/+1")]
+    [GoldDescription("移除所有其他友方随从并获得亡语:重新召唤他们两次并使其获得+2/+2")]
     public static bool EatAllAllyThenReSummon(GameEvent gameEvent)
     {
         var cards = gameEvent.player.GetAllAllyMinion().Filter(card => card != gameEvent.hostCard);
@@ -680,8 +680,8 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("将其生命值增加至与本随从相同")]
-    [GoldDescription("将其生命值增加至与本随从相同")]
+    [CommonDescription("将其生命值增加至与该随从相同")]
+    [GoldDescription("将其生命值增加至与该随从相同")]
     public static bool SetHealthWhenSummonMinion(GameEvent gameEvent)
     {
         if (gameEvent.targetCard != gameEvent.hostCard)
@@ -899,8 +899,8 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("随机召唤一个在本局对战中死亡的友方野兽")]
-    [GoldDescription("随机召唤两个在本局对战中死亡的友方野兽")]
+    [CommonDescription("随机召唤一个在本场战斗中死亡的友方野兽")]
+    [GoldDescription("随机召唤两个在本场战斗中死亡的友方野兽")]
     public static bool SummonDeadBeast(GameEvent gameEvent)
     {
         List<Card> summons = new List<Card>();

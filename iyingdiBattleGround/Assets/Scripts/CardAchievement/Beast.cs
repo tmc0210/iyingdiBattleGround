@@ -33,8 +33,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 雄斑虎
     /// </summary>
-    [CommonDescription("召唤一个11雌斑虎")]
-    [GoldDescription("召唤一个22雌斑虎")]
+    [CommonDescription("召唤一个1/1的雌斑虎")]
+    [GoldDescription("召唤一个2/2的雌斑虎")]
     public static bool Summon11Beast(GameEvent gameEvent)
     {
         Card targetCard = CardBuilder.SearchCardByName("雌斑虎", gameEvent.hostCard.isGold);
@@ -54,8 +54,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 熊妈妈
     /// </summary>
-    [CommonDescription("如果是野兽,使其获得+5/+5")]
-    [GoldDescription("如果是野兽,使其1获得+10/+10")]
+    [CommonDescription("如果是友方野兽,使其获得+5/+5")]
+    [GoldDescription("如果是友方野兽,使其1获得+10/+10")]
     public static bool Give55WhenSummonBeast(GameEvent gameEvent)
     {
         if (gameEvent.targetCard != gameEvent.hostCard &&
@@ -136,8 +136,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 食腐土狼
     /// </summary>
-    [CommonDescription("如果是野兽，则获得+2/+1")]
-    [GoldDescription("如果是野兽,则获得+4/+2")]
+    [CommonDescription("如果是友方野兽，则获得+2/+1")]
+    [GoldDescription("如果是友方野兽,则获得+4/+2")]
     public static bool Gain21WhenBeastDeathOr42(GameEvent gameEvent)
     {
         if (gameEvent.targetCard.IsMinionType(MinionType.Beasts))
@@ -214,8 +214,8 @@ public partial class CardLongKeywordAchievement
         return true;
     }
 
-    [CommonDescription("对选定的敌人造成7点伤害")]
-    [GoldDescription("对选定的敌人造成14点伤害")]
+    [CommonDescription("精准选择敌方随从造成7点伤害")]
+    [GoldDescription("精准选择敌方随从造成14点伤害")]
     public static bool Deal5DemageToSelectedMinion(GameEvent gameEvent)
     {
         Card card = gameEvent.player.board.ChooseTarget
@@ -439,8 +439,8 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("使酒馆中的所有野兽获得+2/+2")]
-    [GoldDescription("使酒馆中的所有野兽获得+4/+4")]
+    [CommonDescription("使酒馆中正在出售的所有野兽获得+2/+2")]
+    [GoldDescription("使酒馆中正在出售的所有野兽获得+4/+4")]
     public static bool BeastOnSaleGain22Or44(GameEvent gameEvent)
     {
         int value = gameEvent.hostCard.isGold ? 4 : 2;
@@ -482,8 +482,8 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("召唤所有你在本局对战中死亡的，并具有嘲讽的随从")]
-    [GoldDescription("召唤所有你在本局对战中死亡的，并具有嘲讽的随从")]
+    [CommonDescription("召唤所有你在本场战斗中死亡的具有嘲讽的随从")]
+    [GoldDescription("召唤所有你在本场战斗中死亡的具有嘲讽的随从")]
     public static bool SummonAllDeadTauntMinion(GameEvent gameEvent)
     {
         List<Card> summons = new List<Card>();

@@ -71,8 +71,8 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("在战场上每有一个其他鱼人便获得+1攻击力")]
-    [GoldDescription("在战场上每有一个其他鱼人便获得+2攻击力")]
+    [CommonDescription("在战场上每有一个其他友方鱼人便获得+1攻击力")]
+    [GoldDescription("在战场上每有一个其他友方鱼人便获得+2攻击力")]
     public static bool Plus1AttackOr2ForEachMurloc(GameEvent gameEvent)
     {
         foreach (Card ally in gameEvent.player.GetAllAllyMinion())

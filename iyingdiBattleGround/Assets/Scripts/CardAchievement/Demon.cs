@@ -111,8 +111,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 纳斯雷兹姆监工
     /// </summary>
-    [CommonDescription("使一个恶魔获得+2/+2")]
-    [GoldDescription("使一个恶魔获得+4/+4")]
+    [CommonDescription("使一个友方恶魔获得+2/+2")]
+    [GoldDescription("使一个友方恶魔获得+4/+4")]
     public static bool AddAnAllyDemon2Attack2Health(GameEvent gameEvent)
     {
         int dvalue = gameEvent.hostCard.isGold ? 4 : 2;
@@ -266,8 +266,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 小鬼妈妈
     /// </summary>
-    [CommonDescription("每当该随从受到伤害，随机召唤一个恶魔并使其获得嘲讽")]
-    [GoldDescription("每当该随从受到伤害，随机召唤两个恶魔并使其获得嘲讽")]
+    [CommonDescription("随机召唤一个恶魔并使其获得嘲讽")]
+    [GoldDescription("随机召唤两个恶魔并使其获得嘲讽")]
     public static bool Summon1Or2DemonAndGiveItTaunt(GameEvent gameEvent)
     {
         int times = gameEvent.hostCard.isGold ? 2 : 1;
