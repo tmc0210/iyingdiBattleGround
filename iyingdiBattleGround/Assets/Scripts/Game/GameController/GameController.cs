@@ -425,7 +425,7 @@ GameStart:
 
     public static void LoadLockCard()
     {
-        string unlockCards = PlayerPrefs.GetString("unlockCards");
+        string unlockCards = PlayerPrefs.GetString("unlockCards", "{}");
         Pack pack = new Pack();
         try
         {
@@ -434,6 +434,7 @@ GameStart:
         catch (Exception)
         {
             PlayerPrefs.SetString("unlockCards", "{}");
+            pack = new Pack();
         }
         List<string> names = pack.cards;
         names.Select(name => CardBuilder.SearchCardByName(name))
