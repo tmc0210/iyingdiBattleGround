@@ -79,7 +79,6 @@ public partial class CardLongKeywordAchievement
     public static bool AdjacentMinionGain1Attack1HealthTaunt(GameEvent gameEvent)
     {
         int dvalue = gameEvent.hostCard.isGold ? 2 : 1;
-        var index = gameEvent.player.GetMinionIndex(gameEvent.hostCard);
         Tuple<Card, Card> tuple = gameEvent.player.board.GetAdjacentMinion(gameEvent.hostCard);
         tuple.Item1?.effectsStay.Add(new BodyPlusEffect(dvalue, dvalue));
         tuple.Item2?.effectsStay.Add(new BodyPlusEffect(dvalue, dvalue));
@@ -346,6 +345,24 @@ public partial class CardLongKeywordAchievement
         {
             gameEvent.targetCard.health += healthToRestore;
             return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 归来的勇士
+    /// </summary>
+    [CommonDescription("如果与具有复生的随从相邻，则获得复生")]
+    [GoldDescription("如果与具有复生的随从相邻，则获得复生")]
+    public static bool GainRebornIfAdjacentMinionHasReborn(GameEvent gameEvent)
+    {
+        Tuple<Card, Card> tuple = gameEvent.player.board.GetAdjacentMinion(gameEvent.hostCard);
+        if (!gameEvent.hostCard.HasKeyword(Keyword.Reborn))
+        {
+            if ((tuple.Item1?.HasKeyword(Keyword.Reborn) ?? false) || (tuple.Item2?.HasKeyword(Keyword.Reborn) ?? false))
+            {
+                gameEvent.hostCard.effects.Add(new KeyWordEffect(Keyword.Reborn));
+            }
         }
         return false;
     }

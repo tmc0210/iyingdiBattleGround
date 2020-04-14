@@ -19,9 +19,9 @@ public class GameController
         "虚空之影瓦莉拉",
         "火车王里诺艾",
         //"雷诺·杰克逊",
+        "尤格萨隆",
         "贸易大王加里维克斯",
         "砰砰博士",
-        "尤格萨隆",
         //"探险家伊莉斯",
         "狗头人国王托瓦格尔",
     };
@@ -94,6 +94,7 @@ GameStart:
         EnemyManager.CreateEnemy();
         cardPile.cardPile.Clear();
         SelectCard.Init();
+        Const.Reset();
 
         //FillCardPileWith1StarMinion(cardPile);
         //yield return StartCoroutine(ESelectTreasure());

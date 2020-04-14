@@ -69,8 +69,8 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("召唤一个6/6的龙")]
-    [GoldDescription("召唤一个12/12的龙")]
+    [CommonDescription("如果在酒馆中，召唤一个6/6的龙")]
+    [GoldDescription("如果在酒馆中，召唤一个12/12的龙")]
     public static bool Summon66Or1212Dragon(GameEvent gameEvent)
     {
         Card targetCard = CardBuilder.SearchCardByName("虚空幼龙", gameEvent.hostCard.isGold);

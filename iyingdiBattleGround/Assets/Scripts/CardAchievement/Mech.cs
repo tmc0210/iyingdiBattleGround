@@ -426,7 +426,7 @@ public partial class CardLongKeywordAchievement
     public static bool Summon1Or2Copy(GameEvent gameEvent)
     {
         Card targetCard = CardBuilder.SearchCardByName(gameEvent.hostCard.name, gameEvent.hostCard.isGold).NewCard();
-        targetCard.TransformToNewCardWithEffectsForBoss(gameEvent.hostCard);
+        targetCard.TransformToNewCardWithEffects(gameEvent.hostCard);
         if (targetCard != null)
         {
             gameEvent.player.board.SummonMinion(new GameEvent()
@@ -439,7 +439,7 @@ public partial class CardLongKeywordAchievement
         if (gameEvent.hostCard.isGold)
         {
             targetCard = CardBuilder.SearchCardByName(gameEvent.hostCard.name, gameEvent.hostCard.isGold).NewCard();
-            targetCard.TransformToNewCardWithEffectsForBoss(gameEvent.hostCard);
+            targetCard.TransformToNewCardWithEffects(gameEvent.hostCard);
             if (targetCard != null)
             {
                 gameEvent.player.board.SummonMinion(new GameEvent()
