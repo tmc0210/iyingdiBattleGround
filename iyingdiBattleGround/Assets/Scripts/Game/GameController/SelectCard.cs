@@ -150,7 +150,7 @@ public class SelectCard
             },
             new School()
             {
-                name = "混合",
+                name = "混沌",
                 cards = CardBuilder.AllCards.FilterValue(card => !card.isToken && !card.isGold).Filter(card => card.tag.Contains("混合") || card.tag.Contains("奇异") || card.tag.Contains("青玉"))
             },
             //schools.Add(new School()
