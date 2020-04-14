@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class GameAnimationSetting : MonoBehaviour
 {
-    const string iyingdiUrl = "https://www.iyingdi.com/web/bbspost/351?tagid=351&seed=0";
+    const string iyingdiUrl = "https://www.iyingdi.com/web/article/search?tagid=351";
 
     #region public var
     [Autohook]
