@@ -214,8 +214,8 @@ public partial class CardLongKeywordAchievement
         return true;
     }
 
-    [CommonDescription("对选定的敌人造成7点伤害")]
-    [GoldDescription("对选定的敌人造成14点伤害")]
+    [CommonDescription("对选定的敌方随从造成7点伤害")]
+    [GoldDescription("对选定的敌方随从造成14点伤害")]
     public static bool Deal5DemageToSelectedMinion(GameEvent gameEvent)
     {
         Card card = gameEvent.player.board.ChooseTarget

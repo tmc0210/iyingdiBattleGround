@@ -118,8 +118,16 @@ public class DecorateSetting : MonoBehaviour
         FlushCostCallback?.Invoke();
     }
 
+    public bool battleLock = false;
+
     public void SetBattle(bool isOk, Action action = null)
     {
+        if (battleLock)
+        {
+            isOk = false;
+            action = null;
+        }
+
         战斗.gameObject.SetActive(isOk);
         BattleCallback = action;
         if (action != null)

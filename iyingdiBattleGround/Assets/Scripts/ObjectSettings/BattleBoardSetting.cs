@@ -360,6 +360,7 @@ public class BattleBoardSetting : MonoBehaviour
         {
             //EnableInteractive(false);
 
+            Decorate.battleLock = false;
 
 
             if (!isBegin)
@@ -906,6 +907,7 @@ public class BattleBoardSetting : MonoBehaviour
         {
             Decorate.SetBattle(true, () =>
             {
+                Decorate.battleLock = true;
                 EnableInteractive(false);
                 SendGameMessage(new ChangeMessage()
                 {
