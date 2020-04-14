@@ -94,7 +94,6 @@ GameStart:
         EnemyManager.CreateEnemy();
         cardPile.cardPile.Clear();
         SelectCard.Init();
-        Const.Reset();
 
         //FillCardPileWith1StarMinion(cardPile);
         //yield return StartCoroutine(ESelectTreasure());
@@ -111,6 +110,7 @@ GameStart:
     
         for (int i = 0; i < MaxLevel; i++)
         {
+            Const.Reset();
             yield return StartCoroutine(EStartLevel(i));
 
             if (returnValue == 0) // win
