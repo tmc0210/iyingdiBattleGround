@@ -237,6 +237,7 @@ GameStart:
 
         // player 每关+10血
         boardInitArgs.player.hero.effectsStay.Add(new BodyPlusEffect(0, 10*level - 10));
+        Card enemyBackup = boardInitArgs.enemy.player.hero.NewCard();
 
         yield return StartCoroutine(EIntroEnmey(boardInitArgs.enemy.player, level));
 
@@ -252,7 +253,7 @@ GameStart:
         if (returnValue == 0)
         {
             Card hero = boardInitArgs.enemy.player.hero;
-            defeatedEnemy.Add(CardBuilder.GetCard(hero.id).NewCard());
+            defeatedEnemy.Add(enemyBackup);
         }
     }
 
