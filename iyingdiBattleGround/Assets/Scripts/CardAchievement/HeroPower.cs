@@ -44,7 +44,7 @@ public partial class CardLongKeywordAchievement
         return true;
     }
 
-    [CommonDescription("如果是恶魔,对一个随机敌人造成{0}点伤害")]
+    [CommonDescription("如果是恶魔,对一个随机敌方随从造成{0}点伤害")]
     [SetCounter(1)]
     public static bool Deal2DamageToRandomEnemyMinionWhenDemonDie(GameEvent gameEvent)
     {
