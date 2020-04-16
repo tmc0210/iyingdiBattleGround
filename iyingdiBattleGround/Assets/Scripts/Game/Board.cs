@@ -1378,13 +1378,16 @@ public class Board
     public void Sell(Card card)
     {
         ChangingRemove(card);
-        if (!card.isToken)
+        if (card.creator != null)
         {
-            cardPile.AddCard(CardBuilder.GetCard(card.id), 1);
-        }
-        else if (card.isGold && !CardBuilder.GetCard(card.goldVersion).isToken)
-        {
-            cardPile.AddCard(CardBuilder.GetCard(card.goldVersion), 3);
+            if (!card.isToken)
+            {
+                cardPile.AddCard(CardBuilder.GetCard(card.id), 1);
+            }
+            else if (card.isGold && !CardBuilder.GetCard(card.goldVersion).isToken)
+            {
+                cardPile.AddCard(CardBuilder.GetCard(card.goldVersion), 3);
+            }
         }
         if (player.leftCoins < Const.MaxCoin)
         {
@@ -1576,7 +1579,7 @@ public class Board
         // 取出新的若干个
         for (int i = 0; i < Const.numOfMinionsOnSale[player.star - 1]; i++)
         {
-            players[1].battlePile[i] = (Card)cardPile.RandomlyGetCardByFilterAndReduceIt(card => card.star <= player.star).NewCard();
+            players[1].battlePile[i] = (Card)cardPile.RandomlyGetCardByFilterAndReduceIt(card => card.star <= player.star)?.NewCard();
         }
 
         AfterFlush();
@@ -2157,7 +2160,7 @@ public class Board
 
     #region tmpPile
 
-    public void BattlePileToTempCards() //将战场现有随从和空格（使用占位0号随从）加入空的临时pile中
+    private void BattlePileToTempCards() //将战场现有随从和空格（使用占位0号随从）加入空的临时pile中
     {
         for (int i = 0; i < playersByOffensive[0].battlePile.fixedNumber; i++)
         {
@@ -2183,7 +2186,7 @@ public class Board
         }
     }
 
-    public void TempCardsToBattlePile() //将临时pile中的随从和空格（使用占位0号随从）置入战场
+    private void TempCardsToBattlePile() //将临时pile中的随从和空格（使用占位0号随从）置入战场
     {
         int i = 0;
         foreach (Card card in tmpCards[0])
@@ -2214,7 +2217,7 @@ public class Board
         }
     }
 
-    public void TempCardsCheck() //消除临时pile中的不正确空格（使用占位0号随从）
+    private void TempCardsCheck() //消除临时pile中的不正确空格（使用占位0号随从）
     {
         int check = 0;
         for (int i = 0; i < playersByOffensive[0].battlePile.fixedNumber; i++)
@@ -2283,7 +2286,7 @@ public class Board
         }
     }
 
-    public void TempCardsRemoveAll() //清空临时pile
+    private void TempCardsRemoveAll() //清空临时pile
     {
         tmpCards[0] = new List<Card>();
         tmpCards[1] = new List<Card>();

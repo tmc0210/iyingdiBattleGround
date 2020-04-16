@@ -22,7 +22,8 @@
     public static readonly int[] typeOfMinionsInCardPile = new int[6] { 9, 10, 13, 11, 10, 7 };
 
 
-    public static int[] numOfMinionsOnSale = new int[6] { 3, 4, 4, 5, 5, 6 };
+    public static int[] numOfMinionsOnSale = InitialNumOfMinionsOnSale;
+    public static int[] InitialNumOfMinionsOnSale = new int[6] { 3, 4, 4, 5, 5, 6 };
 
     public static readonly Keyword[] EvolveKeyWords = new Keyword[5] {Keyword.DivineShield,Keyword.Poisonous,Keyword.Reborn,Keyword.Taunt,Keyword.Windfury};
 
@@ -30,6 +31,6 @@
     {
         coinCostToBuyMinion = InitialCoinCostToBuyMinion;
         coinGetBySellMinion = InitialCoinGetBySellMinion;
-        numOfMinionsOnSale = new int[6] { 3, 4, 4, 5, 5, 6 };
+        numOfMinionsOnSale = InitialNumOfMinionsOnSale;
     }
 }

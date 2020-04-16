@@ -849,8 +849,8 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 夺心者卡什
     /// </summary>
-    [CommonDescription("选择一个敌方随从并获得\"亡语：召唤一个所选随从的全新复制\"")]
-    [GoldDescription("选择一个敌方随从并获得\"亡语：召唤一个所选随从的全新复制\"")]
+    [CommonDescription("选择一个酒馆中正在出售的随从并获得\"亡语：召唤一个所选随从的全新复制\"")]
+    [GoldDescription("选择一个酒馆中正在出售的随从并获得\"亡语：召唤一个所选随从的全新复制\"")]
     public static bool ChooseEnemyThenReSummon(GameEvent gameEvent)
     {
         Card card = gameEvent.player.board.ChooseTarget

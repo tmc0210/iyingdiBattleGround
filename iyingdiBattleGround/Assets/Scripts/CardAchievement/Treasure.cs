@@ -214,10 +214,14 @@ public partial class CardLongKeywordAchievement
         {
             Card newCard =
             (Card)gameEvent.player.board.cardPile.RandomlyGetCardByFilterAndReduceIt(card => card.star <= gameEvent.player.star &&
-            card.IsMinionType(gameEvent.targetCard.type)).NewCard();
-            newCard.effectsStay.Add(new BodyPlusEffect(1, 1));
-            battlePile[battlePile.GetEmptyPos()] = newCard;
-            return true;
+            card.IsMinionType(gameEvent.targetCard.type));
+            if (newCard != null)
+            {
+                newCard = newCard.NewCard();
+                newCard.effectsStay.Add(new BodyPlusEffect(1, 1));
+                battlePile[battlePile.GetEmptyPos()] = newCard;
+                return true;
+            }
         }
         return false;
     }
