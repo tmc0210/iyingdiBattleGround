@@ -297,7 +297,7 @@ GameStart:
         List<Card> treasures = new List<Card>();
         foreach (Card card in CardBuilder.AllCards.FilterValue(card => card.tag.Contains("宝藏")))
         {
-            if (!player.treasures.Contains(card) || !card.tag.Contains("唯一"))
+            if (!player.IsContainTreasure(card) || !card.tag.Contains("唯一"))
             {
                 treasures.Add(card);
             }

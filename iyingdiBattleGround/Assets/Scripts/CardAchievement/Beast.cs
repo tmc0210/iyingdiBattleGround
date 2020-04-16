@@ -353,22 +353,22 @@ public partial class CardLongKeywordAchievement
                 targetCard = targetCard,
                 player = gameEvent.player
             });
-            return true;
-        }
-        if (gameEvent.hostCard.isGold)
-        {
-            targetCard = gameEvent.player.handPile.Filter(card => card.cardType == CardType.Minion && card.GetMinionBody().x >= 5).GetOneRandomly();
-            if (targetCard != null && gameEvent.player.battlePile.Count < Const.numOfBattlePile)
+
+            if (gameEvent.hostCard.isGold)
             {
-                gameEvent.player.RemoveMinionFromHandPile(targetCard);
-                gameEvent.player.board.SummonMinion(new GameEvent()
+                targetCard = gameEvent.player.handPile.Filter(card => card.cardType == CardType.Minion && card.GetMinionBody().x >= 5).GetOneRandomly();
+                if (targetCard != null && gameEvent.player.battlePile.Count < Const.numOfBattlePile)
                 {
-                    hostCard = gameEvent.hostCard,
-                    targetCard = targetCard,
-                    player = gameEvent.player
-                });
-                return true;
+                    gameEvent.player.RemoveMinionFromHandPile(targetCard);
+                    gameEvent.player.board.SummonMinion(new GameEvent()
+                    {
+                        hostCard = gameEvent.hostCard,
+                        targetCard = targetCard,
+                        player = gameEvent.player
+                    });
+                }
             }
+            return true;
         }
         return false;
     }

@@ -45,7 +45,25 @@ public class Player : ICloneable
     {
         this.hero = hero;
     }
-    
+
+    public bool IsContainTreasure(Card card)
+    {
+        bool flag = false;
+        if (card.tag.Contains("宝藏"))
+        {
+            foreach(var item in treasures)
+            {
+                if (item.id == card.id)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            return flag;
+        }
+        return false;
+    }
+
     public List<Card> GetAllAllyMinionExceptDead()
     {       
         List<Card> cards = new List<Card>();

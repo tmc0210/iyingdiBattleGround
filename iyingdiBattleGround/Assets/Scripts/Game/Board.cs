@@ -2630,6 +2630,11 @@ public class Board
         Debug.Log(str);
     }
 
+    public void CheckCardPile()
+    {
+        
+    }
+
     #endregion
 }
 

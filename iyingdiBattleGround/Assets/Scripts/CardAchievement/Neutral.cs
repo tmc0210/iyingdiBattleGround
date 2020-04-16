@@ -644,7 +644,11 @@ public partial class CardLongKeywordAchievement
     public static bool TransformToRandomMinion(GameEvent gameEvent)
     {
         Card ShifterZerus = CardBuilder.SearchCardByName("百变泽鲁斯", gameEvent.hostCard.isGold);
-        Card targetCard = CardBuilder.AllCards.FilterValue(card => card.isGold == gameEvent.hostCard.isGold && (!card.isToken || card.isGold) && card.cardType == CardType.Minion && !card.name.Equals("百变泽鲁斯")).GetOneRandomly();
+        Card targetCard = gameEvent.player.board.cardPile.cardPile.FilterKey(card => !card.isToken  && card.cardType == CardType.Minion && !card.name.Equals("百变泽鲁斯")).GetOneRandomly();
+        if (gameEvent.hostCard.isGold)
+        {
+            targetCard = CardBuilder.GetCard(targetCard.goldVersion);
+        }
         gameEvent.hostCard.TransformToNewCardWithoutEffects(targetCard);
 
         gameEvent.hostCard.effectsStay.Add(new ProxyEffect(ProxyEnum.TurnStartInHand, ShifterZerus.GetProxys(ProxyEnum.TurnStartInHand)));
