@@ -37,6 +37,7 @@ public partial class CardLongKeywordAchievement
     /// <param name="gameEvent"></param>
     /// <returns></returns>
     [CommonDescription("召唤一个1/1的小鬼")]
+    [GoldDescription("召唤一个1/1的小鬼")]
     public static bool Summon11Demon(GameEvent gameEvent)
     {
         Card targetCard = CardBuilder.SearchCardByName("小鬼", false);
@@ -58,6 +59,7 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
+    [CommonDescription("召唤一个2/2的小鬼")]
     [GoldDescription("召唤一个2/2的小鬼")]
     public static bool Summon22Demon(GameEvent gameEvent)
     {

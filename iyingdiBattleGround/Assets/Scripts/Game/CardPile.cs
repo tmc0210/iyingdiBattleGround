@@ -79,7 +79,14 @@ public class CardPile
     {
         if (cardPile.ContainsKey(CardBuilder.GetCard(card.id)))
         {
-            cardPile[CardBuilder.GetCard(card.id)] += num;
+            if (cardPile[CardBuilder.GetCard(card.id)] + num < Const.numOfMinionsInCardPile[card.star - 1])
+            {
+                cardPile[CardBuilder.GetCard(card.id)] += num;
+            }
+            else
+            {
+                cardPile[CardBuilder.GetCard(card.id)] = Const.numOfMinionsInCardPile[card.star - 1];
+            }
         }
         else
         {

@@ -24,6 +24,7 @@
 虚空行者,0,card21,1,0,0,1,3,嘲讽,,恶魔,随从,2;恶魔;嘲讽,,,
 灵魂杂耍者,0,card22,3,0,0,3,3,,AfterMinionDeath:Deal3DamageToRandomEnemyMinionWhenDemonDie;,,随从,4;恶魔流;恶魔流;恶魔;中立,,,
 小鬼囚徒,0,card23,2,0,0,3,3,嘲讽;,Deathrattle:Summon11Demon;,恶魔,随从,2;恶魔;嘲讽;亡语;召唤,,,
+小鬼囚徒,1,card23,2,0,1,6,6,嘲讽;,Deathrattle:Summon22Demon;,恶魔,随从,2;恶魔;嘲讽;亡语;召唤,,,
 小鬼首领,0,card24,3,0,0,2,4,,AfterHurt:Summon11Demon;,恶魔,随从,2;恶魔;召唤,,,
 小鬼,1,card25,1,0,0,1,1,,,恶魔,随从,,,,
 邪魔仆从,0,card26,1,0,0,2,1,,Deathrattle:GiveAnAllyAttack;,恶魔,随从,1;恶魔;亡语,,,

@@ -1376,7 +1376,7 @@ public class Board
     public void Sell(Card card)
     {
         ChangingRemove(card);
-        if (card.creator != null)
+        if (card.creator == null)
         {
             if (!card.isToken)
             {
