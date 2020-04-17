@@ -1317,8 +1317,6 @@ public class Board
         var triggers = CollectTriggers(ProxyEnum.CombatStart);
 
         TriggerTriggers(triggers, null, SendGameMessageCode闪电);
-
-        DeathPhase();
     }
 
     public void GameStart()
@@ -2340,6 +2338,7 @@ public class Board
     {
         InitCombat();
         CombatStart();
+        DeathPhase();
         if (IsGameOver() == null)
         {
             AttackingMinion[0] = GetFirstAttackMinion(0);
@@ -2359,7 +2358,7 @@ public class Board
     public Card GetFirstAttackMinion(int attackingPlayer)
     {
         Card card;
-        int index = Const.numOfBattlePile - 1;
+        int index = (tmpCards[attackingPlayer].Count - 1) % tmpCards[attackingPlayer].Count;
         int i = 0;
         do
         {
