@@ -58,7 +58,7 @@ public class Board
     #endregion
 
     #region thread
-    public BlockingCollection<ChangeMessage> changeMessagesToServer = null; // 用于接受来自多线
+    public BlockingCollection<ChangeMessage> changeMessagesToServer = null; // 用于接受来自多线程的消息
     public ChangeMessage GetMessage()
     {
         return changeMessagesToServer.Take();
@@ -68,19 +68,6 @@ public class Board
     public Board()
     {
         Debug.Log("new Board");
-    }
-
-    public void InitGame()
-    {
-        Debug.Log("此方法即将被弃用,请修改参数");
-        player = new Player(this, CardBuilder.SearchCardByName("雷诺·杰克逊").NewCard());
-        //暂时随机生成为第几关
-        level = random.Next(4) + 1;
-        player.hero.effectsStay.Add(new BodyPlusEffect(0, 10 * (level - 1)));
-        players[0] = player;
-        players[1] = EnemyManager.GetEnemy();
-        cardPile.InitCardPileFully();
-        StartRecruit();
     }
 
     public void InitGame(Player player, Enemy enemy, CardPile cardPile, int level)
@@ -102,6 +89,10 @@ public class Board
         InitGame(boardInitArgs.player, boardInitArgs.enemy, boardInitArgs.cardPile, boardInitArgs.level);
     }
 
+    /// <summary>
+    /// 处理玩家的操作（来自前端的信息）
+    /// </summary>
+    /// <param name="changeMessage"></param>
     public void OnMessage(ChangeMessage changeMessage)
     {
         if (changeMessage.code.code.Equals("buy"))
@@ -170,6 +161,9 @@ public class Board
 
     #region combat
 
+    /// <summary>
+    /// 战斗过程中的一次随机攻击
+    /// </summary>
     public void RandomlyAttack()
     {
         int AttackNum = 1;
@@ -196,6 +190,9 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// 死亡结算阶段，会循环直到没有死亡的随从
+    /// </summary>
     public void DeathPhase()
     {
         AuraCheck();
@@ -335,6 +332,9 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// 下一个轮次
+    /// </summary>
     public void NextRun()
     {
         GameOverJudge();
@@ -357,11 +357,19 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// 获取当前正在攻击的随从
+    /// </summary>
+    /// <returns></returns>
     public Card GetAttackingMinion()
     {
         return AttackingMinion[AttackingPlayer];
     }
 
+    /// <summary>
+    /// 主动攻击
+    /// </summary>
+    /// <param name="gameEvent"></param>
     public void Attack(GameEvent gameEvent)
     {
         SendGameMessage(new ChangeMessage()
@@ -705,7 +713,7 @@ public class Board
     }
 
     /// <summary>
-    /// hostCard summon targetCard
+    /// hostCard 召唤 targetCard
     /// </summary>
     /// <param name="gameEvent"></param>
     public void SummonMinion(GameEvent gameEvent)
@@ -718,7 +726,7 @@ public class Board
     }
 
     /// <summary>
-    /// hostCard summon targetCard
+    /// hostCard 召唤 targetCard
     /// </summary>
     /// <param name="gameEvent"></param>
     public void SummonMinionByMinion(GameEvent gameEvent, Card byCard, string summonCode = "create")
