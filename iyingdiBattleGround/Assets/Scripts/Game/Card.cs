@@ -356,7 +356,7 @@ public class Card :ICloneable
         card.effectsStay.AddRange(effectsStay);
 
         card.effectsOri = new List<Effect>();
-        card.effectsOri.AddRange(effectsOri);
+        card.effectsOri.AddRange(effectsOri.Cast<ProxyEffect>().Select(p=>p.Copy()));
 
         card.proxys = new Map<ProxyEnum, CardProxyDelegate>();
         card.proxys.Update(proxys);

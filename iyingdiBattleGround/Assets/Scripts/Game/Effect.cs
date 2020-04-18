@@ -94,6 +94,12 @@ public class ProxyEffect : SpecialEffect
         if (cardProxyDelegate == null) return false;
         return cardProxyDelegate.Invoke(gameEvent);
     }
+
+    public ProxyEffect Copy()
+    {
+        ProxyEffect effect = MemberwiseClone() as ProxyEffect;
+        return effect;
+    }
 }
 public class ProxyEffects: List<ProxyEffect>
 {

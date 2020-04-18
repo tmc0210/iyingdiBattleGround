@@ -1085,7 +1085,7 @@ public class Board
         foreach (Card card in alivesMinion)
         {
             int health = card.GetMinionBody().y;
-            if (health < 0)
+            if (health <= 0)
             {
                 card.health -= health;
                 card.health += 1;
