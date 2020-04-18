@@ -65,7 +65,7 @@ public partial class CardLongKeywordAchievement
         return true;
     }
 
-    [CommonDescription("第一个随从始终具有嘲讽和+{0}攻击力")]
+    [CommonDescription("你的第一个随从始终具有嘲讽和+{0}攻击力")]
     [SetCounter(1)]
     public static bool GiveFirstMinionTaunt(GameEvent gameEvent)
     {
