@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class MainPanel : UIPanel
 {
-    
+    public void ShowExit()
+    {
+        UIManager.Instance.ShowPanel<ExitPanel>();
+    }
+
 }

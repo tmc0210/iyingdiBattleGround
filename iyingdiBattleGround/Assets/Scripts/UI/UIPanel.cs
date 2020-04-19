@@ -15,6 +15,12 @@ public class UIPanel : MonoBehaviour
 
     }
 
+    public void Hide()
+    {
+        HidePanel();
+        gameObject.SetActive(false);
+    }
+
     public void Delay(float seconds, Action action)
     {
         StartCoroutine(DelayCoroutine(seconds, action));

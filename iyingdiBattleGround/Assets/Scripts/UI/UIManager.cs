@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
         foreach (var go in PanelGos)
         {
             Panels.Add(go.GetComponent<UIPanel>());
+            go.SetActive(false);
         }
     }
 
