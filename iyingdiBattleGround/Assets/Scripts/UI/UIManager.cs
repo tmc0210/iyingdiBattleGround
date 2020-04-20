@@ -37,11 +37,28 @@ public class UIManager : MonoBehaviour
         ShowPanel<IntroPanel>();
     }
 
+    /// <summary>
+    /// 显示面板
+    /// </summary>
+    /// <typeparam name="P">想要显示的面板</typeparam>
     public void ShowPanel<P>() where P : UIPanel
     {
         var panel = Panels.Find(p => p is P);
         panel.gameObject.SetActive(true);
         panel.ShowPanel();
+    }
+
+    /// <summary>
+    /// 显示面板
+    /// </summary>
+    /// <typeparam name="P">想要显示的面板</typeparam>
+    /// <typeparam name="Data">想要传输的UI数据类型</typeparam>
+    /// <param name="data">想要传输的UI数据类型</param>
+    public void ShowPanel<P, Data>(Data data) where P : UIPanel
+    {
+        var panel = Panels.Find(p => p is P);
+        panel.gameObject.SetActive(true);
+        panel.ShowPanel(data);
     }
 
     public void HidePanel<P>() where P : UIPanel

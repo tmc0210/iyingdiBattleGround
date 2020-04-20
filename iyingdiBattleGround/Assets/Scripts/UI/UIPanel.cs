@@ -10,6 +10,16 @@ public class UIPanel : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 当显示页面需要获取数据时，请重写该方法
+    /// </summary>
+    /// <typeparam name="Data"></typeparam>
+    /// <param name="data"></param>
+    public virtual void ShowPanel<Data>(Data data)
+    {
+
+    }
+
     public virtual void HidePanel()
     {
 
@@ -21,7 +31,7 @@ public class UIPanel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Delay(float seconds, Action action)
+    protected void Delay(float seconds, Action action)
     {
         StartCoroutine(DelayCoroutine(seconds, action));
         
