@@ -29,7 +29,8 @@ public abstract class Enemy
 
     public virtual void SetLevel(int level)
     {
-        player.hero.effectsStay.Add(new BodyPlusEffect(0, 10 * (level - 1)));
+        Debug.LogWarning("add 10 health");
+        //player.hero.effectsStay.Add(new BodyPlusEffect(0, 10 * (level - 1)));
         //if (level >= 2)
         //{
         //    if (player.maxCoins < Const.MaxCoin)
@@ -171,7 +172,8 @@ public abstract class Enemy
         {
             if (card.name.Equals("钴制卫士"))
             {
-                card.effectsStay.Add(new KeyWordEffect(Keyword.DivineShield));
+                //card.effectsStay.Add(new KeyWordEffect(Keyword.DivineShield));
+                Debug.LogWarning("add 圣盾！");
             }
         }
     }
@@ -242,8 +244,8 @@ public abstract class Enemy
                 {
                     if (player.leftCoins >= Const.coinCostToBuyMinion - 1)
                     {
-                        card.effectsStay.Add(new KeyWordEffect(Keyword.Taunt));
-                        card.effectsStay.Add(new BodyPlusEffect(1, 1));
+                        //card.effectsStay.Add(new KeyWordEffect(Keyword.Taunt));
+                        //card.effectsStay.Add(new BodyPlusEffect(1, 1));
                         player.leftCoins -= Const.coinCostToBuyMinion - 1;
                         Debug.Log(player.hero.name + "使" + card.name + "获得了嘲讽");
                     }
@@ -257,15 +259,15 @@ public abstract class Enemy
                     {
                         if (player.leftCoins >= Const.coinCostToBuyMinion - 1)
                         {
-                            card.effectsStay.Add(new ProxyEffect(ProxyEnum.Deathrattle, CardBuilder.SearchCardByName("量产型恐吓机").GetProxys(ProxyEnum.Deathrattle)));
-                            card.effectsStay.Add(new BodyPlusEffect(3, 1));
+                            //card.effectsStay.Add(new ProxyEffect(ProxyEnum.Deathrattle, CardBuilder.SearchCardByName("量产型恐吓机").GetProxys(ProxyEnum.Deathrattle)));
+                            //card.effectsStay.Add(new BodyPlusEffect(3, 1));
                             player.leftCoins -= Const.coinCostToBuyMinion - 1;
                             Debug.Log(player.hero.name + "将量产型恐吓机磁力了" + card.name);
                         }
                     }
                     if (player.leftCoins >= Const.coinCostToBuyMinion - 1)
                     {
-                        card.effectsStay.Add(new BodyPlusEffect(2, 2));
+                        //card.effectsStay.Add(new BodyPlusEffect(2, 2));
                         player.leftCoins -= Const.coinCostToBuyMinion - 1;
                         Debug.Log(player.hero.name + "优先强化了进攻随从" + card.name);
                     }
@@ -279,9 +281,9 @@ public abstract class Enemy
                     {
                         if (player.leftCoins >= Const.coinCostToBuyMinion - 1 && !card.HasKeyword(Keyword.DivineShield))
                         {
-                            card.effectsStay.Add(new KeyWordEffect(Keyword.DivineShield));
-                            card.effectsStay.Add(new KeyWordEffect(Keyword.Taunt));
-                            card.effectsStay.Add(new BodyPlusEffect(2, 4));
+                            //card.effectsStay.Add(new KeyWordEffect(Keyword.DivineShield));
+                            //card.effectsStay.Add(new KeyWordEffect(Keyword.Taunt));
+                            //card.effectsStay.Add(new BodyPlusEffect(2, 4));
                             player.leftCoins -= Const.coinCostToBuyMinion - 1;
                             Debug.Log(player.hero.name + "将吵吵模组磁力了" + card.name);
                         }
@@ -290,7 +292,7 @@ public abstract class Enemy
                     {
                         if (player.leftCoins >= Const.coinCostToBuyMinion - 1)
                         {
-                            card.effectsStay.Add(new BodyPlusEffect(2, 2));
+                            //card.effectsStay.Add(new BodyPlusEffect(2, 2));
                             player.leftCoins -= Const.coinCostToBuyMinion - 1;
                             Debug.Log(player.hero.name + "优先强化了圣盾随从" + card.name);
                         }
@@ -303,7 +305,7 @@ public abstract class Enemy
                 {
                     if (player.leftCoins >= Const.coinCostToBuyMinion - 1 && !card.HasKeyword(Keyword.Poisonous))
                     {
-                        card.effectsStay.Add(new KeyWordEffect(Keyword.Poisonous));
+                        //card.effectsStay.Add(new KeyWordEffect(Keyword.Poisonous));
                         player.leftCoins -= Const.coinCostToBuyMinion - 1;
                         Debug.Log(player.hero.name + "使" + card.name + "获得了剧毒");
                     }
@@ -317,7 +319,7 @@ public abstract class Enemy
                 if (player.leftCoins >= Const.coinCostToBuyMinion - 1)
                 {
                     Card card = player.battlePile.GetOneRandomly();
-                    card.effectsStay.Add(new BodyPlusEffect(2, 2));
+                    //card.effectsStay.Add(new BodyPlusEffect(2, 2));
                     player.leftCoins -= Const.coinCostToBuyMinion - 1;
                     Debug.Log(player.hero.name + "使用剩余费用强化了" + card.name);
                 }
@@ -361,7 +363,7 @@ public abstract class Enemy
                     {
                         if (ally.IsMinionType(MinionType.Murlocs))
                         {
-                            ally.effectsStay.Add(new BodyPlusEffect(2, 2));
+                            //ally.effectsStay.Add(new BodyPlusEffect(2, 2));
                         }
                     }
                     player.leftCoins -= Const.coinCostToBuyMinion - 1;
@@ -381,7 +383,7 @@ public abstract class Enemy
                     {
                         if (ally.IsMinionType(MinionType.Demons))
                         {
-                            ally.effectsStay.Add(new ProxyEffect(ProxyEnum.Deathrattle, targetCard.GetProxys(ProxyEnum.Deathrattle)));
+                            //ally.effectsStay.Add(new ProxyEffect(ProxyEnum.Deathrattle, targetCard.GetProxys(ProxyEnum.Deathrattle)));
                         }
                     }
                     player.leftCoins -= Const.coinCostToBuyMinion - 1;
@@ -400,7 +402,7 @@ public abstract class Enemy
                     {
                         if (ally.IsMinionType(MinionType.Mechs))
                         {
-                            ally.effectsStay.Add(new BodyPlusEffect(2, 0));
+                            //ally.effectsStay.Add(new BodyPlusEffect(2, 0));
                         }
                     }
                     player.leftCoins -= Const.coinCostToBuyMinion - 1;

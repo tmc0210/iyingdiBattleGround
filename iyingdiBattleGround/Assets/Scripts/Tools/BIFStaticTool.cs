@@ -6,9 +6,11 @@ using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 using UnityEngine.Rendering;
 
 namespace BIF
@@ -345,9 +347,22 @@ namespace BIF
 
         #region read csv
 
+        static public List<List<string>> ParseCsv(string text)
+        {
+            List<List<string>> csvContent = new List<List<string>>();
+            string[] lines = text.Split('\n');
+
+            foreach (var line in lines)
+            {
+                csvContent.Add(new List<string>(line.Split(',')));
+            }
+            return csvContent;
+        }
+
         static public List<List<string>> ReadCSV(string filename)
         {
             List<List<string>> csvContent = new List<List<string>>();
+            
             TextAsset binAsset = Resources.Load<TextAsset>(filename);
             if (binAsset == null)
             {

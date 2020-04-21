@@ -876,12 +876,14 @@ public class Board
         if (keywords != null)
         {
             Keyword keyword = keywords.GetOneRandomly();
-            card.effectsStay.Add(new KeyWordEffect(keyword));
+            //card.effectsStay.Add(new KeyWordEffect(keyword));
+            Debug.LogWarning("添加关键字");
             return true;
         }
         else
         {
-            card.effectsStay.Add(new BodyPlusEffect(1, 1));
+            //card.effectsStay.Add(new BodyPlusEffect(1, 1));
+            Debug.LogWarning("添加关键字");
             return true;
         }
     }
@@ -1115,37 +1117,37 @@ public class Board
     public void Battlecry(GameEvent gameEvent)
     {
         int BattlecryNum = 1;
-        foreach (var item in gameEvent.player.hero.effects)
-        {
-            if (item is TripleBattlecryEffect)
-            {
-                BattlecryNum = 3;
-            }
-        }
-        foreach (var item in gameEvent.player.hero.effectsStay)
-        {
-            if (item is TripleBattlecryEffect)
-            {
-                BattlecryNum = 3;
-            }
-        }
-        if (BattlecryNum < 3)
-        {
-            foreach (var item in gameEvent.player.hero.effects)
-            {
-                if (item is DouleBattlecryEffect)
-                {
-                    BattlecryNum = 2;
-                }
-            }
-            foreach (var item in gameEvent.player.hero.effectsStay)
-            {
-                if (item is DouleBattlecryEffect)
-                {
-                    BattlecryNum = 2;
-                }
-            }
-        }
+        //foreach (var item in gameEvent.player.hero.effects)
+        //{
+        //    if (item is TripleBattlecryEffect)
+        //    {
+        //        BattlecryNum = 3;
+        //    }
+        //}
+        //foreach (var item in gameEvent.player.hero.effectsStay)
+        //{
+        //    if (item is TripleBattlecryEffect)
+        //    {
+        //        BattlecryNum = 3;
+        //    }
+        //}
+        //if (BattlecryNum < 3)
+        //{
+        //    foreach (var item in gameEvent.player.hero.effects)
+        //    {
+        //        if (item is DouleBattlecryEffect)
+        //        {
+        //            BattlecryNum = 2;
+        //        }
+        //    }
+        //    foreach (var item in gameEvent.player.hero.effectsStay)
+        //    {
+        //        if (item is DouleBattlecryEffect)
+        //        {
+        //            BattlecryNum = 2;
+        //        }
+        //    }
+        //}
         for (int i = 0; i < BattlecryNum; i++)
         {
             if (gameEvent.hostCard.InvokeProxy(ProxyEnum.Battlecry, gameEvent))
@@ -1342,19 +1344,19 @@ public class Board
             if (target != gameEvent.hostCard)
             {
                 gameEvent.player.RemoveMinionFromBattlePile(gameEvent.hostCard);
-                target.effectsStay.Add(new BodyPlusEffect(gameEvent.hostCard.GetMinionBody().x, gameEvent.hostCard.GetMinionBody().y));
-                foreach (Keyword keyword in Enum.GetValues(typeof(Keyword)))
-                {
-                    if (!keyword.Equals(Keyword.Magnetic) && gameEvent.hostCard.HasKeyword(keyword))
-                        target.effectsStay.Add(new KeyWordEffect(keyword));
-                }
-                foreach (ProxyEnum proxy in Enum.GetValues(typeof(ProxyEnum)))
-                {
-                    if (gameEvent.hostCard.GetProxys(proxy) != null)
-                    {
-                        target.effectsStay.Add(new ProxyEffect(proxy, gameEvent.hostCard.GetProxys(proxy)));
-                    }
-                }
+                //target.effectsStay.Add(new BodyPlusEffect(gameEvent.hostCard.GetMinionBody().x, gameEvent.hostCard.GetMinionBody().y));
+                //foreach (Keyword keyword in Enum.GetValues(typeof(Keyword)))
+                //{
+                //    if (!keyword.Equals(Keyword.Magnetic) && gameEvent.hostCard.HasKeyword(keyword))
+                //        target.effectsStay.Add(new KeyWordEffect(keyword));
+                //}
+                //foreach (ProxyEnum proxy in Enum.GetValues(typeof(ProxyEnum)))
+                //{
+                //    if (gameEvent.hostCard.GetProxys(proxy) != null)
+                //    {
+                //        target.effectsStay.Add(new ProxyEffect(proxy, gameEvent.hostCard.GetProxys(proxy)));
+                //    }
+                //}
                 //Maybe Some Messages
                 return true;
             }
@@ -1620,15 +1622,15 @@ public class Board
             {
                 foreach (var item in card.GetProxysByEffect(ProxyEnum.AfterMinionPlayedInHand))
                 {
-                    item.cardProxyDelegate -= tmp1.GetProxys(ProxyEnum.AfterMinionPlayedInHand);
-                    item.cardProxyDelegate -= tmp3.GetProxys(ProxyEnum.AfterMinionPlayedInHand);
+                    //item.cardProxyDelegate -= tmp1.GetProxys(ProxyEnum.AfterMinionPlayedInHand);
+                    //item.cardProxyDelegate -= tmp3.GetProxys(ProxyEnum.AfterMinionPlayedInHand);
                 }
             }
             if (card.GetProxysByEffect(ProxyEnum.TurnStartInHand) != null)
             {
                 foreach (var item in card.GetProxysByEffect(ProxyEnum.TurnStartInHand))
                 {
-                    item.cardProxyDelegate -= tmp2.GetProxys(ProxyEnum.TurnStartInHand);
+                    //item.cardProxyDelegate -= tmp2.GetProxys(ProxyEnum.TurnStartInHand);
                 }
             }
         }
@@ -1784,11 +1786,11 @@ public class Board
                 {
                     if (treasure.GetProxys(proxy) != null && !proxy.Equals(ProxyEnum.Selected) && !proxy.Equals(ProxyEnum.SpellEffect))
                     {
-                        player.hero.effectsStay.Add(new ProxyEffect(proxy, treasure.GetProxys(proxy)));
-                        if (treasure.name != "能量之泉" && player.treasures.Any(card => card.name == "能量之泉"))
-                        {
-                            player.hero.effectsStay.Add(new ProxyEffect(proxy, treasure.GetProxys(proxy)));
-                        }
+                        //player.hero.effectsStay.Add(new ProxyEffect(proxy, treasure.GetProxys(proxy)));
+                        //if (treasure.name != "能量之泉" && player.treasures.Any(card => card.name == "能量之泉"))
+                        //{
+                        //    player.hero.effectsStay.Add(new ProxyEffect(proxy, treasure.GetProxys(proxy)));
+                        //}
                     }
                 }
             }

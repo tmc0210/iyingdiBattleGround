@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderedJson.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -248,7 +249,7 @@ public class Player : ICloneable
 /// <summary>
 /// 用作触发事件时消息的传递
 /// </summary>
-public class GameEvent
+public class GameEvent: OJContext
 {
     public Player player = null;
     /// <summary>

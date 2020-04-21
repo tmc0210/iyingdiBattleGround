@@ -1,9 +1,12 @@
 ﻿using BIF;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class CardBuilder
 {
@@ -19,23 +22,26 @@ public class CardBuilder
         //Debug.Log("no= " + no);
         return GetCard(no).NewCard();
     }
-    public static void InitAllCards()
+    public static IEnumerator InitAllCards()
     {
-        if (AllCards == null) AllCards = ReadCSV();
+        var path = GetCSVPath("Buildin");
+        //Debug.Log(path);
+        var request = UnityWebRequest.Get(path);
+        yield return request.SendWebRequest();
+
+        var text = request.downloadHandler.text;
+        //Debug.Log(text);
+        var data = BIFStaticTool.ParseCsv(text);
+        AllCards = ReadCSV(data);
     }
 
     /// <summary>
     /// 读取csv文件，创建所有卡牌的原型
     /// </summary>
     /// <returns></returns>
-    public static Map<int, Card> ReadCSV()
+    public static Map<int, Card> ReadCSV(List<List<string>> csvData)
     {
         Map<int, Card> map = new Map<int, Card>();
-
-        List<List<string>> csvData = BIFStaticTool.ReadCSV("chess");
-        csvData.RemoveAt(0);    // 删除英文描述
-        csvData.RemoveAt(0);    // 删除中文描述
-
         int idCnt = 0;
         foreach (var data in csvData)
         {
@@ -47,22 +53,23 @@ public class CardBuilder
                 // 读取基本属性
                 id = idCnt++,
                 name = data[0],
-                isToken = BIFStaticTool.ParseInt(data[1]) > 0,
-                image = data[2],
-                star = BIFStaticTool.ParseInt(data[3]),
-                cost = BIFStaticTool.ParseInt(data[4]),
-                isGold = BIFStaticTool.ParseInt(data[5]) > 0,
-                attack = BIFStaticTool.ParseInt(data[6]),
-                health = BIFStaticTool.ParseInt(data[7]),
-                type = BIFStaticTool.GetEnumDescriptionEnumSaved(data[10], MinionType.General),
-                cardType = BIFStaticTool.GetEnumDescriptionEnumSaved(data[11], CardType.Minion),
+                displayName = data[1],
+                cardType = BIFStaticTool.GetEnumDescriptionEnumSaved(data[2], CardType.Minion),
+                type = BIFStaticTool.GetEnumDescriptionEnumSaved(data[3], MinionType.General),
+                isToken = BIFStaticTool.ParseInt(data[4]) > 0,
+                image = data[5],
+                star = BIFStaticTool.ParseInt(data[6]),
+                cost = BIFStaticTool.ParseInt(data[7]),
+                isGold = BIFStaticTool.ParseInt(data[8]) > 0,
+                attack = BIFStaticTool.ParseInt(data[9]),
+                health = BIFStaticTool.ParseInt(data[10]),
                 skillDescription = data[13],
                 description = data[14],
                 unlockDescription = data[15],
             };
 
             // 读取keyword
-            string[] keywordStrings = data[8].Split(';', '，');
+            string[] keywordStrings = data[11].Split(';', '，');
             foreach (var keywordString in keywordStrings)
             {
                 //KeyWord keyword = GetKeywordByDescription(keywordString);
@@ -72,34 +79,27 @@ public class CardBuilder
                     card.keyWords.Add(keyword);
                 }
             }
-            map[card.id] = card;
-
-            // 读取LongKeyword
-            if (!string.IsNullOrEmpty(data[9]))
-            {
-                SetLongKeywordNatural(card, data[9]);
-            }
 
             // 读取流派标签
-            if (!string.IsNullOrEmpty(data[12]))
+            if (!string.IsNullOrEmpty(data[15]))
             {
-                card.tag = new List<string>(data[12].Split('；',';'));
+                card.tag = new List<string>(data[15].Split('；', ';'));
             }
 
-            //// 读取counters
-            //if (!string.IsNullOrEmpty(data[15]))
-            //{
-            //    int i = 0;
-            //    foreach(var counter in data[15].Split(';', '；').Select(str=> BIFStaticTool.ParseInt(str)))
-            //    {
-            //        card.counters[i++] = counter;
-            //        if (i >= card.counters.Length) break;
-            //    }
-            //}
+            // 读取长关键字
+            string code = data[12];
+            if (!string.IsNullOrEmpty(code))
+            {
+
+            }
+
+
+
+            map[card.id] = card;
         }
 
         #region auto add gold versionCard
-        foreach (var card in map.GetValues().Where(card=>!card.isGold && card.cardType == CardType.Minion))
+        foreach (var card in map.GetValues().Where(card => !card.isGold && card.cardType == CardType.Minion))
         {
             Card aimCard = map.FilterValue(c => c.isGold && c.name == card.name).GetOne();
             if (aimCard == null)
@@ -128,6 +128,21 @@ public class CardBuilder
         return map;
     }
 
+    private static string GetCSVPath(string v)
+    {
+//        string path =
+//#if UNITY_ANDROID && !UNITY_EDITOR
+//        Application.streamingAssetsPath
+//#elif UNITY_IPHONE && !UNITY_EDITOR
+//        "file://" + Application.streamingAssetsPath ;
+//#elif UNITY_STANDLONE_WIN||UNITY_EDITOR
+//        "file://" + Application.streamingAssetsPath;
+//#else
+//        string.Empty;
+//#endif
+        return Application.streamingAssetsPath + $"/Mods/{v}/Card/card.csv";
+    }
+
     private static Map<MinionType, string> minionTypeAndDescription = null;
     public static MinionType GetMinionTypeByDescription(string description, MinionType defaultType=MinionType.General)
     {
@@ -147,41 +162,6 @@ public class CardBuilder
     }
 
 
-    private static void SetLongKeywordNatural(Card card, string str)
-    {
-        string[] longKeywordStrings = str.Split(';', '；');
-        var map = BIFStaticTool.GetEnumNameAndDescriptionSaved<ProxyEnum>();
-        foreach (var longKeywordString in longKeywordStrings)
-        {
-            string[] settings = longKeywordString.Split(':', '：');
-            if (settings.Length != 2)
-            {
-                continue;
-            }
-            CardProxyDelegate action = GetStaticDelegate(settings[1]);
-            if (action == null)
-            {
-                Debug.LogWarning("[未找到委托函数]" + settings[1]);
-                continue;
-            }
-
-            bool isFind = false;
-            foreach (var item in map)
-            {
-                if (item.Value.Key.Equals(settings[0]))
-                {
-                    var desc = GetProxyDescription(action);
-                    card.AddProxyOri(item.Key, action, desc.Item5, true);
-
-                    isFind = true;
-                    break;
-                }
-            }
-            if (!isFind)
-                Debug.LogWarning("[未找到长关键字]" + card.name+ settings[0] + action);
-        }
-    }
-
 
     /// <summary>
     /// 委托，普通描述，金卡描述，是否隐藏前缀
@@ -198,36 +178,7 @@ public class CardBuilder
 
     public static string GetCardDescription(Card card)
     {
-        if (!string.IsNullOrEmpty(card.skillDescription))
-        {
-            return card.skillDescription;
-        }
-        var map = BIFStaticTool.GetEnumNameAndCommonDescriptionSaved<ProxyEnum>();
-        var str = "";
-        foreach (var pair in map)
-        {
-            var effects = card.GetProxysByEffect(pair.Key);
-            if (effects != null)
-            {
-                foreach (var effect in effects)
-                {
-                    var ac = effect.cardProxyDelegate;
-                    if (ac == null) continue;
-                    var p = GetProxyDescription(ac as CardProxyDelegate);
-                    string desc = card.isGold ? p.Item2 : p.Item1;
-                    string promopt = p.Item3 ? p.Item4 : pair.Value.Value;
-                    if (!string.IsNullOrEmpty(promopt)) promopt += ": ";
-
-                    if (!string.IsNullOrEmpty(desc))
-                    {
-                        string description = promopt + desc + "\n";
-                        description = string.Format(description, effect.Counter);
-                        str += description;
-                    }
-                }
-            }
-        }
-        return str;
+        return null;
     }
 
     public static string GetCardDescriptionContainsKeyword(Card card)
@@ -261,11 +212,11 @@ public class CardBuilder
             CardProxyDelegate action = Delegate.CreateDelegate(typeof(CardProxyDelegate), method) as CardProxyDelegate;
 
             #region get description
-            GoldDescriptionAttribute goldDescription = Attribute.GetCustomAttribute(method, typeof(GoldDescriptionAttribute), false) as GoldDescriptionAttribute;
-            CommonDescriptionAttribute commonDescription = Attribute.GetCustomAttribute(method, typeof(CommonDescriptionAttribute), false) as CommonDescriptionAttribute;
-            HidePromptAttribute hidePrompt = Attribute.GetCustomAttribute(method, typeof(HidePromptAttribute), false) as HidePromptAttribute;
-            SetCounterAttribute setCounter = Attribute.GetCustomAttribute(method, typeof(SetCounterAttribute), false) as SetCounterAttribute;
-            ProxyDescriptionCache[action] = (commonDescription?.Description, goldDescription?.Description, hidePrompt!=null, hidePrompt?.Description, setCounter?.Value??0);
+            //GoldDescriptionAttribute goldDescription = Attribute.GetCustomAttribute(method, typeof(GoldDescriptionAttribute), false) as GoldDescriptionAttribute;
+            //CommonDescriptionAttribute commonDescription = Attribute.GetCustomAttribute(method, typeof(CommonDescriptionAttribute), false) as CommonDescriptionAttribute;
+            //HidePromptAttribute hidePrompt = Attribute.GetCustomAttribute(method, typeof(HidePromptAttribute), false) as HidePromptAttribute;
+            //SetCounterAttribute setCounter = Attribute.GetCustomAttribute(method, typeof(SetCounterAttribute), false) as SetCounterAttribute;
+            //ProxyDescriptionCache[action] = (commonDescription?.Description, goldDescription?.Description, hidePrompt!=null, hidePrompt?.Description, setCounter?.Value??0);
 
             #endregion
 
@@ -309,7 +260,7 @@ public class CardBuilder
     {
         if (AllCards == null)
         {
-            AllCards = ReadCSV();
+            //AllCards = ReadCSV();
         }
 
         Card card = AllCards.GetByDefault(no, null);

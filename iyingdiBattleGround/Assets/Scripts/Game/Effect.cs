@@ -6,6 +6,9 @@ using System.ComponentModel;
 using System.Reflection;
 using UnityEngine;
 
+
+
+
 public abstract class Effect
 {
     public readonly bool isOnce = false;            // 一次性效果
@@ -101,16 +104,23 @@ public class ProxyEffect : SpecialEffect
         return effect;
     }
 }
-public class ProxyEffects: List<ProxyEffect>
+public class ProxyEffects: List<Card>
 {
+    private readonly ProxyEnum proxy;
+
+    public ProxyEffects(ProxyEnum proxy)
+    {
+        this.proxy = proxy;
+    }
+
     public bool Invoke(GameEvent gameEvent)
     {
-        bool answer = false;
-        foreach(var proxy in this)
+        bool returnValue = false;
+        foreach (var card in this)
         {
-            answer = proxy.Invoke(gameEvent);
+            returnValue = card.InvokeProxy(proxy, gameEvent);
         }
-        return answer;
+        return returnValue;
     }
 }
 
@@ -296,4 +306,14 @@ public enum ProxyEnum {
 
     [CommonDescription("选取时立即触发")]
     Selected
-} 
+}
+
+public class CommonDescriptionAttribute : Attribute
+{
+    public readonly string Description;
+
+    public CommonDescriptionAttribute(string description)
+    {
+        Description = description;
+    }
+}

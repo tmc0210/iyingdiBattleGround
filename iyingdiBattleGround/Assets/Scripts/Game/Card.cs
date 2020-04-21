@@ -6,8 +6,8 @@ using System.ComponentModel;
 using System.Reflection;
 using UnityEngine;
 using System.Linq;
+using OrderedJson.Core;
 
-[Serializable]
 public class Card :ICloneable
 {
     #region unique id
@@ -21,6 +21,7 @@ public class Card :ICloneable
 
     public int id = -1;                                 // 卡牌id
     public string name = "";                            // 卡牌名称
+    public string displayName = "";                     // 展示名称
     public string image = "";                           // 卡图url
     public int cost = 0;                                // 卡牌费用
     public bool isToken = false;
@@ -41,15 +42,11 @@ public class Card :ICloneable
     /// <summary>
     /// 卡牌特效(用于属性值光环, 每次光环更新前清空对应光环特效)
     /// </summary>
-    public List<Effect> effects = new List<Effect>();
+    public List<Card> effects = new List<Card>();
     /// <summary>
     /// 永久特效
     /// </summary>
-    public List<Effect> effectsStay = new List<Effect>();
-    /// <summary>
-    /// 自身特效
-    /// </summary>
-    public List<Effect> effectsOri = new List<Effect>();
+    public List<Card> effectsStay = new List<Card>();
     
     
     /// <summary>
@@ -65,7 +62,8 @@ public class Card :ICloneable
     public MinionType type = MinionType.General;
     public List<string> tag = new List<string>();
     public HashSet<Keyword> keyWords = new HashSet<Keyword>();
-    public Map<ProxyEnum, CardProxyDelegate> proxys = new Map<ProxyEnum, CardProxyDelegate>();
+    public Map<ProxyEnum, IOJMethod> methods = new Map<ProxyEnum, IOJMethod>();
+    public int Counter = 0;
 
     #endregion
 
@@ -73,64 +71,24 @@ public class Card :ICloneable
 
     public bool HasKeyword(Keyword keyword)
     {
-        if (keyWords.Contains(keyword)) return true;
-        bool HasKeyword(Effect effect)
-        {
-            if (effect is KeyWordEffect keyWordEffect)
-            {
-                return keyWordEffect.keyword == keyword;
-            }
-            return false;
-        }
-
-        if (effects.Any(HasKeyword)) return true;
-        return effectsStay.Any(HasKeyword);
+        return effects.Concat(effectsStay).Append(this).Any(card => card.keyWords.Contains(keyword));
     }
 
     public void RemoveKeyWord(Keyword keyword)
     {
-        if (keyWords.Contains(keyword))
-        {
-            keyWords.Remove(keyword);
-        }
-        if (effects.Count != 0)
-        {
-            for (int i = effects.Count - 1; i >= 0; i--)
-            {
-                if (effects[i] is KeyWordEffect keyWordEffect)
-                {
-                    if (keyWordEffect.keyword == keyword)
-                    {
-                        effects.Remove(effects[i]);
-                    }
-                }
+        effects.Concat(effectsStay).Append(this).Map(card => {
+            if (card.keyWords.Contains(keyword)) {
+                card.keyWords.Remove(keyword);
             }
-        }
-        if (effectsStay.Count != 0)
-        {
-            for (int i = effectsStay.Count - 1; i >= 0; i--)
-            {
-                if (effectsStay[i] is KeyWordEffect keyWordEffect)
-                {
-                    if (keyWordEffect.keyword == keyword)
-                    {
-                        effectsStay.Remove(effectsStay[i]);
-                    }
-                }
-            }
-        }
+        });
     }
 
     public HashSet<Keyword> GetAllKeywords()
     {
         HashSet<Keyword> ret = new HashSet<Keyword>();
-        ret.UnionWith(keyWords);
-        effects.Map<Effect, KeyWordEffect>()
-            .Map(effect => effect.keyword)
-            .Map(ret.Add);
-        effectsStay.Map<Effect, KeyWordEffect>()
-            .Map(effect=>effect.keyword)
-            .Map(ret.Add); 
+        effects.Concat(effectsStay).Append(this).Map(card => {
+            ret.UnionWith(card.keyWords);
+        });
 
         return ret;
     }
@@ -139,48 +97,34 @@ public class Card :ICloneable
     /// 获取目标委托，用于判定是否存在该委托
     /// 不要直接invoke获取到的委托!（这样不会自动为gameEvent.thisEffect赋值)
     /// </summary>
-    /// <param name="proxyEnum"></param>
-    /// <returns></returns>
-    public CardProxyDelegate GetProxys(ProxyEnum proxyEnum)
+    public IOJMethod GetProxys(ProxyEnum proxyEnum)
     {
-        CardProxyDelegate @delegate = null;
-        @delegate += proxys.GetByDefault(proxyEnum);
-        foreach (var effect in effects)
+        OJMethods methods = new OJMethods();
+        effects.Concat(effectsStay).Append(this).Map(card => {
+            if (card.methods.ContainsKey(proxyEnum))
+            {
+                methods.Add(card.methods[proxyEnum]);
+            }
+        });
+
+        if (methods.Any())
         {
-            if (effect is ProxyEffect proxyEffect && proxyEffect.proxyEnum == proxyEnum)
-                @delegate += proxyEffect.cardProxyDelegate;
+            return methods;
         }
-        foreach (var effect in effectsStay)
-        {
-            if (effect is ProxyEffect proxyEffect && proxyEffect.proxyEnum == proxyEnum)
-                @delegate += proxyEffect.cardProxyDelegate;
-        }
-        foreach (var effect in effectsOri)
-        {
-            if (effect is ProxyEffect proxyEffect && proxyEffect.proxyEnum == proxyEnum)
-                @delegate += proxyEffect.cardProxyDelegate;
-        }
-        return @delegate;
+        return null;
     }
 
     public ProxyEffects GetProxysByEffect(ProxyEnum proxyEnum)
     {
-        ProxyEffects proxysEffects = new ProxyEffects();
-        foreach (var effect in effects)
+        ProxyEffects proxysEffects = new ProxyEffects(proxyEnum);
+        foreach (var card in effects.Concat(effectsStay).Append(this))
         {
-            if (effect is ProxyEffect proxyEffect && proxyEffect.proxyEnum == proxyEnum)
-                proxysEffects.Add(proxyEffect);
+            if (card.methods.ContainsKey(proxyEnum))
+            {
+                proxysEffects.Add(card);
+            }
         }
-        foreach (var effect in effectsStay)
-        {
-            if (effect is ProxyEffect proxyEffect && proxyEffect.proxyEnum == proxyEnum)
-                proxysEffects.Add(proxyEffect);
-        }
-        foreach (var effect in effectsOri)
-        {
-            if (effect is ProxyEffect proxyEffect && proxyEffect.proxyEnum == proxyEnum)
-                proxysEffects.Add(proxyEffect);
-        }
+
 
         if (proxysEffects.Count == 0)
         {
@@ -191,23 +135,26 @@ public class Card :ICloneable
     }
 
     /// <summary>
-    /// dont use
+    /// 将方法绑定到卡牌本身（固有）
     /// </summary>
-    /// <param name="proxyEnum"></param>
-    /// <param name="cardProxyDelegate"></param>
-    public ProxyEffect AddProxyOri(ProxyEnum proxyEnum, CardProxyDelegate cardProxyDelegate, int setCounter = 0, bool makeGroup = false)
+    public void AddProxyOri(ProxyEnum proxyEnum, IOJMethod method)
     {
-        ProxyEffect effect = new ProxyEffect(proxyEnum, cardProxyDelegate)
+        if (methods.ContainsKey(proxyEnum))
         {
-            Counter = setCounter
-        };
-        if (makeGroup && effectsOri.Count>0)
-        {
-            effect.groupAs = effectsOri.Map<Effect, ProxyEffect>().GetOne();
+            IOJMethod oJMethod = methods[proxyEnum];
+            if (oJMethod is OJMethods oJMethods)
+            {
+                oJMethods.Add(method);
+            }
+            else
+            {
+                methods[proxyEnum] = new OJMethods(oJMethod, method);
+            }
         }
-
-        effectsOri.Add(effect);
-        return effect;
+        else
+        {
+            methods[proxyEnum] = method;
+        }
     }
 
     public bool InvokeProxy(ProxyEnum proxyEnum, GameEvent gameEvent)
@@ -217,7 +164,7 @@ public class Card :ICloneable
         bool answer = false;
         foreach(var proxy in proxys)
         {
-            answer = proxy.Invoke(gameEvent);
+            answer = proxy.InvokeProxy(proxyEnum, gameEvent);
         }
         return answer;
     }
@@ -230,22 +177,10 @@ public class Card :ICloneable
     public Vector2Int GetMinionBody()
     {
         Vector2Int body = new Vector2Int(attack, health);
-        foreach (var effect in effects)
-        {
-            if (effect is BodyPlusEffect bodyPlusEffect)
-            {
-                body.x += bodyPlusEffect.attack;
-                body.y += bodyPlusEffect.health;
-            }
-        }
-        foreach (var effect in effectsStay)
-        {
-            if (effect is BodyPlusEffect bodyPlusEffect)
-            {
-                body.x += bodyPlusEffect.attack;
-                body.y += bodyPlusEffect.health;
-            }
-        }
+        effects.Concat(effectsStay).Map(card => {
+            body.x += card.attack;
+            body.y += card.health;
+        });
 
         return body;
     }
@@ -258,14 +193,10 @@ public class Card :ICloneable
     public Vector2Int GetMinionBodyWithoutEffect()
     {
         Vector2Int body = new Vector2Int(attack, health);
-        foreach (var effect in effectsStay)
-        {
-            if (effect is BodyPlusEffect bodyPlusEffect)
-            {
-                body.x += bodyPlusEffect.attack;
-                body.y += bodyPlusEffect.health;
-            }
-        }
+        effectsStay.Map(card => {
+            body.x += card.attack;
+            body.y += card.health;
+        });
 
         return body;
     }
@@ -273,36 +204,16 @@ public class Card :ICloneable
     public Vector2Int GetExtraBody()
     {
         Vector2Int body = new Vector2Int();
-        foreach (var effect in effects)
-        {
-            if (effect is BodyPlusEffect bodyPlusEffect)
-            {
-                body.x += bodyPlusEffect.attack;
-                body.y += bodyPlusEffect.health;
-            }
-        }
-        foreach (var effect in effectsStay)
-        {
-            if (effect is BodyPlusEffect bodyPlusEffect)
-            {
-                body.x += bodyPlusEffect.attack;
-                body.y += bodyPlusEffect.health;
-            }
-        }
-
+        effects.Concat(effectsStay).Map(card => {
+            body.x += card.attack;
+            body.y += card.health;
+        });
         return body;
     }
 
     public void RemoveAuraEffect()
     {
         effects.Clear();
-        //for(int i = effects.Count - 1; i >= 0; i--)
-        //{
-        //    if (effects[i] is BodyPlusEffect)
-        //    {
-        //        effects.Remove(effects[i]);
-        //    }
-        //}
     }
     
     
@@ -349,17 +260,14 @@ public class Card :ICloneable
         card.keyWords = new HashSet<Keyword>();
         card.keyWords.UnionWith(keyWords);
 
-        card.effects = new List<Effect>();
+        card.effects = new List<Card>();
         card.effects.AddRange(effects);
 
-        card.effectsStay = new List<Effect>();
+        card.effectsStay = new List<Card>();
         card.effectsStay.AddRange(effectsStay);
 
-        card.effectsOri = new List<Effect>();
-        card.effectsOri.AddRange(effectsOri.Cast<ProxyEffect>().Select(p=>p.Copy()));
-
-        card.proxys = new Map<ProxyEnum, CardProxyDelegate>();
-        card.proxys.Update(proxys);
+        card.methods = new Map<ProxyEnum, IOJMethod>();
+        card.methods.Update(methods);
 
         return card;
     }
@@ -368,6 +276,7 @@ public class Card :ICloneable
     {
         id = card.id;
         name = card.name;
+        displayName = card.displayName;
         image = card.image;
         cost = card.cost;
         isToken = card.isToken;
@@ -379,21 +288,9 @@ public class Card :ICloneable
         health = card.health;
         tag = card.tag;
         keyWords = card.keyWords;
-        proxys = card.proxys;
-        
-        effectsOri = new List<Effect>();
-        effectsOri.AddRange(card.effectsOri);
-
-        if (IsMinionType(card.type) && effectsStay.Count > 0)
-        {
-            for (int i = effectsStay.Count - 1;i >= 0;i--)
-            { 
-                if (!(effectsStay[i] is BodyPlusEffect))
-                {
-                    effectsStay.Remove(effectsStay[i]);
-                }
-            }
-        }
+        methods = new Map<ProxyEnum, IOJMethod>();
+        methods.Update(card.methods);
+        effectsStay = card.effectsStay;
         type = card.type;
     }
 
@@ -412,40 +309,24 @@ public class Card :ICloneable
         health = card.health;
         tag = card.tag;
         keyWords = card.keyWords;
-        proxys = card.proxys;
+        methods = card.methods;
 
-        effects = new List<Effect>();
+        effects = new List<Card>();
         effects.AddRange(card.effects);
 
-        effectsStay = new List<Effect>();
-
-        foreach (Effect effect in card.effectsStay)
+        effectsStay = new List<Card>();
+        foreach (Card c in card.effectsStay)
         {
-            if (effect is BodyPlusEffect)
-            {
-                effectsStay.Add(effect);
-            }
+            effectsStay.Add(c);
         }
-
-        effectsOri = new List<Effect>();
-        effectsOri.AddRange(card.effectsOri);
-
-        foreach (Effect effect in card.effectsStay)
-        {
-            if (!(effect is BodyPlusEffect))
-            {
-                effectsStay.Add(effect);
-            }
-        }
-
         type = card.type;
     }
 
     public void TransformToNewCardWithoutEffects(Card card)
     {
         TransformToNewCardWithEffects(card);
-        effects = new List<Effect>();
-        effectsStay = new List<Effect>();
+        effects = new List<Card>();
+        effectsStay = new List<Card>();
     }
 
     public int GetPositionTag()
@@ -555,5 +436,7 @@ public enum CardType
     [Description("法术")]
     Spell,
     [Description("英雄")]
-    Hero
+    Hero,
+    [Description("Buff")]
+    Buff,
 }

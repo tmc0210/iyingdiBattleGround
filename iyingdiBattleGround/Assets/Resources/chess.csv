@@ -1,4 +1,4 @@
-阿,isToken,image,star,cost,isGold,attack,health,keyWords,longKeyWords,type,cardType,tag,SkillDescription,dcription,counters
+﻿阿,isToken,image,star,cost,isGold,attack,health,keyWords,longKeyWords,type,cardType,tag,SkillDescription,dcription,counters
 名称0,是否为token1,卡图2,星级3,打出费用4,是否是金卡5,攻击力6,生命值7,关键字8,带描述的关键字9,种族10,卡牌类型11,流派标签12,技能描述(替换自动生成的描述)13,背景描述14,计数器
 空随从,1,,0,0,0,0,0,,,,随从,,该随从用于代码实现中占位，请勿修改,,0;1;2
 鱼人招潮者,0,card1,1,0,0,1,2,,WhenMinionSummon:Plus1AttackWhenSummonAllyOr2;,鱼人,随从,2;特殊;鱼人,,,

@@ -78,29 +78,25 @@ public class GameAnimationSetting : MonoBehaviour
     #region game start from this
 
     
-    private void Start()
+    private IEnumerator Start()
     {
         GameStartSetting.instance.BeforeGameStart();
 
         VerText.text = Application.version;
 
-        StartGame();
-    }
-    private void Update()
-    {
-        DoLoopAnimation();
-    }
-
-    private void StartGame()
-    {
         InitTalkingData();
-        CardBuilder.InitAllCards();
+        yield return StartCoroutine(CardBuilder.InitAllCards());
         //gameController = gameObject.AddComponent<GameController>();
         //UnlockAllHero(true);
 
         gameController = new GameController(this);
         StartCoroutine(gameController.EGameStart());
     }
+    private void Update()
+    {
+        DoLoopAnimation();
+    }
+
 
     private void UnlockAllHero(bool lockCard)
     {
