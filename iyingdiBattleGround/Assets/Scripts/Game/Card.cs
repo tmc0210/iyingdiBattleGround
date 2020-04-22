@@ -64,6 +64,7 @@ public class Card :ICloneable
     public HashSet<Keyword> keyWords = new HashSet<Keyword>();
     public Map<ProxyEnum, IOJMethod> methods = new Map<ProxyEnum, IOJMethod>();
     public int Counter = 0;
+    public IOJMethod initMethod;
 
     #endregion
 
@@ -130,14 +131,13 @@ public class Card :ICloneable
         {
             return null;
         }
-
         return proxysEffects;
     }
 
     /// <summary>
-    /// 将方法绑定到卡牌本身（固有）
+    /// 将方法绑定到卡牌本身
     /// </summary>
-    public void AddProxyOri(ProxyEnum proxyEnum, IOJMethod method)
+    public void AddProxy(ProxyEnum proxyEnum, IOJMethod method)
     {
         if (methods.ContainsKey(proxyEnum))
         {
@@ -161,12 +161,15 @@ public class Card :ICloneable
     {
         var proxys = GetProxysByEffect(proxyEnum);
         if (proxys == null) return false;
-        bool answer = false;
-        foreach(var proxy in proxys)
+        object answer = false;
+        foreach (var card in proxys)
         {
-            answer = proxy.InvokeProxy(proxyEnum, gameEvent);
+            if (card.methods.ContainsKey(proxyEnum))
+            {
+                answer = card.methods[proxyEnum].Invoke(gameEvent);
+            }
         }
-        return answer;
+        return !(answer == null || answer == (object)false);
     }
 
     /// <summary>
