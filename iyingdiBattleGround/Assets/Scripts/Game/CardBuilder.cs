@@ -7,8 +7,6 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
-using OrderedJson;
-using OrderedJson.Core;
 
 public class CardBuilder
 {
@@ -33,18 +31,8 @@ public class CardBuilder
 
         var text = request.downloadHandler.text;
         //Debug.Log(text);
-        //var data = BIFStaticTool.ParseCsv(text);
-        var data = CsvFileReader.Parse(text);
+        var data = BIFStaticTool.ParseCsv(text);
         AllCards = ReadCSV(data);
-
-
-        GameEvent gameEvent = new GameEvent();
-        foreach (var pair in AllCards)
-        {
-            var card = pair.Value;
-            gameEvent.hostCard = card;
-            card.initMethod?.Invoke(gameEvent);
-        }
     }
 
     /// <summary>
@@ -53,8 +41,6 @@ public class CardBuilder
     /// <returns></returns>
     public static Map<int, Card> ReadCSV(List<List<string>> csvData)
     {
-        OJParser parser = new OJParser(typeof(CommonCommandDefiner));
-
         Map<int, Card> map = new Map<int, Card>();
         int idCnt = 0;
         foreach (var data in csvData)
@@ -104,9 +90,7 @@ public class CardBuilder
             string code = data[12];
             if (!string.IsNullOrEmpty(code))
             {
-                Debug.Log("parse:"+ code);
-                var method = parser.Parse(code, card.name);
-                card.initMethod = method;
+
             }
 
 
@@ -308,10 +292,6 @@ public class CardBuilder
     public static Card SearchCardByName(string name, bool isGold) //用于检索token
     {
         return AllCards.FilterValue(card=>card.isGold==isGold).Filter(card => card.name.Equals(name)).GetOne();
-    }
-    public static Card SearchBuffByName(string name) //用于检索buff
-    {
-        return AllCards.FilterValue(card => card.name.Equals(name) && card.cardType == CardType.Buff).GetOne();
     }
 }
 
