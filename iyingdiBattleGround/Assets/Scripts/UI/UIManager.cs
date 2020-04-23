@@ -28,13 +28,13 @@ public class UIManager : MonoBehaviour
         foreach (var go in PanelGos)
         {
             Panels.Add(go.GetComponent<UIPanel>());
-            go.SetActive(false);
+            //go.SetActive(false);
         }
     }
 
     private void Start()
     {
-        ShowPanel<IntroPanel>();
+        //ShowPanel<IntroPanel>();
     }
 
     /// <summary>
@@ -66,6 +66,11 @@ public class UIManager : MonoBehaviour
         var panel = Panels.Find(p => p is P);
         panel.gameObject.SetActive(true);
         panel.ShowPanel();
+    }
+
+    public P GetPanel<P>() where P : UIPanel
+    {
+        return (P)Panels.Find(p => p is P);
     }
 
 }

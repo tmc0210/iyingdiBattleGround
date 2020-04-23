@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class HeroChoosePage : UIPanel
 {
-    
+    public override void ShowPanel<Data>(Data data)
+    {
+        
+    }
 
     public void ClickBack()
     {
@@ -16,4 +19,10 @@ public class HeroChoosePage : UIPanel
     {
         //TODO:进入选牌
     }
+}
+
+public class HeroData
+{
+    public List<Card> unLockedHero;
+    public List<Card> lockedHero;
 }
