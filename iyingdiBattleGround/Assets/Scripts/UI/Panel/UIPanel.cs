@@ -15,7 +15,7 @@ public class UIPanel : MonoBehaviour
     /// </summary>
     /// <typeparam name="Data"></typeparam>
     /// <param name="data"></param>
-    public virtual void ShowPanel<Data>(Data data)
+    public virtual void ShowPanel(UIData data)
     {
 
     }
@@ -42,5 +42,9 @@ public class UIPanel : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         action();
     }
+}
+
+public class UIData
+{
 
 }

@@ -4,9 +4,20 @@ using UnityEngine;
 
 public class HeroChoosePage : UIPanel
 {
-    public override void ShowPanel<Data>(Data data)
+    public Transform content;
+    public GameObject heroBarGO;
+
+    public override void ShowPanel(UIData data)
     {
-        
+        HeroData heroData = data as HeroData;
+        foreach (var card in heroData.unLockedHero)
+        {
+            Instantiate(heroBarGO, content).GetComponent<HeroBar>().SetHero(card, false);
+        }
+        foreach (var card in heroData.unLockedHero)
+        {
+            Instantiate(heroBarGO, content).GetComponent<HeroBar>().SetHero(card, false);
+        }
     }
 
     public void ClickBack()
@@ -21,7 +32,7 @@ public class HeroChoosePage : UIPanel
     }
 }
 
-public class HeroData
+public class HeroData : UIData
 {
     public List<Card> unLockedHero;
     public List<Card> lockedHero;

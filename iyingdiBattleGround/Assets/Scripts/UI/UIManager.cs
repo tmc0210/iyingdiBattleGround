@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
     /// <typeparam name="P">想要显示的面板</typeparam>
     /// <typeparam name="Data">想要传输的UI数据类型</typeparam>
     /// <param name="data">想要传输的UI数据类型</param>
-    public void ShowPanel<P, Data>(Data data) where P : UIPanel
+    public void ShowPanel<P, Data>(UIData data) where P : UIPanel
     {
         var panel = Panels.Find(p => p is P);
         panel.gameObject.SetActive(true);
