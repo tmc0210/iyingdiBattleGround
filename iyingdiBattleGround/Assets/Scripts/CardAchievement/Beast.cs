@@ -301,7 +301,7 @@ public partial class CardLongKeywordAchievement
             Card targetCard = gameEvent.player.board.GetAnotherPlayer(gameEvent.player).RandomlyGetAliveMinion();
             if (targetCard != null)
             {
-                gameEvent.player.board.HurtMinion(new GameEvent()
+                gameEvent.player.board.DealDamageToMinion(new GameEvent()
                 {
                     hostCard = gameEvent.hostCard,
                     targetCard = targetCard,

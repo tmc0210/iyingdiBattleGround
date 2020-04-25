@@ -48,7 +48,7 @@ public partial class CardLongKeywordAchievement
     [CommonDescription("生命值上限翻倍")]
     public static bool DoubleYourHeroHealth(GameEvent gameEvent)
     {
-        gameEvent.player.hero.effectsStay.Add(new BodyPlusEffect(0,gameEvent.player.hero.GetMinionBody().y));
+        gameEvent.player.hero.effectsStay.Add(new BodyPlusEffect(0,30));
         return true;
     }
 

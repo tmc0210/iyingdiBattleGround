@@ -817,15 +817,15 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 软泥教授弗洛普
     /// </summary>
-    [CommonDescription("变成它的3/4复制")]
-    [GoldDescription("变成它的3/4复制")]
+    [CommonDescription("变成它的3/4的白板复制")]
+    [GoldDescription("变成它的3/4的白板复制")]
     public static bool TransformTo34CopyOfMinion(GameEvent gameEvent)
     {
         int value1 = 3;
         int value2 = 4;
 
         Card tmp = CardBuilder.SearchCardByName("软泥教授弗洛普", gameEvent.hostCard.isGold);
-        gameEvent.hostCard.TransformToNewCardWithEffects(gameEvent.targetCard.NewCard());
+        gameEvent.hostCard.TransformToNewCardWithEffects(CardBuilder.SearchCardByName(gameEvent.targetCard.name, false).NewCard());
         gameEvent.hostCard.effectsStay.Add(new BodyPlusEffect(value1 - gameEvent.hostCard.GetMinionBody().x,value2 - gameEvent.hostCard.GetMinionBody().y));
         gameEvent.hostCard.effectsStay.Add(new ProxyEffect(ProxyEnum.AfterMinionPlayedInHand, tmp.GetProxys(ProxyEnum.AfterMinionPlayedInHand)));
         gameEvent.hostCard.effectsStay.Add(new KeyWordEffect(Keyword.Changing));
@@ -835,15 +835,15 @@ public partial class CardLongKeywordAchievement
     /// <summary>
     /// 软泥教授弗洛普
     /// </summary>
-    [CommonDescription("变成它的6/8复制")]
-    [GoldDescription("变成它的6/8复制")]
+    [CommonDescription("变成它的6/8的金色白板复制")]
+    [GoldDescription("变成它的6/8金色白板复制")]
     public static bool TransformTo68CopyOfMinion(GameEvent gameEvent)
     {
         int value1 = 6;
         int value2 = 8;
 
         Card tmp = CardBuilder.SearchCardByName("软泥教授弗洛普", gameEvent.hostCard.isGold);
-        gameEvent.hostCard.TransformToNewCardWithEffects(gameEvent.targetCard.NewCard());
+        gameEvent.hostCard.TransformToNewCardWithEffects(CardBuilder.SearchCardByName(gameEvent.targetCard.name, true).NewCard());
         gameEvent.hostCard.effectsStay.Add(new BodyPlusEffect(value1 - gameEvent.hostCard.GetMinionBody().x, value2 - gameEvent.hostCard.GetMinionBody().y));
         gameEvent.hostCard.effectsStay.Add(new ProxyEffect(ProxyEnum.AfterMinionPlayedInHand, tmp.GetProxys(ProxyEnum.AfterMinionPlayedInHand)));
         gameEvent.hostCard.effectsStay.Add(new KeyWordEffect(Keyword.Changing));

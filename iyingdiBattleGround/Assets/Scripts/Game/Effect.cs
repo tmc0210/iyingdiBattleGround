@@ -272,6 +272,9 @@ public enum ProxyEnum {
     [CommonDescription("随从打出后,如果该随从在手牌中")]
     AfterMinionPlayedInHand,
 
+    [CommonDescription("随从打出后,如果该随从在酒馆中出售（未实现）")]
+    AfterMinionPlayedOnSale,
+
     [Description("闪电")]
     [CommonDescription("每当你升级酒馆后")]
     AfterUpgrade,
