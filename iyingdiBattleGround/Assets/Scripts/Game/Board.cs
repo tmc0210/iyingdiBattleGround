@@ -1160,37 +1160,37 @@ public class Board
     public void Dealthrattle(GameEvent gameEvent)
     {
         int DealthrattleNum = 1;
-        foreach (var item in gameEvent.player.hero.effects)
-        {
-            if (item is TripleDeathrattleEffect)
-            {
-                DealthrattleNum = 3;
-            }
-        }
-        foreach (var item in gameEvent.player.hero.effectsStay)
-        {
-            if (item is TripleDeathrattleEffect)
-            {
-                DealthrattleNum = 3;
-            }
-        }
-        if (DealthrattleNum < 3)
-        {
-            foreach (var item in gameEvent.player.hero.effects)
-            {
-                if (item is DouleDeathrattleEffect)
-                {
-                    DealthrattleNum = 2;
-                }
-            }
-            foreach (var item in gameEvent.player.hero.effectsStay)
-            {
-                if (item is DouleDeathrattleEffect)
-                {
-                    DealthrattleNum = 2;
-                }
-            }
-        }
+        //foreach (var item in gameEvent.player.hero.effects)
+        //{
+        //    if (item is TripleDeathrattleEffect)
+        //    {
+        //        DealthrattleNum = 3;
+        //    }
+        //}
+        //foreach (var item in gameEvent.player.hero.effectsStay)
+        //{
+        //    if (item is TripleDeathrattleEffect)
+        //    {
+        //        DealthrattleNum = 3;
+        //    }
+        //}
+        //if (DealthrattleNum < 3)
+        //{
+        //    foreach (var item in gameEvent.player.hero.effects)
+        //    {
+        //        if (item is DouleDeathrattleEffect)
+        //        {
+        //            DealthrattleNum = 2;
+        //        }
+        //    }
+        //    foreach (var item in gameEvent.player.hero.effectsStay)
+        //    {
+        //        if (item is DouleDeathrattleEffect)
+        //        {
+        //            DealthrattleNum = 2;
+        //        }
+        //    }
+        //}
         for (int i = 0; i < DealthrattleNum; i++)
         {
             if (gameEvent.hostCard.InvokeProxy(ProxyEnum.Deathrattle, gameEvent))

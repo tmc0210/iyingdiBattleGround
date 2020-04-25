@@ -26,12 +26,14 @@ public class CardBuilder
     }
     public static IEnumerator InitAllCards()
     {
+        //ModManger.GetModsName();
+
         var path = GetCSVPath("Buildin");
         //Debug.Log(path);
         var request = UnityWebRequest.Get(path);
         yield return request.SendWebRequest();
-
         var text = request.downloadHandler.text;
+        request.downloadHandler.Dispose();
         //Debug.Log(text);
         //var data = BIFStaticTool.ParseCsv(text);
         var data = CsvFileReader.Parse(text);
@@ -51,9 +53,12 @@ public class CardBuilder
     /// 读取csv文件，创建所有卡牌的原型
     /// </summary>
     /// <returns></returns>
-    public static Map<int, Card> ReadCSV(List<List<string>> csvData)
+    public static Map<int, Card> ReadCSV(List<List<string>> csvData, OJParser parser = null)
     {
-        OJParser parser = new OJParser(typeof(CommonCommandDefiner));
+        if (parser == null)
+        {
+            parser = new OJParser(typeof(CommonCommandDefiner));
+        }
 
         Map<int, Card> map = new Map<int, Card>();
         int idCnt = 0;
@@ -104,7 +109,7 @@ public class CardBuilder
             string code = data[12];
             if (!string.IsNullOrEmpty(code))
             {
-                Debug.Log("parse:"+ code);
+                //Debug.Log("parse:"+ code);
                 var method = parser.Parse(code, card.name);
                 card.initMethod = method;
             }
@@ -194,7 +199,7 @@ public class CardBuilder
 
     public static string GetCardDescription(Card card)
     {
-        return null;
+        return card.skillDescription;
     }
 
     public static string GetCardDescriptionContainsKeyword(Card card)

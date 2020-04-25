@@ -64,7 +64,7 @@ public class TestWindow : EditorWindow
     private void OnGUI()
     {
 
-        if (CardBuilder.AllCards != null && Application.isPlaying)
+        if (CardBuilder.AllCards != null &&  Application.isPlaying)
         {
             EditorGUILayout.HelpBox("在对战中点击卡牌生成卡牌\n在对战前点击宝藏获得宝藏", MessageType.Info);
             if (GUILayout.Button("增加十块钱"))
@@ -184,6 +184,7 @@ public class TestWindow : EditorWindow
                 foreach (var id in cards)
                 {
                     var card = CardBuilder.GetCard(id);
+                    if (card == null) continue;
                     if (GUILayout.Button(card.name + "******".Substring(0, card.star)))
                     {
                         CreateNewCard(card);

@@ -1,0 +1,2 @@
+﻿//id,remapCode,description
+Ifnotself,"if: {not:host.equals:target}, $1",test

@@ -147,7 +147,6 @@ GameStart:
             isGotResponse = true;
         };
         gameAnimationSetting.ShowIntroSence();
-
         yield return StartCoroutine(WaitForGotResponse());
     }
 
@@ -446,7 +445,7 @@ GameStart:
                     card.Lock = false;
                 }
             });
-        Debug.Log("load card " + names.Count);
+        Debug.Log("load unlocked card " + names.Count);
         Card defaultHero = CardBuilder.SearchCardByName(herosUnlockChain[0]);
         if (defaultHero != null)
         {

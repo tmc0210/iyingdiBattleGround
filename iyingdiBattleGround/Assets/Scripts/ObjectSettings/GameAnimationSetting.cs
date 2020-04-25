@@ -84,8 +84,9 @@ public class GameAnimationSetting : MonoBehaviour
 
         VerText.text = Application.version;
 
+        yield return StartCoroutine(ModManger.LoadModsByName(ModManger.GetModsName(), this));
         InitTalkingData();
-        yield return StartCoroutine(CardBuilder.InitAllCards());
+        //yield return StartCoroutine(CardBuilder.InitAllCards());
         //gameController = gameObject.AddComponent<GameController>();
         //UnlockAllHero(true);
 
