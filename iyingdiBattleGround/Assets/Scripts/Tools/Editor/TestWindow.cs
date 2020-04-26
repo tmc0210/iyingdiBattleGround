@@ -221,7 +221,7 @@ public class TestWindow : EditorWindow
         GameAnimationSetting.instance.board?.AddCoin(10);
     }
 
-    private static void CreateNewCard(Card card)
+    public static void CreateNewCard(Card card)
     {
         if (card.tag.Contains("宝藏"))
         {

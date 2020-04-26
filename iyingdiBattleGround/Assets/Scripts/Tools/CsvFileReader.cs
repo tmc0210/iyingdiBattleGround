@@ -10,11 +10,12 @@ public static class CsvFileReader
         var builder = new StringBuilder();
         foreach (var line in lines)
         {
+            if (string.IsNullOrEmpty(line)) continue;
             builder.Clear();
             var comma = false;
             var array = line.ToCharArray();
             var values = new List<string>();
-            var length = array.Length - 1;
+            var length = array.Length;
             var index = 0;
             while (index < length)
             {
@@ -49,8 +50,7 @@ public static class CsvFileReader
                 }
             }
             values.Add(builder.ToString());
-            var count = values.Count;
-            if (count == 0) continue;
+            if (values.Count == 0) continue;
             list.Add(values);
         }
         return list;

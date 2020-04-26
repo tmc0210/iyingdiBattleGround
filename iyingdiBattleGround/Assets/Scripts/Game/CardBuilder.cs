@@ -12,7 +12,8 @@ using OrderedJson.Core;
 
 public class CardBuilder
 {
-    static public Map<int, Card> AllCards = null;
+    public static Map<int, Card> AllCards = null;
+    public static int idCnt = 0;
 
     /// <summary>
     /// 根据卡牌id创建Card
@@ -61,60 +62,14 @@ public class CardBuilder
         }
 
         Map<int, Card> map = new Map<int, Card>();
-        int idCnt = 0;
+        //idCnt = 0;
         foreach (var data in csvData)
         {
             if (string.IsNullOrEmpty(data[0])) continue;
             if (data[0].StartsWith("//")) continue;
 
-            Card card = new Card
-            {
-                // 读取基本属性
-                id = idCnt++,
-                name = data[0],
-                displayName = data[1],
-                cardType = BIFStaticTool.GetEnumDescriptionEnumSaved(data[2], CardType.Minion),
-                type = BIFStaticTool.GetEnumDescriptionEnumSaved(data[3], MinionType.General),
-                isToken = BIFStaticTool.ParseInt(data[4]) > 0,
-                image = data[5],
-                star = BIFStaticTool.ParseInt(data[6]),
-                cost = BIFStaticTool.ParseInt(data[7]),
-                isGold = BIFStaticTool.ParseInt(data[8]) > 0,
-                attack = BIFStaticTool.ParseInt(data[9]),
-                health = BIFStaticTool.ParseInt(data[10]),
-                skillDescription = data[13],
-                description = data[14],
-                unlockDescription = data[15],
-            };
-
-            // 读取keyword
-            string[] keywordStrings = data[11].Split(';', '，');
-            foreach (var keywordString in keywordStrings)
-            {
-                //KeyWord keyword = GetKeywordByDescription(keywordString);
-                Keyword keyword = BIFStaticTool.GetEnumDescriptionEnumSaved(keywordString, Keyword.None);
-                if (keyword != Keyword.None)
-                {
-                    card.keyWords.Add(keyword);
-                }
-            }
-
-            // 读取流派标签
-            if (!string.IsNullOrEmpty(data[15]))
-            {
-                card.tag = new List<string>(data[15].Split('；', ';'));
-            }
-
-            // 读取长关键字
-            string code = data[12];
-            if (!string.IsNullOrEmpty(code))
-            {
-                //Debug.Log("parse:"+ code);
-                var method = parser.Parse(code, card.name);
-                card.initMethod = method;
-            }
-
-
+            Card card = NewCardByCsvData(data, parser);
+            card.id = idCnt++;
 
             map[card.id] = card;
         }
@@ -148,6 +103,69 @@ public class CardBuilder
 
         return map;
     }
+
+    public static Card NewCardByCsvData(List<string> data, OJParser parser = null)
+    {
+        if (parser == null) parser = ModManger.parser;
+        Card card = new Card
+        {
+            // 读取基本属性
+            //id = idCnt++,
+            name = data[0],
+            displayName = data[1],
+            cardType = BIFStaticTool.GetEnumDescriptionEnumSaved(data[2], CardType.Minion),
+            type = BIFStaticTool.GetEnumDescriptionEnumSaved(data[3], MinionType.General),
+            isToken = BIFStaticTool.ParseInt(data[4]) > 0,
+            image = data[5],
+            star = BIFStaticTool.ParseInt(data[6]),
+            cost = BIFStaticTool.ParseInt(data[7]),
+            isGold = BIFStaticTool.ParseInt(data[8]) > 0,
+            attack = BIFStaticTool.ParseInt(data[9]),
+            health = BIFStaticTool.ParseInt(data[10]),
+            skillDescription = data[13],
+            description = data[14],
+            unlockDescription = data[15],
+        };
+
+        // 读取keyword
+        string[] keywordStrings = data[11].Split(';', '，');
+        foreach (var keywordString in keywordStrings)
+        {
+            //KeyWord keyword = GetKeywordByDescription(keywordString);
+            Keyword keyword = BIFStaticTool.GetEnumDescriptionEnumSaved(keywordString, Keyword.None);
+            if (keyword != Keyword.None)
+            {
+                card.keyWords.Add(keyword);
+            }
+        }
+
+        // 读取流派标签
+        if (!string.IsNullOrEmpty(data[15]))
+        {
+            card.tag = new List<string>(data[15].Split('；', ';'));
+        }
+
+        // 读取长关键字
+        string code = data[12];
+        if (!string.IsNullOrEmpty(code))
+        {
+            //Debug.Log("parse:"+ code);
+
+            try
+            {
+                var method = parser.Parse(code, card.name);
+                card.initMethod = method;
+            }
+            catch (OJException e)
+            {
+                $"[Error] {e.Message}".LogToFile();
+                Debug.LogWarning(e);
+            }
+        }
+
+        return card;
+    }
+
 
     private static string GetCSVPath(string v)
     {

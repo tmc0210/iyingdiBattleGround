@@ -6,6 +6,13 @@ using UnityEngine;
 public static partial class CommonCommandDefiner
 {
 
+    public static bool Own(GameEvent gameEvent, Card card)
+    {
+        if (gameEvent.player.battlePile.Contains(card)) return true;
+        if (gameEvent.player.handPile.Contains(card)) return true;
+        return false;
+    }
+
     public static Card Target(GameEvent gameEvent)
     {
         return gameEvent.targetCard;
@@ -41,6 +48,7 @@ public static partial class CommonCommandDefiner
     public static void Log(GameEvent gameEvent, object msg)
     {
         Debug.Log(msg);
+        $"[Log] {gameEvent.hostCard.name}: {msg}".LogToFile();
     }
 
     public static bool True(GameEvent gameEvent)

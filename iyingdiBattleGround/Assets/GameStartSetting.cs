@@ -17,4 +17,9 @@ public class GameStartSetting : MonoBehaviour
     {
         //BIF.BIFStaticTool.ReadExcel("test.xlsx");
     }
+
+    private void OnDestroy()
+    {
+        ModManger.StopReadCmdFile();
+    }
 }
