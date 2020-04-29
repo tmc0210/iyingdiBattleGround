@@ -23,6 +23,11 @@ public static partial class CommonCommandDefiner
         return false;
     }
 
+    public static void Trigger(GameEvent gameEvent)
+    {
+        gameEvent.Trigger = true;
+    }
+
 
     public static bool IsType(GameEvent gameEvent, Card card, string type)
     {

@@ -13,6 +13,15 @@ public static partial class CommonCommandDefiner
     }
     public static List<Card> AllOpponentMinions(GameEvent gameEvent)
     {
-        return gameEvent.player.board.GetAnotherPlayer(gameEvent.player).GetAllAllyMinion();
+        return gameEvent.player.board.GetAnotherPlayer(gameEvent.player).GetAllAllyMinionWithHealthabove0();
+    }
+
+    //public static Card OpponentRandomCard(GameEvent gameEvent)
+    //{
+    //    return gameEvent.player.board.GetAnotherPlayer(gameEvent.player).RandomlyGetAliveMinion();
+    //}
+    public static Card GetRandomCard(GameEvent gameEvent, List<Card> cards)
+    {
+        return cards.GetOneRandomly();
     }
 }

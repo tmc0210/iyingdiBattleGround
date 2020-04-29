@@ -263,8 +263,18 @@ public class GameEvent: OJContext
     public int number = 0; //伤害的数值
 
     #region for context
+    /// <summary>
+    /// 当前正在执行委托函数的卡
+    /// </summary>
     public Card thisEffect = null;
+    /// <summary>
+    /// foreachCard中指示当前卡牌的变量
+    /// </summary>
     public Card Cursor = null;
+    /// <summary>
+    /// 指示委托的返回值
+    /// </summary>
+    public bool Trigger = false;
     #endregion
 }
 

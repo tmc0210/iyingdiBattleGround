@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// 控制流 语言相关, +-*/
+/// 控制流 语言相关
 /// </summary>
 public static partial class CommonCommandDefiner
 {
@@ -43,6 +43,14 @@ public static partial class CommonCommandDefiner
     public static Card Cur(GameEvent gameEvent)
     {
         return gameEvent.Cursor;
+    }
+
+    public static void Repeat(GameEvent gameEvent, int times, IOJMethod method)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            method.Invoke(gameEvent);
+        }
     }
 
     public static void Log(GameEvent gameEvent, object msg)

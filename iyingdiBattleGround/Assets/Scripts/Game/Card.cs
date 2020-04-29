@@ -161,16 +161,16 @@ public class Card :ICloneable
     {
         var proxys = GetProxysByEffect(proxyEnum);
         if (proxys == null) return false;
-        object answer = false;
 
         foreach (var card in proxys)
         {
             if (card.methods.ContainsKey(proxyEnum))
             {
                 gameEvent.thisEffect = card;
+                gameEvent.Trigger = false;
                 try
                 {
-                    answer = card.methods[proxyEnum].Invoke(gameEvent);
+                    card.methods[proxyEnum].Invoke(gameEvent);
                 }
                 catch (RuntimeException e)
                 {
@@ -178,7 +178,8 @@ public class Card :ICloneable
                 }
             }
         }
-        return !(answer == null || answer == (object)false);
+        //return !(answer == null || answer == (object)false);
+        return gameEvent.Trigger;
     }
 
     /// <summary>
