@@ -262,7 +262,10 @@ public class GameEvent: OJContext
     public Card targetCard = null;
     public int number = 0; //伤害的数值
 
-    public ProxyEffect thisEffect = null;
+    #region for context
+    public Card thisEffect = null;
+    public Card Cursor = null;
+    #endregion
 }
 
 

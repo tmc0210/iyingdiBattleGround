@@ -1,3 +1,5 @@
 ﻿//id,remapCode,description
-Ifnotself,"if: {not:host.equals:target}, $1",test
-ifown,"if: {target.own}, $1",
+Ifnotself,"if: {not host.equals:target}, $1",如果目标卡不是自身
+ifown,"if: {target.own}, $1",如果目标卡属于我方
+gold,host.isGold,本身是否是金卡
+IfOwnAndNotSelf,ifown: ifnotSelf: $1,

@@ -70,7 +70,10 @@ public static class ModManger
     {
         CardBuilder.AllCards = new BIF.Map<int, Card>();
         parser = new OJParser(typeof(CommonCommandDefiner));
-
+        foreach (var pair in ProxyEventDefiner.GetProxyEvents())
+        {
+            parser.AddMethod(pair.Key, pair.Value);
+        }
 
         foreach (var modName in modNames)
         {
@@ -197,7 +200,7 @@ public static class ModManger
     public static void StartReadCmdFile()
     {
         $"游戏开始接受卡牌创建指令...".LogToFile();
-        Debug.Log("start cmd...");
+        Debug.Log("开始接受卡牌创建指令...");
 #if UNITY_STANDALONE
         if (!File.Exists(CommandFilePath))
         {
@@ -221,7 +224,7 @@ public static class ModManger
             fs.Seek(0, SeekOrigin.End);
             while (true)
             {
-                Debug.Log("get cmd...");
+                //Debug.Log("get cmd...");
                 int length = fs.Read(buffer, 0, 1024 * 10);
                 string cmdText = Encoding.UTF8.GetString(buffer, 0, length).Trim();
                 if (!string.IsNullOrEmpty(cmdText))
@@ -230,7 +233,7 @@ public static class ModManger
                     var csvDate = CsvFileReader.Parse(cmdText);
                     foreach (var line in csvDate)
                     {
-                        Debug.Log($"get cmd...{line.Count}");
+                        //Debug.Log($"get cmd...{line.Count}");
                         Card nCard = CardBuilder.NewCardByCsvData(line);
                         try
                         {
@@ -240,9 +243,20 @@ public static class ModManger
                             };
                             nCard.initMethod?.Invoke(gameEvent);
                             var oldCard = CardBuilder.SearchCardByName(nCard.name, false);
-                            nCard.id = oldCard.id;
-                            nCard.goldVersion = oldCard.goldVersion;
-                            CardBuilder.AllCards[nCard.id] = nCard;
+                            if (oldCard != null)
+                            {
+                                nCard.id = oldCard.id;
+                                nCard.goldVersion = oldCard.goldVersion;
+                                CardBuilder.AllCards[nCard.id] = nCard;
+                            }
+                            else
+                            {
+                                nCard.id = CardBuilder.idCnt++;
+                                var goldenCard = CardBuilder._GetNewGoldenCard(nCard);
+                                nCard.goldVersion = goldenCard.id;
+                                CardBuilder.AllCards[nCard.id] = nCard;
+                                CardBuilder.AllCards[goldenCard.id] = goldenCard;
+                            }
                             GameAnimationSetting.instance.board?.CreateCard(nCard);
                         }
                         catch (OJException e)

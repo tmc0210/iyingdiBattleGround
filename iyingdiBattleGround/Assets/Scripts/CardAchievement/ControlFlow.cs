@@ -1,26 +1,16 @@
 ﻿using OrderedJson.Core;
+using OrderedJson.Definer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// 控制流 语言相关, +-*/
+/// </summary>
 public static partial class CommonCommandDefiner
 {
 
-    public static bool Own(GameEvent gameEvent, Card card)
-    {
-        if (gameEvent.player.battlePile.Contains(card)) return true;
-        if (gameEvent.player.handPile.Contains(card)) return true;
-        return false;
-    }
-
-    public static Card Target(GameEvent gameEvent)
-    {
-        return gameEvent.targetCard;
-    }
-    public static Card Host(GameEvent gameEvent)
-    {
-        return gameEvent.hostCard;
-    }
 
     public static void If(GameEvent gameEvent, bool condition, IOJMethod action)
     {
@@ -30,23 +20,34 @@ public static partial class CommonCommandDefiner
         }
     }
 
-    public static bool IsType(GameEvent gameEvent, Card card, string type)
+    public static object IfElse(GameEvent gameEvent, bool condition, IOJMethod _if, IOJMethod _else)
     {
-        var minionType = BIF.BIFStaticTool.GetEnumDescriptionEnumSaved<MinionType>(type, MinionType.General);
-        return card.IsMinionType(minionType);
-    }
-    public static void AddBuff(GameEvent gameEvent, Card card, string buff)
-    {
-        //Debug.Log("添加buff:" + buff);
-        Card buffCard = CardBuilder.SearchBuffByName(buff);
-        if (buffCard != null)
+        if (condition)
         {
-            card.effectsStay.Add(buffCard);
+            return _if.Invoke(gameEvent);
         }
+        else
+        {
+            return _else.Invoke(gameEvent);
+        }
+    }
+
+    public static void ForeachCard(GameEvent gameEvent, List<Card> cards, IOJMethod action)
+    {
+        foreach (var card in cards)
+        {
+            gameEvent.Cursor = card;
+            action.Invoke(gameEvent);
+        }
+    }
+    public static Card Cur(GameEvent gameEvent)
+    {
+        return gameEvent.Cursor;
     }
 
     public static void Log(GameEvent gameEvent, object msg)
     {
+        msg = msg.OJGetValue(gameEvent);
         Debug.Log(msg);
         $"[Log] {gameEvent.hostCard.name}: {msg}".LogToFile();
     }
@@ -59,31 +60,14 @@ public static partial class CommonCommandDefiner
     {
         return false;
     }
-    public static bool Equals(GameEvent gameEvent, object obj1, object obj2)
-    {
-        if (obj1 is IOJMethod method1)
-        {
-            obj1 = method1.Invoke(gameEvent);
-        }
-        if (obj2 is IOJMethod method2)
-        {
-            obj2 = method2.Invoke(gameEvent);
-        }
-        if (obj1 == obj2) return true;
-        if (obj1.Equals(obj2)) return true;
-        return false;
-    }
+    
+    //public static bool Equals(GameEvent gameEvent, object obj1, object obj2)
+    //{
+    //    obj1 = obj1.OJGetValue(gameEvent);
+    //    obj2 = obj2.OJGetValue(gameEvent);
+    //    if (obj1 == obj2) return true;
+    //    if (obj1.Equals(obj2)) return true;
+    //    return false;
+    //}
 
-    public static bool Not(GameEvent gameEvent, bool value)
-    {
-        return !value;
-    }
-
-    public static void IFNotSelf(GameEvent gameEvent, IOJMethod method)
-    {
-        if (gameEvent.targetCard != gameEvent.hostCard)
-        {
-            method.Invoke(gameEvent);
-        }
-    }
 }

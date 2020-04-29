@@ -29,7 +29,8 @@ public abstract class Enemy
 
     public virtual void SetLevel(int level)
     {
-        Debug.LogWarning("add 10 health");
+        //Debug.LogWarning("add 10 health");
+        CommonCommandDefiner.AddBodyBuff(null, player.hero, 0, 10 * (level - 1));
         //player.hero.effectsStay.Add(new BodyPlusEffect(0, 10 * (level - 1)));
         //if (level >= 2)
         //{

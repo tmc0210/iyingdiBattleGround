@@ -162,11 +162,20 @@ public class Card :ICloneable
         var proxys = GetProxysByEffect(proxyEnum);
         if (proxys == null) return false;
         object answer = false;
+
         foreach (var card in proxys)
         {
             if (card.methods.ContainsKey(proxyEnum))
             {
-                answer = card.methods[proxyEnum].Invoke(gameEvent);
+                gameEvent.thisEffect = card;
+                try
+                {
+                    answer = card.methods[proxyEnum].Invoke(gameEvent);
+                }
+                catch (RuntimeException e)
+                {
+                    $"[Error]{this.name} {card.name}: {e.Message}".LogToFile();
+                }
             }
         }
         return !(answer == null || answer == (object)false);

@@ -236,7 +236,9 @@ GameStart:
 
         // player 每关+10血
         //boardInitArgs.player.hero.effectsStay.Add(new BodyPlusEffect(0, 10*level - 10));
-        Debug.LogWarning("add 10 health");
+        //Debug.LogWarning("add 10 health");
+        CommonCommandDefiner.AddBodyBuff(null, boardInitArgs.player.hero, 0, 10 * (level - 1));
+
         Card enemyBackup = boardInitArgs.enemy.player.hero.NewCard();
 
         yield return StartCoroutine(EIntroEnmey(boardInitArgs.enemy.player, level));

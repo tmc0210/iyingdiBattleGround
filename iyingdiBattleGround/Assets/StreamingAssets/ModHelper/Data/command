@@ -71,3 +71,36 @@
 鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.Addbuff:""加一攻""",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
 鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.Addbuff:""加一攻""",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
 损坏的傀儡,损坏的傀儡,随从,机械,1,card8,1,,,2,1,,,,,
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.Addbuff:""加一攻""",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+老鼠,老鼠,随从,野兽,1,card14,1,,,1,1,,,,,
+雌斑虎,雌斑虎,随从,野兽,1,card19,1,,,1,1,,,,,2
+小鬼,小鬼,随从,恶魔,1,card25,1,,,1,1,,,,,
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.Addbuff:""加一攻""",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.Addbuff:""加一攻""",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者2,鱼人招潮者2,随从,鱼人,0,card1,1,,,1,6,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.Addbuff:""加一攻""",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者2,鱼人招潮者2,随从,鱼人,0,card1,1,,,1,6,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.Addbuff:""加一攻""",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者2,鱼人招潮者2,随从,鱼人,0,card1,1,,,1,6,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.Addbuff:""加一攻""",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.Addbuff:""加一攻""",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人领军,鱼人领军,随从,鱼人,0,card2,2,,,3,3,,,,,4;鱼人流;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人领军,鱼人领军,随从,鱼人,0,card2,2,,,3,3,,,,,4;鱼人流;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人领军,鱼人领军,随从,鱼人,0,card2,2,,,3,3,,,,,4;鱼人流;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人领军,鱼人领军,随从,鱼人,0,card2,2,,,3,3,,,,,4;鱼人流;鱼人
+回收机器人,回收机器人,随从,机械,0,card4,5,,,1,5,,,,,3;机械流;机械
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:1,0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人领军,鱼人领军,随从,鱼人,0,card2,2,,,3,3,,,,,4;鱼人流;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:{Add:gold, 1},0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:{Add:gold, 1},0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:{Add:gold, 1},0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
+鱼人领军,鱼人领军,随从,鱼人,0,card2,2,,,3,3,,,,,4;鱼人流;鱼人

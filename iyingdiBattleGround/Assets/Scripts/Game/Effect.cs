@@ -93,7 +93,7 @@ public class ProxyEffect : SpecialEffect
 
     public bool Invoke(GameEvent gameEvent)
     {
-        gameEvent.thisEffect = this;
+        //gameEvent.thisEffect = this;
         if (cardProxyDelegate == null) return false;
         return cardProxyDelegate.Invoke(gameEvent);
     }
@@ -104,6 +104,8 @@ public class ProxyEffect : SpecialEffect
         return effect;
     }
 }
+
+
 public class ProxyEffects: List<Card>
 {
     private readonly ProxyEnum proxy;

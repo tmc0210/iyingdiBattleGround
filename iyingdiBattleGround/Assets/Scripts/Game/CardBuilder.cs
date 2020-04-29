@@ -80,12 +80,7 @@ public class CardBuilder
             Card aimCard = map.FilterValue(c => c.isGold && c.name == card.name).GetOne();
             if (aimCard == null)
             {
-                Card goldCard = card.Clone() as Card;
-                goldCard.isGold = true;
-                goldCard.isToken = true;
-                goldCard.id = idCnt++;
-                goldCard.health *= 2;
-                goldCard.attack *= 2;
+                Card goldCard = _GetNewGoldenCard(card);
                 map[goldCard.id] = goldCard;
             }
         }
@@ -102,6 +97,51 @@ public class CardBuilder
         #endregion
 
         return map;
+    }
+
+    public static Card NewEmptyBuffCard()
+    {
+        Card card = new Card
+        {
+            // 读取基本属性
+            //id = idCnt++,
+            name = "",
+            displayName = "",
+            cardType = CardType.Buff,
+            type = MinionType.Any,
+            isToken = true,
+            image = "",
+            star = 1,
+            cost = 0,
+            isGold = false,
+            attack = 0,
+            health = 0,
+            skillDescription = "",
+            description = "",
+            unlockDescription = "",
+        };
+        //AllCards[card.id] = card;
+        return card;
+    }
+
+    public static Card NewBodyBuffCard(int attack, int health)
+    {
+        Card buff = NewEmptyBuffCard();
+        buff.attack = attack;
+        buff.health = health;
+        return buff;
+    }
+
+    public static Card _GetNewGoldenCard(Card card)
+    {
+        Card goldCard = card.Clone() as Card;
+        goldCard.isGold = true;
+        goldCard.isToken = true;
+        goldCard.id = idCnt++;
+        goldCard.health *= 2;
+        goldCard.attack *= 2;
+        goldCard.goldVersion = card.id;
+        return goldCard;
     }
 
     public static Card NewCardByCsvData(List<string> data, OJParser parser = null)
@@ -235,38 +275,7 @@ public class CardBuilder
     }
 
     public static Map<string, CardProxyDelegate> cacheGetStaticDelegateCache = new Map<string, CardProxyDelegate>();
-    public static CardProxyDelegate GetStaticDelegate(string name)
-    {
-        // 读取缓存
-        if (cacheGetStaticDelegateCache.ContainsKey(name))
-        {
-            return cacheGetStaticDelegateCache[name];
-        }
-
-
-        Type type = typeof(CardLongKeywordAchievement);
-        MethodInfo method = type.GetMethod(name);
-        if (method != null)
-        {
-            CardProxyDelegate action = Delegate.CreateDelegate(typeof(CardProxyDelegate), method) as CardProxyDelegate;
-
-            #region get description
-            //GoldDescriptionAttribute goldDescription = Attribute.GetCustomAttribute(method, typeof(GoldDescriptionAttribute), false) as GoldDescriptionAttribute;
-            //CommonDescriptionAttribute commonDescription = Attribute.GetCustomAttribute(method, typeof(CommonDescriptionAttribute), false) as CommonDescriptionAttribute;
-            //HidePromptAttribute hidePrompt = Attribute.GetCustomAttribute(method, typeof(HidePromptAttribute), false) as HidePromptAttribute;
-            //SetCounterAttribute setCounter = Attribute.GetCustomAttribute(method, typeof(SetCounterAttribute), false) as SetCounterAttribute;
-            //ProxyDescriptionCache[action] = (commonDescription?.Description, goldDescription?.Description, hidePrompt!=null, hidePrompt?.Description, setCounter?.Value??0);
-
-            #endregion
-
-            // 设置缓存
-            cacheGetStaticDelegateCache[name] = action;
-            return action;
-        }
-        return null;
-    }
-
-
+    
 
     private static TField GetField<TObj, TField>(TObj obj, string name, TField defalutValue=default)
     {
