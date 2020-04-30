@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class TreasureChoosePage : UIPanel
 {
-    // Start is called before the first frame update
-    void Start()
+    public UITreasure[] uiTreasures;
+
+    public override void ShowPanel(UIData data)
     {
-        
+        base.ShowPanel(data);
+        //需要传输宝藏信息
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// 点击宝藏
+    /// </summary>
+    public void ClickTreasure()
     {
-        
+
+    }
+
+    public void ClickConfirm()
+    {
+
     }
 }

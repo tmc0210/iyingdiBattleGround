@@ -6,13 +6,14 @@ using UnityEngine.UI;
 public class UICard : MonoBehaviour
 {
     //引用
-    public Image img_Card;
-    public Image img_Effect;
-    public Image img_Race;
-    public Text txt_Attack;
-    public Text txt_Health;
-    public Image img_Bottom;
-    public UILevel uiLevel;
+    public Image img_Card; //卡面
+    public Image img_Effect; //异能
+    public Image img_Race; //种族
+    public Text txt_Attack; //攻击
+    public Text txt_Health; //生命
+    public Image img_Bottom; //底部异能
+    public UILevel uiLevel; //等级
+    public Text txt_Coin; //铸币
 
     public Image[] img_Reborns;
 
@@ -69,5 +70,11 @@ public class UICard : MonoBehaviour
         }
 
     }
+
+    public void SetTreasure(Card card)
+    {
+        //TODO
+    }
+
 
 }
