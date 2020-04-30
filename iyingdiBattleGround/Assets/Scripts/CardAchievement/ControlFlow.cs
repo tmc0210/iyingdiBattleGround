@@ -10,8 +10,6 @@ using UnityEngine;
 /// </summary>
 public static partial class CommonCommandDefiner
 {
-
-
     public static void If(GameEvent gameEvent, bool condition, IOJMethod action)
     {
         if (condition)

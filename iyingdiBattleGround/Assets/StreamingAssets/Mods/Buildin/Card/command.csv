@@ -1,5 +1,65 @@
-﻿//id,remapCode,description
-Ifnotself,"if: host != target, $1",如果目标卡不是自身
-ifown,"if: {target.own}, $1",如果目标卡属于我方
-gold,host.isGold,本身是否是金卡
-IfOwnAndNotSelf,ifown: ifnotSelf: $1,
+﻿//id (不区分大小写),remapCode,description,usage
+Battlecry,,战吼,Battlecry: Function
+Deathrattle,,亡语,Deathrattle: Function
+Aura,,光环,Aura: Function
+WhenMinionSummon,,随从召唤时,WhenMinionSummon: Function
+AfterMinionSummon,,随从召唤后,AfterMinionSummon: Function
+WhenMinionPlayed,,随从打出时,WhenMinionPlayed: Function
+AfterMinionPlayed,,随从打出后,AfterMinionPlayed: Function
+AfterMinionDeath,,随从死亡后,AfterMinionDeath: Function
+AfterHurt,,受伤后,AfterHurt: Function
+PreHurt,,受伤前,PreHurt: Function
+AfterHeroHurt,,英雄受伤后,AfterHeroHurt: Function
+AfterMinionHurt,,其他随从受伤后,AfterMinionHurt: Function
+WhenAttack,,攻击时,WhenAttack: Function
+AfterAttack,,攻击后,AfterAttack: Function
+WhenMinionAttack,,其他随从攻击时,WhenMinionAttack: Function
+AfterMinionAttack,,其他随从攻击后,AfterMinionAttack: Function
+AfterDivineShieldBroken,,失去圣盾后,AfterDivineShieldBroken: Function
+AfterMinionDivineShieldBroken,,其他随从失去圣盾后,AfterMinionDivineShieldBroken: Function
+AfterMinionReborn,,其他随从复生后,AfterMinionReborn: Function
+AfterKillEnemy,,消灭随从后,AfterKillEnemy: Function
+OverKill,,超杀,OverKill: Function
+AfterMinionKillEnemy,,其他随从消灭随从后,AfterMinionKillEnemy: Function
+AfterSold,,售出后,AfterSold: Function
+AfterMinionSold,,其他随从售出后,AfterMinionSold: Function
+AfterBoughtMinion,,购买随从后,AfterBoughtMinion: Function
+TurnStart,,回合开始时,TurnStart: Function
+TurnEnd,,回合结束时,TurnEnd: Function
+TurnEndInHand,,"回合结束时,如果该随从在手牌中",TurnEndInHand: Function
+TurnStartInHand,,"回合开始时,如果该随从在手牌中",TurnStartInHand: Function
+AfterMinionPlayedInHand,,"随从打出后,如果该随从在手牌中",AfterMinionPlayedInHand: Function
+AfterUpgrade,,每当你升级酒馆后,AfterUpgrade: Function
+AfterFlush,,每当你刷新酒馆后,AfterFlush: Function
+GameStart,,游戏开始时,GameStart: Function
+CombatStart,,对战开始时,CombatStart: Function
+HeroPower,,英雄技能,HeroPower: Function
+SpellEffect,,法术效果,SpellEffect: Function
+//Selected,,选取时立即触发,//Selected: Function
+,,,
+host,,正在执行事件的卡本身,host
+target,,将要进行处理的卡,target
+isGold,,卡牌是否是金卡,isGold: Card
+own,,该卡是否属于玩家,own: Card
+isType,,该卡牌的种族是否是arg2,"isType: Card, string"
+Summon,,召唤n个随从,"Summon: Card, int"
+Attack,,卡牌的当前攻击力,Attack: Card
+Health,,卡牌的当前生命值,Health: Card
+Creator,,召唤者/召唤来源,Creator: Card
+SearchCard,,以唯一名称查找一张卡牌（指定是否是查找金卡）,"SearchCard: string, bool"
+FilterDeathrattle,,选出具有亡语的卡,FilterDeathrattle: List<Card>
+AllMinionsInPool,,卡池中所有的卡,
+AllAllyMinions,,己方战场上的随从,
+AllOpponentMinions,,对手战场上的随从,
+GetRandomCard,,随机选出一张卡,GetRandomCard: List<Card>
+ExceptCard,,将一张卡从数列中移除,"ExceptCard: List<Card>, Card"
+,,,
+,,,
+Ifnotself,"if: host != target, $1",如果目标卡不是自身,Ifnotself: Function
+ifown,"if: {target.own}, $1",如果目标卡属于我方,ifown: Function
+gold,host.isGold,本身是否是金卡,gold
+IfOwnAndNotSelf,ifown: ifnotSelf: $1,如果目标卡属于我方并且不是自身,IfOwnAndNotSelf: Function
+IsMech,"isType:$1, ""机械""",是否是机械,isMech: Card
+isBeast,"isType:$1, ""野兽""",是否是野兽,
+isMurlock,"isType:$1, ""鱼人""",是否是鱼人,isMurlock: Card
+SearchThenSummon,"Summon: {SearchCard:$1,gold}, $2",查找一张卡，然后召唤它,"SearchThenSummon: string, int"

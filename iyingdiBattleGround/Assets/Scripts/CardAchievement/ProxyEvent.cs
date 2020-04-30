@@ -30,7 +30,17 @@ public class ProxyEventDefiner: IOJMethod
             }
             if (args[0] is IOJMethod method)
             {
-                gameEvent.hostCard.AddProxy(proxyEnum, method);
+                Card card = gameEvent.hostCard;
+                if (card.cardType == CardType.Buff)
+                {
+                    card.AddProxy(proxyEnum, method);
+                }
+                else
+                {
+                    Card buffCard = CardBuilder.NewEmptyBuffCard();
+                    buffCard.AddProxy(proxyEnum, method);
+                    CommonCommandDefiner.AddCardBuff(gameEvent, card, buffCard);
+                }
             }
             else
             {

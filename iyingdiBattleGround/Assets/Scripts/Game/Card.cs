@@ -62,9 +62,33 @@ public class Card :ICloneable
     public MinionType type = MinionType.General;
     public List<string> tag = new List<string>();
     public HashSet<Keyword> keyWords = new HashSet<Keyword>();
+    /// <summary>
+    /// 委托函数（只有buff类型的Card使用）
+    /// </summary>
     public Map<ProxyEnum, IOJMethod> methods = new Map<ProxyEnum, IOJMethod>();
+    /// <summary>
+    /// 计数器
+    /// </summary>
     public int Counter = 0;
+    /// <summary>
+    /// 初始化函数，在游戏启动时，调用
+    /// </summary>
     public IOJMethod initMethod;
+
+    /// <summary>
+    /// 卡德加buff, 多个buff以乘法结算
+    /// </summary>
+    public int SpecBuffMoreMinion = 1;
+
+    /// <summary>
+    /// 铜须buff，多个buff取最高值
+    /// </summary>
+    public int SpecBuffBattlecry = 1;
+
+    /// <summary>
+    /// 瑞文buff，多个buff取最高值
+    /// </summary>
+    public int SpecBuffDeathrattle = 1;
 
     #endregion
 
@@ -101,7 +125,7 @@ public class Card :ICloneable
     public IOJMethod GetProxys(ProxyEnum proxyEnum)
     {
         OJMethods methods = new OJMethods();
-        effects.Concat(effectsStay).Append(this).Map(card => {
+        effects.Concat(effectsStay).Prepend(this).Map(card => {
             if (card.methods.ContainsKey(proxyEnum))
             {
                 methods.Add(card.methods[proxyEnum]);
@@ -118,7 +142,7 @@ public class Card :ICloneable
     public ProxyEffects GetProxysByEffect(ProxyEnum proxyEnum)
     {
         ProxyEffects proxysEffects = new ProxyEffects(proxyEnum);
-        foreach (var card in effects.Concat(effectsStay).Append(this))
+        foreach (var card in effects.Concat(effectsStay).Prepend(this))
         {
             if (card.methods.ContainsKey(proxyEnum))
             {
@@ -175,6 +199,10 @@ public class Card :ICloneable
                 catch (RuntimeException e)
                 {
                     $"[Error]{this.name} {card.name}: {e.Message}".LogToFile();
+                }
+                catch (Exception e)
+                {
+                    $"[Fatal]{this.name} {card.name}: {e.Message}".LogToFile();
                 }
             }
         }
@@ -274,10 +302,10 @@ public class Card :ICloneable
         card.keyWords.UnionWith(keyWords);
 
         card.effects = new List<Card>();
-        card.effects.AddRange(effects);
+        card.effects.AddRange(effects.Select(c => c.Clone()).Cast<Card>());
 
         card.effectsStay = new List<Card>();
-        card.effectsStay.AddRange(effectsStay);
+        card.effectsStay.AddRange(effectsStay.Select(c=>c.Clone()).Cast<Card>());
 
         card.methods = new Map<ProxyEnum, IOJMethod>();
         card.methods.Update(methods);

@@ -104,3 +104,21 @@
 鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:{Add:gold, 1},0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
 鱼人招潮者,鱼人招潮者,随从,鱼人,0,card1,1,,,1,2,,"AfterMinionSummon:ifown: IfNotSelf:if: {target.isType:""鱼人""}, host.AddBodyBuff:{Add:gold, 1},0",召唤其他鱼人时，获得1攻击力,,2;特殊;鱼人
 鱼人领军,鱼人领军,随从,鱼人,0,card2,2,,,3,3,,,,,4;鱼人流;鱼人
+回收机器人,回收机器人,随从,机械,0,card4,5,,,1,5,,"AfterMinionDeath:IfOwn: if:  target.IsMech, {host.AddBodyBuff: 2+gold*2, 2+gold*2; trigger}",,,3;机械流;机械
+回收机器人,回收机器人,随从,机械,0,card4,5,,,1,5,,"AfterMinionDeath:IfOwn: if:  target.IsMech, {host.AddBodyBuff: 2+gold*2, 2+gold*2; trigger}",,,3;机械流;机械
+回收机器人,回收机器人,随从,机械,0,card4,5,,,1,5,,"AfterMinionDeath: if:  target.IsMech, {host.AddBodyBuff: 2+gold*2, 2+gold*2; trigger}",,,3;机械流;机械
+回收机器人,回收机器人,随从,机械,0,card4,5,,,1,5,,"AfterMinionDeath: if:  target.IsMech, {host.AddBodyBuff: 2+gold*2, 2+gold*2; trigger}",,,3;机械流;机械
+安保巡游者,安保巡游者,随从,机械,0,card6,4,,,2,6,,"AfterHurt:Summon: {SearchCard:""安保机器人"",gold}, 1",,,2;机械;召唤;嘲讽
+安保巡游者,安保巡游者,随从,机械,0,card6,4,,,2,6,,"AfterHurt:Summon: {SearchCard:""安保机器人"",gold}, 1",,,2;机械;召唤;嘲讽
+安保巡游者,安保巡游者,随从,机械,0,card6,4,,,2,6,,"AfterHurt:Summon: {SearchCard:""安保机器人"",gold}, 1",,,2;机械;召唤;嘲讽
+安保机器人,安保机器人,随从,机械,1,card9,1,,,2,3,嘲讽;,,,,
+安保巡游者,安保巡游者,随从,机械,0,card6,4,,,2,6,,"AfterHurt: {Summon: {SearchCard:""安保机器人"",gold}, gold+1; trigger}",,,2;机械;召唤;嘲讽
+安保巡游者,安保巡游者,随从,机械,0,card6,4,,,2,6,,"AfterHurt: {Summon: {SearchCard:""安保机器人"",gold}, 1; trigger}",,,2;机械;召唤;嘲讽
+安保巡游者,安保巡游者,随从,机械,0,card6,4,,,2,6,,"AfterHurt: {Summon: {SearchCard:""安保机器人"",gold}, 1; trigger}",,,2;机械;召唤;嘲讽
+安保巡游者,安保巡游者,随从,机械,0,card6,4,,,2,6,,"AfterHurt: {Summon: {SearchCard:""安保机器人"",gold}; trigger}",,,2;机械;召唤;嘲讽
+安保巡游者,安保巡游者,随从,机械,0,card6,4,,,2,6,,"AfterHurt: {Summon: {SearchCard:""安保机器人"",gold}; trigger}",,,2;机械;召唤;嘲讽
+阴森巨蟒,阴森巨蟒,随从,野兽,0,card15,6,,,7,7,,"Deathrattle: Repeat: 2+gold*2,   Summon: {GetRandomCard: ExceptCard:AllMinionsInPool.FilterDeathrattle, host},  1",,,2;野兽;亡语;召唤
+阴森巨蟒,阴森巨蟒,随从,野兽,0,card15,6,,,7,7,,"Deathrattle: Repeat: 2+gold*2,   Summon: {GetRandomCard: ExceptCard:AllMinionsInPool.FilterDeathrattle, host},  1",,,2;野兽;亡语;召唤
+阴森巨蟒,阴森巨蟒,随从,野兽,0,card15,6,,,7,7,,"Deathrattle: Repeat: 2+gold*2,   Summon: {GetRandomCard: ExceptCard:AllMinionsInPool.FilterDeathrattle, host},  1",,,2;野兽;亡语;召唤
+阴森巨蟒,阴森巨蟒,随从,野兽,0,card15,6,,,7,7,,"Deathrattle: Repeat: 2+gold*2,   Summon: {GetRandomCard: ExceptCard:AllMinionsInPool.FilterDeathrattle, host},  1",,,2;野兽;亡语;召唤
+阴森巨蟒,阴森巨蟒,随从,野兽,0,card15,6,,,7,7,,"Deathrattle: Repeat: 2+gold*2,   Summon: {GetRandomCard: ExceptCard:AllMinionsInPool.FilterDeathrattle, host},  1",,,2;野兽;亡语;召唤

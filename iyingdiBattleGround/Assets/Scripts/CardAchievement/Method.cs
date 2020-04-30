@@ -7,6 +7,29 @@ using UnityEngine;
 /// </summary>
 public static partial class CommonCommandDefiner
 {
+
+    public static void Summon(GameEvent gameEvent, Card target, int number = 1)
+    {
+        if (target != null)
+        {
+            for (int i = 0; i < number; i++)
+            {
+                gameEvent.player.board.SummonMinion(new GameEvent()
+                {
+                    hostCard = gameEvent.hostCard,
+                    targetCard = target.NewCard(),
+                    player = gameEvent.player,
+                });
+            }
+        }
+    }
+
+    public static Card SearchCard(GameEvent gameEvent, string name, bool isGold=false)
+    {
+        var card = CardBuilder.SearchCardByName(name, isGold);
+        return card;
+    }
+
     public static void DealDamage(GameEvent gameEvent, Card target, int number)
     {
         Card targetCard = gameEvent.player.board.GetAnotherPlayer(gameEvent.player).RandomlyGetAliveMinion();
@@ -24,33 +47,78 @@ public static partial class CommonCommandDefiner
 
     public static void AddBuff(GameEvent gameEvent, Card card, string buff)
     {
-        //Debug.Log("添加buff:" + buff);
         Card buffCard = CardBuilder.SearchBuffByName(buff);
-        if (buffCard != null)
-        {
-            card.effectsStay.Add(buffCard);
-        }
-        else
-        {
-            Log(gameEvent, $"没有找到buff:{buff}");
-        }
+        AddCardBuff(gameEvent, card, buffCard);
     }
-    
+    public static void AddBuffAura(GameEvent gameEvent, Card card, string buff)
+    {
+        Card buffCard = CardBuilder.SearchBuffByName(buff);
+        AddCardBuffAura(gameEvent, card, buffCard);
+    }
+
 
     public static void AddBodyBuff(GameEvent gameEvent, Card card, int attack, int health)
     {
         Card buffCard = CardBuilder.NewBodyBuffCard(attack, health);
-        if (buffCard != null)
-        {
-            card.effectsStay.Add(buffCard);
-        }
+        AddCardBuff(gameEvent, card, buffCard);
     }
-    public static void AddBodyBuffArua(GameEvent gameEvent, Card card, int attack, int health)
+    public static void AddBodyBuffAura(GameEvent gameEvent, Card card, int attack, int health)
     {
         Card buffCard = CardBuilder.NewBodyBuffCard(attack, health);
-        if (buffCard != null)
+        AddCardBuffAura(gameEvent, card, buffCard);
+    }
+
+    public static void AddCardBuff(GameEvent gameEvent, Card card, Card buff)
+    {
+        if (card != null && buff != null)
         {
-            card.effects.Add(buffCard);
+            card.effectsStay.Add(buff);
+        }
+    }
+    public static void AddCardBuffAura(GameEvent gameEvent, Card card, Card buff)
+    {
+        if (card != null && buff != null)
+        {
+            card.effects.Add(buff);
+        }
+    }
+
+    public static void AddKeywordBuff(GameEvent gameEvent, Card card, string keyword)
+    {
+        if (card != null)
+        {
+            Card buffCard = CardBuilder.NewEmptyBuffCard();
+            var keywordType = BIF.BIFStaticTool.GetEnumDescriptionEnumSaved(keyword, Keyword.None);
+            if (keywordType != Keyword.None)
+            {
+                buffCard.keyWords.Add(keywordType);
+                //card.effectsStay.Add(buffCard);
+                AddCardBuff(gameEvent, card, buffCard);
+            }
+        }
+    }
+    public static void AddKeywordBuffAura(GameEvent gameEvent, Card card, string keyword)
+    {
+        if (card != null)
+        {
+            Card buffCard = CardBuilder.NewEmptyBuffCard();
+            var keywordType = BIF.BIFStaticTool.GetEnumDescriptionEnumSaved(keyword, Keyword.None);
+            if (keywordType != Keyword.None)
+            {
+                buffCard.keyWords.Add(keywordType);
+                AddCardBuffAura(gameEvent, card, buffCard);
+            }
+        }
+    }
+
+
+    public static void MoreMinion(GameEvent gameEvent, Card card, int n)
+    {
+        if (card != null)
+        {
+            Card buffCard = CardBuilder.NewEmptyBuffCard();
+            buffCard.SpecBuffMoreMinion = n;
+            AddCardBuffAura(gameEvent, card, buffCard);
         }
     }
 }
