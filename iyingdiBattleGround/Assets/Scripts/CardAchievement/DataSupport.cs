@@ -43,6 +43,12 @@ public static partial class CommonCommandDefiner
     {
         return cards.Where(card => card.star == star).ToList();
     }
+
+    public static List<Card> FilterType(GameEvent gameEvent, List<Card> cards, string type)
+    {
+        var minionType = BIF.BIFStaticTool.GetEnumDescriptionEnumSaved(type, MinionType.General);
+        return cards.Where(card => card.IsMinionType(minionType)).ToList();
+    }
     public static List<Card> ExceptCard(GameEvent gameEvent, List<Card> cards, Card except)
     {
         return cards.Where(card => card.id != except.id).ToList();

@@ -718,11 +718,44 @@ public class Board
     /// <param name="gameEvent"></param>
     public void SummonMinion(GameEvent gameEvent)
     {
-        SummonMinionByMinion(gameEvent, gameEvent.hostCard);
+        SummonMinionAffectedByMoreMinionBuff(gameEvent, gameEvent.hostCard);
     }
     public void SummonMinionByReborn(GameEvent gameEvent)
     {
-        SummonMinionByMinion(gameEvent, gameEvent.hostCard, summonCode: "reborn");
+        SummonMinionAffectedByMoreMinionBuff(gameEvent, gameEvent.hostCard, summonCode: "reborn");
+    }
+
+    public void SummonMinionAffectedByMoreMinionBuff(GameEvent gameEvent, Card byCard, string summonCode = "create")
+    {
+        int MoreMinionBuff = 1;
+        Card creator = gameEvent.hostCard;
+        if (creator != null && creator.cardType != CardType.Hero)
+        {
+            //Debug.Log($"has creator");
+            // 进行召唤操作的玩家
+            Player player = gameEvent.player;
+            if (player.board.GetPlayer(creator) == player)
+            {
+                foreach (var card in player.hero.effects.Concat(player.hero.effectsStay))
+                {
+                    if (card.SpecBuffMoreMinion > 0)
+                    {
+                        //Debug.Log($"SpecBuffMoreMinion = {card.SpecBuffMoreMinion}");
+                        MoreMinionBuff *= card.SpecBuffMoreMinion;
+                    } 
+                }
+            }
+        }
+        //Debug.Log($"MoreMinionBuff = {MoreMinionBuff}");
+        for (int i = 0; i < MoreMinionBuff; i++)
+        {
+            if (i > 0)
+            {
+                byCard = gameEvent.targetCard;
+                gameEvent.targetCard = gameEvent.targetCard.NewCard();
+            }
+            SummonMinionByMinion(gameEvent, byCard, summonCode);
+        }
     }
 
     /// <summary>
@@ -1117,37 +1150,13 @@ public class Board
     public void Battlecry(GameEvent gameEvent)
     {
         int BattlecryNum = 1;
-        //foreach (var item in gameEvent.player.hero.effects)
-        //{
-        //    if (item is TripleBattlecryEffect)
-        //    {
-        //        BattlecryNum = 3;
-        //    }
-        //}
-        //foreach (var item in gameEvent.player.hero.effectsStay)
-        //{
-        //    if (item is TripleBattlecryEffect)
-        //    {
-        //        BattlecryNum = 3;
-        //    }
-        //}
-        //if (BattlecryNum < 3)
-        //{
-        //    foreach (var item in gameEvent.player.hero.effects)
-        //    {
-        //        if (item is DouleBattlecryEffect)
-        //        {
-        //            BattlecryNum = 2;
-        //        }
-        //    }
-        //    foreach (var item in gameEvent.player.hero.effectsStay)
-        //    {
-        //        if (item is DouleBattlecryEffect)
-        //        {
-        //            BattlecryNum = 2;
-        //        }
-        //    }
-        //}
+
+        Card hero = gameEvent.player.hero;
+        foreach (var card in hero.effects.Concat(hero.effectsStay))
+        {
+            BattlecryNum = Math.Max(BattlecryNum, card.SpecBuffBattlecry);
+        }
+        
         for (int i = 0; i < BattlecryNum; i++)
         {
             if (gameEvent.hostCard.InvokeProxy(ProxyEnum.Battlecry, gameEvent))
@@ -1160,37 +1169,13 @@ public class Board
     public void Dealthrattle(GameEvent gameEvent)
     {
         int DealthrattleNum = 1;
-        //foreach (var item in gameEvent.player.hero.effects)
-        //{
-        //    if (item is TripleDeathrattleEffect)
-        //    {
-        //        DealthrattleNum = 3;
-        //    }
-        //}
-        //foreach (var item in gameEvent.player.hero.effectsStay)
-        //{
-        //    if (item is TripleDeathrattleEffect)
-        //    {
-        //        DealthrattleNum = 3;
-        //    }
-        //}
-        //if (DealthrattleNum < 3)
-        //{
-        //    foreach (var item in gameEvent.player.hero.effects)
-        //    {
-        //        if (item is DouleDeathrattleEffect)
-        //        {
-        //            DealthrattleNum = 2;
-        //        }
-        //    }
-        //    foreach (var item in gameEvent.player.hero.effectsStay)
-        //    {
-        //        if (item is DouleDeathrattleEffect)
-        //        {
-        //            DealthrattleNum = 2;
-        //        }
-        //    }
-        //}
+
+        Card hero = gameEvent.player.hero;
+        foreach (var card in hero.effects.Concat(hero.effectsStay))
+        {
+            DealthrattleNum = Math.Max(DealthrattleNum, card.SpecBuffDeathrattle);
+        }
+
         for (int i = 0; i < DealthrattleNum; i++)
         {
             if (gameEvent.hostCard.InvokeProxy(ProxyEnum.Deathrattle, gameEvent))

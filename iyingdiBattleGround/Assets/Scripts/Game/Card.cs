@@ -47,13 +47,18 @@ public class Card :ICloneable
     /// 永久特效
     /// </summary>
     public List<Card> effectsStay = new List<Card>();
-    
-    
+    /// <summary>
+    /// 固有特效, 进行三连时不复制
+    /// </summary>
+    public List<Card> effectsOri = new List<Card>();
+
+    public IEnumerable<Card> AllEffects => effectsOri.Concat(effectsStay).Concat(effects).Prepend(this);
+
     /// <summary>
     /// 打出时选择目标的类型 None表示不选择
     /// </summary>
     //public MinionType targetType = MinionType.None;
-    
+
     public CardType cardType = CardType.Minion;
     
     public int star = 1;
@@ -101,7 +106,7 @@ public class Card :ICloneable
 
     public void RemoveKeyWord(Keyword keyword)
     {
-        effects.Concat(effectsStay).Append(this).Map(card => {
+        AllEffects.Map(card => {
             if (card.keyWords.Contains(keyword)) {
                 card.keyWords.Remove(keyword);
             }
@@ -111,7 +116,7 @@ public class Card :ICloneable
     public HashSet<Keyword> GetAllKeywords()
     {
         HashSet<Keyword> ret = new HashSet<Keyword>();
-        effects.Concat(effectsStay).Append(this).Map(card => {
+        AllEffects.Map(card => {
             ret.UnionWith(card.keyWords);
         });
 
@@ -125,7 +130,7 @@ public class Card :ICloneable
     public IOJMethod GetProxys(ProxyEnum proxyEnum)
     {
         OJMethods methods = new OJMethods();
-        effects.Concat(effectsStay).Prepend(this).Map(card => {
+        AllEffects.Map(card => {
             if (card.methods.ContainsKey(proxyEnum))
             {
                 methods.Add(card.methods[proxyEnum]);
@@ -142,7 +147,7 @@ public class Card :ICloneable
     public ProxyEffects GetProxysByEffect(ProxyEnum proxyEnum)
     {
         ProxyEffects proxysEffects = new ProxyEffects(proxyEnum);
-        foreach (var card in effects.Concat(effectsStay).Prepend(this))
+        foreach (var card in AllEffects)
         {
             if (card.methods.ContainsKey(proxyEnum))
             {
@@ -278,7 +283,6 @@ public class Card :ICloneable
 
     #region object
 
-
     /// <summary>
     /// 生成新卡（获得新的uniqueId）
     /// </summary>
@@ -306,6 +310,9 @@ public class Card :ICloneable
 
         card.effectsStay = new List<Card>();
         card.effectsStay.AddRange(effectsStay.Select(c=>c.Clone()).Cast<Card>());
+
+        card.effectsOri = new List<Card>();
+        card.effectsOri.AddRange(effectsOri.Select(c => c.Clone()).Cast<Card>());
 
         card.methods = new Map<ProxyEnum, IOJMethod>();
         card.methods.Update(methods);
@@ -356,10 +363,11 @@ public class Card :ICloneable
         effects.AddRange(card.effects);
 
         effectsStay = new List<Card>();
-        foreach (Card c in card.effectsStay)
-        {
-            effectsStay.Add(c);
-        }
+        effectsStay.AddRange(card.effectsStay);
+
+        effectsOri = new List<Card>();
+        effectsOri.AddRange(card.effectsOri);
+
         type = card.type;
     }
 
@@ -368,6 +376,7 @@ public class Card :ICloneable
         TransformToNewCardWithEffects(card);
         effects = new List<Card>();
         effectsStay = new List<Card>();
+        effectsOri = new List<Card>();
     }
 
     public int GetPositionTag()

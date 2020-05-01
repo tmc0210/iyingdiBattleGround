@@ -39,7 +39,8 @@ public class ProxyEventDefiner: IOJMethod
                 {
                     Card buffCard = CardBuilder.NewEmptyBuffCard();
                     buffCard.AddProxy(proxyEnum, method);
-                    CommonCommandDefiner.AddCardBuff(gameEvent, card, buffCard);
+                    //CommonCommandDefiner.AddCardBuff(gameEvent, card, buffCard);
+                    card.effectsOri.Add(buffCard);
                 }
             }
             else

@@ -111,13 +111,60 @@ public static partial class CommonCommandDefiner
         }
     }
 
-
-    public static void MoreMinion(GameEvent gameEvent, Card card, int n)
+    public static void AddMoreMinionBuff(GameEvent gameEvent, Card card, int n)
     {
         if (card != null)
         {
             Card buffCard = CardBuilder.NewEmptyBuffCard();
             buffCard.SpecBuffMoreMinion = n;
+            AddCardBuff(gameEvent, card, buffCard);
+        }
+    }
+    public static void AddMoreMinionBuffAura(GameEvent gameEvent, Card card, int n)
+    {
+        if (card != null)
+        {
+            Card buffCard = CardBuilder.NewEmptyBuffCard();
+            buffCard.SpecBuffMoreMinion = n;
+            AddCardBuffAura(gameEvent, card, buffCard);
+            //Log(gameEvent, "card's effect:" + card.effects.Count);
+        }
+    }
+
+    public static void AddMoreBattlecryBuff(GameEvent gameEvent, Card card, int n)
+    {
+        if (card != null)
+        {
+            Card buffCard = CardBuilder.NewEmptyBuffCard();
+            buffCard.SpecBuffBattlecry = n;
+            AddCardBuff(gameEvent, card, buffCard);
+        }
+    }
+    public static void AddMoreBattlecryBuffAura(GameEvent gameEvent, Card card, int n)
+    {
+        if (card != null)
+        {
+            Card buffCard = CardBuilder.NewEmptyBuffCard();
+            buffCard.SpecBuffBattlecry = n;
+            AddCardBuffAura(gameEvent, card, buffCard);
+        }
+    }
+
+    public static void AddMoreDeathrattleBuff(GameEvent gameEvent, Card card, int n)
+    {
+        if (card != null)
+        {
+            Card buffCard = CardBuilder.NewEmptyBuffCard();
+            buffCard.SpecBuffDeathrattle = n;
+            AddCardBuff(gameEvent, card, buffCard);
+        }
+    }
+    public static void AddMoreDeathrattleBuffAura(GameEvent gameEvent, Card card, int n)
+    {
+        if (card != null)
+        {
+            Card buffCard = CardBuilder.NewEmptyBuffCard();
+            buffCard.SpecBuffDeathrattle = n;
             AddCardBuffAura(gameEvent, card, buffCard);
         }
     }

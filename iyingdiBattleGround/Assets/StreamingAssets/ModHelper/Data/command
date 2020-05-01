@@ -122,3 +122,35 @@
 阴森巨蟒,阴森巨蟒,随从,野兽,0,card15,6,,,7,7,,"Deathrattle: Repeat: 2+gold*2,   Summon: {GetRandomCard: ExceptCard:AllMinionsInPool.FilterDeathrattle, host},  1",,,2;野兽;亡语;召唤
 阴森巨蟒,阴森巨蟒,随从,野兽,0,card15,6,,,7,7,,"Deathrattle: Repeat: 2+gold*2,   Summon: {GetRandomCard: ExceptCard:AllMinionsInPool.FilterDeathrattle, host},  1",,,2;野兽;亡语;召唤
 阴森巨蟒,阴森巨蟒,随从,野兽,0,card15,6,,,7,7,,"Deathrattle: Repeat: 2+gold*2,   Summon: {GetRandomCard: ExceptCard:AllMinionsInPool.FilterDeathrattle, host},  1",,,2;野兽;亡语;召唤
+布莱恩·铜须,布莱恩·铜须,随从,,0,card30,5,,,2,4,,"Aura: AddMoreBattlecryBuffAura: hero, 2+gold",,,2;战吼流;唯一;中立;战吼
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+布莱恩·铜须,布莱恩·铜须,随从,,0,card30,5,,,2,4,,"Aura: AddMoreBattlecryBuffAura: hero, 2+gold",,,2;战吼流;唯一;中立;战吼
+布莱恩·铜须,布莱恩·铜须,随从,,0,card30,5,,,2,4,,"Aura: AddMoreBattlecryBuffAura: hero, 2+gold",,,2;战吼流;唯一;中立;战吼
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,,,,4;特殊;中立;召唤;奇异
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,,,,4;特殊;中立;召唤;奇异
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,"Aura: AddMoreMinionBuffAura: hero, 2+gold",,,4;特殊;中立;召唤;奇异
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,"Aura: AddMoreMinionBuffAura: hero, 2+gold",,,4;特殊;中立;召唤;奇异
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,"Aura: AddMoreMinionBuffAura: hero, 2+gold",,,4;特殊;中立;召唤;奇异
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,"Aura: AddMoreMinionBuffAura: hero, 2+gold",,,4;特殊;中立;召唤;奇异
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,"Aura: AddMoreMinionBuffAura: hero, 2+gold",,,4;特殊;中立;召唤;奇异
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,"Aura: AddMoreMinionBuffAura: hero, 2+gold",,,4;特殊;中立;召唤;奇异
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,"Aura: AddMoreMinionBuffAura: hero, 2+gold",,,4;特殊;中立;召唤;奇异
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,"Aura: AddMoreMinionBuffAura: hero, 2+gold",,,4;特殊;中立;召唤;奇异
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+卡德加,卡德加,随从,,0,card10,3,,,2,2,,"Aura: AddMoreMinionBuffAura: hero, 2+gold",,,4;特殊;中立;召唤;奇异
+雄斑虎,雄斑虎,随从,野兽,0,card18,1,,,1,1,,"Battlecry: SearchThenSummon:""雌斑虎"", 1",,,2;野兽;召唤
+玛尔加尼斯,玛尔加尼斯,随从,恶魔,0,card27,5,,,9,7,,"Aura: {hero.AddKeywordBuffAura:""免疫""; ForeachCard: {AllAllyMinions.FilterType:""恶魔""}, if:cur!=host,  cur.AddBodyBuffAura:2+gold*2,2+gold*2}",,,3;恶魔流;恶魔
+玛尔加尼斯,玛尔加尼斯,随从,恶魔,0,card27,5,,,9,7,,"Aura: {hero.AddKeywordBuffAura:""免疫""; ForeachCard: {AllAllyMinions.FilterType:""恶魔""}, if:cur!=host,  cur.AddBodyBuffAura:2+gold*2,2+gold*2}",,,3;恶魔流;恶魔

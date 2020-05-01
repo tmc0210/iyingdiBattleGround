@@ -409,7 +409,7 @@ GameStart:
     }
     public static void SaveLockCard()
     {
-        Debug.Log("save");
+        //Debug.Log("save");
         var unlockCards = CardBuilder.AllCards
             .FilterValue(card => !card.Lock)
             .Select(card => card.name)

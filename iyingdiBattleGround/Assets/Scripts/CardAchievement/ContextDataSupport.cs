@@ -18,6 +18,25 @@ public static partial class CommonCommandDefiner
         return gameEvent.hostCard;
     }
 
+    public static Card Hero(GameEvent gameEvent)
+    {
+        return gameEvent.player.hero;
+    }
+    public static Card Opponent(GameEvent gameEvent)
+    {
+        return gameEvent.player.board.GetAnotherPlayer(gameEvent.player).hero;
+    }
+
+    /// <summary>
+    /// 酒馆星级
+    /// </summary>
+    /// <param name="gameEvent"></param>
+    /// <returns></returns>
+    public static int Star(GameEvent gameEvent)
+    {
+        return gameEvent.player.star;
+    }
+
     public static int Attack(GameEvent gameEvent, Card card)
     {
         return card.GetMinionBody().x;
@@ -36,8 +55,16 @@ public static partial class CommonCommandDefiner
         gameEvent.Trigger = true;
     }
 
+    public static List<Card> GetAdjacentMinions(GameEvent gameEvent, Card card)
+    {
+        var am = gameEvent.player.board.GetAdjacentMinion(card);
+        List<Card> cards = new List<Card>();
+        if (am.Item1 != null) cards.Add(am.Item1);
+        if (am.Item2 != null) cards.Add(am.Item2);
+        return cards;
+    }
 
-    
+
 
     public static int Gold(GameEvent gameEvent)
     {
@@ -62,7 +89,16 @@ public static partial class CommonCommandDefiner
     {
         return gameEvent.player.GetAllAllyMinion();
     }
+    public static List<Card> AllAliveAllyMinions(GameEvent gameEvent)
+    {
+        return gameEvent.player.GetAllAllyMinionWithHealthabove0();
+    }
+
     public static List<Card> AllOpponentMinions(GameEvent gameEvent)
+    {
+        return gameEvent.player.board.GetAnotherPlayer(gameEvent.player).GetAllAllyMinion();
+    }
+    public static List<Card> AllAliveOpponentMinions(GameEvent gameEvent)
     {
         return gameEvent.player.board.GetAnotherPlayer(gameEvent.player).GetAllAllyMinionWithHealthabove0();
     }

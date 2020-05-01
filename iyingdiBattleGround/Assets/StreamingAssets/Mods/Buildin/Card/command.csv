@@ -51,15 +51,19 @@ FilterDeathrattle,,选出具有亡语的卡,FilterDeathrattle: List<Card>
 AllMinionsInPool,,卡池中所有的卡,
 AllAllyMinions,,己方战场上的随从,
 AllOpponentMinions,,对手战场上的随从,
+AllAliveAllyMinions,,,
+AllAliveOpponentMinions,,,
 GetRandomCard,,随机选出一张卡,GetRandomCard: List<Card>
 ExceptCard,,将一张卡从数列中移除,"ExceptCard: List<Card>, Card"
 ,,,
 ,,,
-Ifnotself,"if: host != target, $1",如果目标卡不是自身,Ifnotself: Function
-ifown,"if: {target.own}, $1",如果目标卡属于我方,ifown: Function
+Ifnotself,"if: host != target, $1",如果目标随从不是该随从自身,Ifnotself: Function
+ifown,"if: {target.own}, $1",如果目标随从是友方随从,ifown: Function
 gold,host.isGold,本身是否是金卡,gold
 IfOwnAndNotSelf,ifown: ifnotSelf: $1,如果目标卡属于我方并且不是自身,IfOwnAndNotSelf: Function
 IsMech,"isType:$1, ""机械""",是否是机械,isMech: Card
 isBeast,"isType:$1, ""野兽""",是否是野兽,
+isDemon,"isType:$1, ""恶魔""",,
 isMurlock,"isType:$1, ""鱼人""",是否是鱼人,isMurlock: Card
 SearchThenSummon,"Summon: {SearchCard:$1,gold}, $2",查找一张卡，然后召唤它,"SearchThenSummon: string, int"
+DealDamageToRandomEnemy,"DealDamage:AllAliveOpponentMinions.GetRandomCard, $1",,
