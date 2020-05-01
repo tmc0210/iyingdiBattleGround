@@ -8,22 +8,20 @@ using UnityEngine;
 public class GameController
 {
 #if UNITY_EDITOR
-    readonly bool isTest = true;
+    readonly bool isTest = false;
 #else
     readonly bool isTest = false;
 #endif
 
     readonly static string[] herosUnlockChain = {
-        //"观星者露娜",
-        //"艾德温·范克里夫",
         "虚空之影瓦莉拉",
         "火车王里诺艾",
-        //"雷诺·杰克逊",
         "尤格萨隆",
         "贸易大王加里维克斯",
-        "砰砰博士",
-        //"探险家伊莉斯",
+        "砰砰博士",        
         "狗头人国王托瓦格尔",
+        "探险家伊莉斯",
+        "观星者露娜"
     };
 
     #region public var

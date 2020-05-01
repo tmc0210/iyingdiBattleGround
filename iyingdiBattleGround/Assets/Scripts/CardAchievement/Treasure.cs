@@ -45,7 +45,7 @@ public partial class CardLongKeywordAchievement
     /// </summary>
     /// <param name="gameEvent"></param>
     /// <returns></returns>
-    [CommonDescription("生命值上限翻倍")]
+    [CommonDescription("生命值上限增加30点")]
     public static bool DoubleYourHeroHealth(GameEvent gameEvent)
     {
         gameEvent.player.hero.effectsStay.Add(new BodyPlusEffect(0,30));
@@ -82,8 +82,10 @@ public partial class CardLongKeywordAchievement
         if (gameEvent.player.board.numOfMinionsBought%3 == 2)
         {
             Const.coinCostToBuyMinion = 0;
+            //高亮
             return true;
         }
+        //取消高亮
         return false;
     }
 
@@ -288,6 +290,7 @@ public partial class CardLongKeywordAchievement
         if (Const.coinCostToBuyMinion > 0)
         {
             Const.coinCostToBuyMinion = Const.InitialCoinCostToBuyMinion - 1;
+            //高亮
             return true;
         }
         else
@@ -305,6 +308,7 @@ public partial class CardLongKeywordAchievement
     public static bool YourNextCoinGainOfSellMinionAdd1(GameEvent gameEvent)
     {
         Const.coinGetBySellMinion = Const.InitialCoinGetBySellMinion + 1;
+        //高亮
         return true;
     }
 

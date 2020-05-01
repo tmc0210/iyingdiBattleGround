@@ -176,8 +176,8 @@ name,isToken,image,star,cost,isGold,attack,health,keyWords,longKeyWords,type,car
 //海盗帕奇斯,0,,1,0,0,1,1,,,海盗,随从,,,,
 ,,,,,,,,,,,,,,,
 英雄,1,,0,1,0,0,30,,,,英雄,,,,进行一局游戏后解锁
-//探险家伊莉斯,0,,0,2,0,0,30,,HeroPower:DiscoverAMinionNotInCardPile,,英雄,,,,
-//观星者露娜,0,,0,-1,0,0,30,,TurnEnd:GiveAlly11IfDifferentStar;,,英雄,,,,
+探险家伊莉斯,0,,0,2,0,0,30,,HeroPower:DiscoverAMinionNotInCardPile,,英雄,,,,
+观星者露娜,0,,0,-1,0,0,30,,TurnEnd:GiveAlly11IfDifferentStar;,,英雄,,,,
 砰砰博士,0,hero1,0,4,0,0,30,,HeroPower:UpdateYourInn;AfterUpgrade:BanHeroPowerWhenUpdateto6;,,英雄,,,,
 狗头人国王托瓦格尔,0,hero2,0,-1,0,0,30,,AfterBoughtMinion:FlushYourInn;,,英雄,,,,
 虚空之影瓦莉拉,0,hero3,0,-1,0,0,30,,GameStart:AddAShadowToHand;,,英雄,,,,
@@ -194,6 +194,7 @@ name,isToken,image,star,cost,isGold,attack,health,keyWords,longKeyWords,type,car
 米尔菲斯·法力风暴,0,hero14,0,-1,0,0,30,,Aura:PlusAllyMech2Attack;,,英雄,Boss;,,我就是你娘的化身！,
 加拉克苏斯大王,0,hero15,0,-1,0,0,30,,AfterMinionDeath:Deal2DamageToRandomEnemyMinionWhenDemonDie;,,英雄,Boss;,,内测版本最强，，，，现在也是,
 Dr.Boom,0,hero16,0,-1,0,0,30,,Aura:GiveFirstMinionTaunt;,,英雄,Boss;,,这个人为什么左一有嘲讽？,
+恶魔boss,0,,0,-1,0,0,30,,HeroPower:Heal1Or2,,英雄,Boss;,,测试中的粉绿恶魔boss,
 馆长,0,hero17,0,-1,0,0,30,,Aura:AllyGainAllMinionType;,,英雄,Boss;,,身为最终boss也要有点尊严，比如，，，剧毒箭猪？,
 夺旗,0,treasure1,0,0,0,0,0,被动;,Aura:AllyGain11,,法术,宝藏;,,,
 晶化宝石,0,treasure2,0,0,0,0,0,被动;,GameStart:AddMainCoin,,法术,宝藏;,,,

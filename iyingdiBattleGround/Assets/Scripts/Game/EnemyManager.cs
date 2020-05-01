@@ -6,12 +6,12 @@ public class EnemyManager
     static readonly Random random = new Random(unchecked((int)DateTime.Now.Ticks));
     public static List<Enemy> enemies = new List<Enemy>();
     public static List<Enemy> lowEnemies = new List<Enemy>() { new OldMurkEye(), new SilverbackPatriarch()};
-    public static List<Enemy> midEnemies = new List<Enemy>() { new Boom(), new Millificent(), new Jaraxxus(), new Trion() };
+    public static List<Enemy> midEnemies = new List<Enemy>() { new Boom(), new Millificent(), new Jaraxxus(), new Trion(), new DemonBossForTest() };
 
     public static void CreateEnemy()
     {
         lowEnemies = new List<Enemy>() { new OldMurkEye(), new SilverbackPatriarch() };
-        midEnemies = new List<Enemy>() { new Boom(), new Millificent(), new Jaraxxus(), new Trion() };
+        midEnemies = new List<Enemy>() { new Boom(), new Millificent(), new Jaraxxus(), new Trion(), new DemonBossForTest() };
 
         enemies = new List<Enemy>
         {

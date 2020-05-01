@@ -81,6 +81,14 @@ public partial class CardLongKeywordAchievement
         return true;
     }
 
+    [HidePrompt("每当你出售一个恶魔，使友方英雄获得+{0}生命值")]
+    [SetCounter(1)]
+    public static bool Heal1Or2(GameEvent gameEvent)
+    {
+        gameEvent.player.hero.health += gameEvent.thisEffect.Counter;
+        return true;
+    }
+
     /// <summary>
     /// 馆长
     /// </summary>
@@ -333,7 +341,7 @@ public partial class CardLongKeywordAchievement
     [CommonDescription("发现一个不在牌池中的星级不大于酒馆等级的随从")]
     public static bool DiscoverAMinionNotInCardPile(GameEvent gameEvent)
     {
-        gameEvent.player.board.DiscoverToHand(CardBuilder.AllCards.FilterValue(card => card.star > 0 && !card.isToken && !card.isGold && card.star <= gameEvent.player.star && !gameEvent.player.board.cardPile.cardPile.ContainsKey(card))).isToken = true;
+        gameEvent.player.board.DiscoverToHand(CardBuilder.AllCards.FilterValue(card => card.star > 0 && !card.isToken && !card.isGold && card.star <= gameEvent.player.star && !gameEvent.player.board.cardPile.cardPile.ContainsKey(card))).creator = gameEvent.hostCard;
         return false;
     }
 }
