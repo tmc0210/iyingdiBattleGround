@@ -89,6 +89,7 @@ public class UICard : MonoBehaviour
     private void SetCardImage(Card card)
     {
         //TODO
+        img_Card.sprite = ImageCollection.Instance.GetSpriteByIndex(card.id);
     }
 
     /// <summary>

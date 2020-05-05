@@ -6,6 +6,20 @@ public class ImageCollection : MonoBehaviour
 {
     public Sprite[] sprites;
 
+    #region 单例
+    private static ImageCollection instance;
+    public static ImageCollection Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<ImageCollection>();
+            }
+            return instance;
+        }
+    }
+    #endregion
 
 
 

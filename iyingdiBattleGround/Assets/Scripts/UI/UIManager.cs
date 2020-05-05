@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        ShowPanel<IntroPanel>();
+        
     }
 
     /// <summary>

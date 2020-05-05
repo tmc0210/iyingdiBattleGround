@@ -14,22 +14,36 @@ public class OptionPanel : UIPanel
 
     public void ClickMusicButton()
     {
-
+        if (AudioManager.instance.IsMusicOn)
+        {
+            AudioManager.instance.MusicOff();
+        }
+        else
+        {
+            AudioManager.instance.MusicOn();
+        }
     }
 
     public void ClickSoundButton()
     {
-
+        if (AudioManager.instance.IsSoundOn)
+        {
+            AudioManager.instance.SoundSource.mute = false;
+        }
+        if (AudioManager.instance.IsSoundOn)
+        {
+            AudioManager.instance.SoundSource.mute = true;
+        }
     }
 
     public void AdjustMusicValue(float value)
     {
-
+        AudioManager.instance.MusicVolume = value;
     }
 
     public void AdjustSoundValue(float value)
     {
-
+        AudioManager.instance.SoundVolume = value;
     }
 
     public void ClickConfirm()
