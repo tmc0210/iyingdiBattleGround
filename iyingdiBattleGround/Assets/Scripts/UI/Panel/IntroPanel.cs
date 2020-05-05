@@ -17,5 +17,6 @@ public class IntroPanel : UIPanel
         gameObject.SetActive(false);
         UIManager.Instance.ShowPanel<MainPanel>();
         UIManager.Instance.ShowPanel<TitlePage>();
+        UIManager.Instance.ShowPanel<ButtonPanel>();
     }
 }
